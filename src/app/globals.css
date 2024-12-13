@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input:-webkit-autofill,
+textarea:-webkit-autofill {
+  transition-delay: 9999s;
+}
+
+@layer base {
+  html {
+    font-family: "Rubik", sans-serif;
+  }
+}
+
+#page-input::-webkit-outer-spin-button,
+#page-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+body {
+  @apply h-full w-full overflow-x-hidden
+}
+
+::-webkit-scrollbar {
+  width: 8px; /* ширина скролла */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; /* фон трека */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #333; /* цвет ползунка */
+  border-radius: 4px; /* закругление краев */
+  border: 2px solid transparent; /* дополнительное пространство */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* цвет при наведении */
+}
+
