@@ -1,5 +1,5 @@
-const DEV_BASE_URL = 'https://159.89.41.176/'
-const PROD_BASE_URL = 'https://159.89.41.176/'
+const DEV_BASE_URL = 'https://esokey.online/'
+const PROD_BASE_URL = 'https://esokey.online/'
 
 export const baseUrls = {
     'prod':PROD_BASE_URL,

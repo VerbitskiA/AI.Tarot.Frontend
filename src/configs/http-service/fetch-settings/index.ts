@@ -92,8 +92,6 @@ const retrieveFetchResponse = async (url: string, method: string, options?: Fetc
         ?? ''
 
     const token = await getAuthToken(options?.source ?? 'server')
-    // console.log('TOKEN')
-    // console.log(token?.split(';')[0])
 
     return await fetch(`${BASE_URL}${url}${params ? '?' + params : ''}`, {
         method,
