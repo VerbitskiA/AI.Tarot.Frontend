@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+env:
+  IMAGE_NAME: "ai-tarot-front"
+  CONTAINER_NAME: "ai-tarot-front"
+  REGISTRY: "verbitskialex"
+  DOCKER_USER: ${{secrets.DOCKER_USERNAME}}
+  DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+jobs:
+  build_and_push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Docker login
+        run: |
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+
+      - name: Build
+        run: docker build . --file Dockerfile --tag verbitskialex/ai-tarot-front:${{github.sha}}
+
+      - name: Push
+        run: docker push verbitskialex/ai-tarot-front:${{github.sha}}
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build_and_push
+    env:
+      DOCKER_USER: ${{secrets.DOCKER_USERNAME}}
+      DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+      IMAGE_NAME: "ai-tarot-front"
+      CONTAINER_NAME: "ai-tarot-front"
+      REGISTRY: "verbitskialex"
+    steps:
+      - name: Deploy
+        uses: appleboy/ssh-action@v0.1.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.SSH_PORT }}
+          envs: DOCKER_USER, DOCKER_PASSWORD, CONTAINER_NAME, REGISTRY, IMAGE_NAME, GITHUB_SHA
+          script: |
+            docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+
+            docker stop $CONTAINER_NAME || true && docker rm $CONTAINER_NAME || true
+
+            docker run -d --restart always --publish 3000:80 --name $CONTAINER_NAME $REGISTRY/$IMAGE_NAME:$GITHUB_SHA
