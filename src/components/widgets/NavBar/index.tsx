@@ -1,8 +1,8 @@
 'use client'
 import {Avatar, Button, Navbar, NavbarBrand, NavbarContent, NavbarItem} from '@nextui-org/react'
 import {AlignJustify} from "lucide-react";
-import React, {Suspense, useState} from "react";
-import {ReadonlyURLSearchParams, usePathname, useSearchParams} from "next/navigation";
+import React, {useState} from "react";
+import {usePathname, useSearchParams} from "next/navigation";
 import Link from "next/link";
 import {Image} from "@nextui-org/image";
 import {useConfiguration} from "@/components/providers/ConfigurationProvider";
@@ -23,7 +23,7 @@ const NavBar = () => {
         switch(pathname) {
             case '/':
             case '/chat/new':
-                return <div className={'text-medium sm:text-lg flex items-center gap-1 bg-[#2A2A2A] h-[40px] rounded-3xl px-3 py-1.5'}>
+                return <div className={'text-medium sm:text-lg flex items-center gap-1 bg-[#2A2A2A] hover:bg-[#3b3b39] transition-colors cursor-pointer h-[40px] rounded-3xl px-3 py-1.5'}>
                     <p className={'flex items-end justify-end'}>{configuration?.currentUser.balance}</p>
                     <Image src={'/oracle-icon.svg'} height={22} width={24}/>
                 </div>
@@ -31,11 +31,11 @@ const NavBar = () => {
             case '/auth/approve-email':
             case '/auth/reset-password':
             case '/auth/new-password':
-                return <Link href={'/auth'} className={'font-bold text-[#27ACC9] text-sm sm:text-lg'}>Log in</Link>
+                return <Link href={'/auth'} className={'font-bold text-[#27ACC9] hover:text-[#32cbed] transition-colors text-sm sm:text-lg'}>Log in</Link>
             case '/auth/onboard':
-                return <Link href={'/auth'} className={'font-bold text-[#27ACC9] hidden sm:flex text-sm sm:text-lg'}>Log in</Link>
+                return <Link href={'/auth'} className={'font-bold text-[#27ACC9] hover:text-[#32cbed] transition-colors hidden sm:flex text-sm sm:text-lg'}>Log in</Link>
             case '/auth':
-                return <Link href={'/auth/register'} className={'font-bold text-[#27ACC9] text-sm sm:text-lg'}>Sign up</Link>
+                return <Link href={'/auth/register'} className={'font-bold text-[#27ACC9] hover:text-[#32cbed] transition-colors text-sm sm:text-lg'}>Sign up</Link>
             default:
                 return null
         }

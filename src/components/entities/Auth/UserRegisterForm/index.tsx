@@ -7,11 +7,10 @@ import {Image} from "@nextui-org/image";
 import FormWrapper from "@/components/shared/FormWrapper";
 import Link from "next/link";
 import {ActionResponse} from "@/configs/http-service/fetch-settings/types";
-import {redirect, useRouter, useSearchParams} from "next/navigation";
+import {useRouter, useSearchParams} from "next/navigation";
 import {I18nProvider} from "@react-aria/i18n";
 import ImageBlock from "@/components/entities/Auth/ImageBlock";
 import fetchService from "@/configs/http-service/fetch-settings";
-import {setCookie} from "cookies-next";
 import {registerAccount} from "@/lib/serverActions/auth";
 import {useConfiguration} from "@/components/providers/ConfigurationProvider";
 
@@ -72,7 +71,6 @@ const UserProfileForm: FC<Props> = ({handleCheckEmail, onboardQuestion}) => {
                         :
                         router.push(`/auth/approve-email?email=${emailValue}`)
                 }
-                console.log(res)
             } catch (e) {
                 if (e instanceof Error) {
                     return {
@@ -134,25 +132,12 @@ const UserProfileForm: FC<Props> = ({handleCheckEmail, onboardQuestion}) => {
                                             required
                                             label={'Name'}
                                             className={'text-xl'}
-                                            placeholder={'Georgii'}
+                                            placeholder={'Your Name'}
                                             name={'username'}
                                             errorMessage={'lfkasjdklfjd'}
                                             // type={'email'}
                                         />
-                                        {/*<DateInput*/}
-                                        {/*    name={'dateOfBirth'}*/}
-                                        {/*    isRequired={true}*/}
-                                        {/*    labelPlacement={'outside'}*/}
-                                        {/*    size={'lg'}*/}
-                                        {/*    label="Date of birth"*/}
-                                        {/*    variant={'faded'}*/}
-                                        {/*    dateInputClassNames={{*/}
-                                        {/*        inputWrapper: 'border-[1px] h-[60px] border-gray-700 focus:ring-indigo-500 focus:border-indigo-500',*/}
-                                        {/*        label: 'text-[#ECEDEE] font-semibold text-sm group-data-[required=true]:after:hidden',*/}
-                                        {/*        input: 'placeholder:text-[#E9E9E9]'*/}
-                                        {/*    }}*/}
-                                        {/*    showMonthAndYearPickers*/}
-                                        {/*/>*/}
+
                                         <I18nProvider locale="en-GB">
                                             <DatePicker
                                                 name={'dateOfBirth'}
@@ -233,7 +218,15 @@ const UserProfileForm: FC<Props> = ({handleCheckEmail, onboardQuestion}) => {
                                             onValueChange={setEmailValue}
                                             required
                                             isInvalid={emailExists}
-                                            errorMessage={'Email already exists'}
+                                            errorMessage={
+                                                <div className={'text-medium flex gap-1 items-center'}>
+                                                    <p>Email already exists</p>
+                                                    <Link href={'/auth'}
+                                                          className={'font-medium underline text-center text-[#27ACC9]'}>
+                                                        Login
+                                                    </Link>
+                                                </div>
+                                            } // {'Email already exists'}
                                             label={'Email'}
                                             className={'text-xl'}
                                             placeholder={'Email address'}

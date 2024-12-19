@@ -1,8 +1,6 @@
 'use server'
 import UserLoginForm from '../../components/entities/Auth/UserLoginForm'
-import {loginIntoAccount} from '@/lib/serverActions/auth'
-import React, {FC} from 'react'
-import {redirect} from "next/navigation";
+import React from 'react'
 import fetchService from "@/configs/http-service/fetch-settings";
 import {cookies} from "next/headers";
 import {TOKENS_KEYS} from "@/configs/http-service/constants/authTokens";
@@ -17,9 +15,7 @@ const Page = async() => {
                     email: fd.get('email'),
                     password: fd.get('password')
                 }),
-                // credentials: 'include',
             })
-            console.log(res)
 
             if (res.ok) {
                 const cookieValue = res.headers.get('Set-Cookie') || '';  // Provide a default empty string if null

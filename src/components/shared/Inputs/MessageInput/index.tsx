@@ -1,5 +1,5 @@
 'use client'
-import {Button, cn} from '@nextui-org/react'
+import {Button} from '@nextui-org/react'
 import React, {FC} from 'react'
 import {Input, InputProps} from "@nextui-org/input";
 import {Image} from "@nextui-org/image";

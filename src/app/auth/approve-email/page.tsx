@@ -20,7 +20,6 @@ const Page: FC<Props> = async({searchParams}) => {
 
     const handleVerify = async (fd: FormData) => {
         'use server'
-        console.log(fd.get('code'))
         const res = await approveEmail(fd)
         if (res.status === 'ok') {
             onboardQuestion ?
@@ -33,7 +32,6 @@ const Page: FC<Props> = async({searchParams}) => {
 
     const handleCheck = async (fd: FormData) => {
         'use server'
-        console.log(fd.get('code'))
         const res = await confirmReset(fd)
         if (res.status === 'ok') {
             redirect('/auth/new-password')

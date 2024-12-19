@@ -31,8 +31,6 @@ export const ConfigurationProvider: React.FC<{ children: React.ReactNode }> = ({
                 'Accept': '*/*',
             },
         });
-        console.log('PROVIDER')
-        console.log(res)
         setConfiguration(res.data);
     };
 

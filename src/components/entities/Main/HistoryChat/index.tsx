@@ -1,8 +1,7 @@
 'use client'
-import React, {useCallback, useEffect, useState} from 'react'
-import {Spread} from "@/lib/types/spread.types";
+import React from 'react'
 import {useRouter} from "next/navigation";
-import {Avatar, Button} from "@nextui-org/react";
+import {Button} from "@nextui-org/react";
 import {useConfiguration} from "@/components/providers/ConfigurationProvider";
 import {Image} from "@nextui-org/image";
 import {Message} from "@/lib/types/message.types";
@@ -28,7 +27,7 @@ const NewChatForm = ({messages}: {messages: Message[]}) => {
                             <Image src={'/arrowToNewChat.svg'} height={16} width={16} radius={'none'}/>
                         </div>
                         <Button onClick={() => router.push('/chat/new')}
-                                className={`flex items-center gap-2 sticky shadow-button bg-[#27ACC9] h-[60px] sm:h-[76px] font-semibold text-xl sm:text-2xl rounded-[60px]`}>
+                                className={`flex items-center gap-2 sticky shadow-button bg-[#27ACC9] data-[hover=true]:bg-[#32cbed] transition-colors h-[60px] sm:h-[76px] font-semibold text-xl sm:text-2xl rounded-[60px]`}>
                             Get a Tarot reading
                         </Button>
                     </div>

@@ -7,9 +7,21 @@ const BackButton = () => {
     const router = useRouter()
     const pathname = usePathname()
 
+    const goToLink = () => {
+        switch (true) {
+            case pathname.includes('/auth'):
+                router.back();
+                break;
+            default:
+                router.push(getLink());
+        }
+    }
+
+
     const getLink = () => {
         switch (true) {
             case pathname === '/chat/new':
+            case pathname === '/':
             case pathname === '/payment/error':
             case pathname === '/payment/success':
             case /^\/chat\/\d+$/.test(pathname):
@@ -28,9 +40,9 @@ const BackButton = () => {
 
     const getLinkVisible = () => {
         switch (true) {
-            case pathname === '/':
             case pathname === '/auth/onboard':
                 return false;
+            case pathname === '/':
             case pathname === '/chat/new':
             case /^\/chat\/\d+$/.test(pathname):
             case pathname === '/auth':
@@ -52,8 +64,8 @@ const BackButton = () => {
     return (
         getLinkVisible() &&
         <div onClick={() => {
-            router.push(getLink())
-        }} className={'cursor-pointer w-[15px] h-[15px]'}>
+            goToLink()
+        }} className={'cursor-pointer hover:text-[#ffffff] transition-colors w-[15px] h-[15px]'}>
             <Image src={'/chevronLeft.svg'} height={15} width={9}/>
         </div>
     )

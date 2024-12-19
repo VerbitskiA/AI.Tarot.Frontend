@@ -1,6 +1,6 @@
 'use server'
-import {checkEmailExists, registerAccount} from '@/lib/serverActions/auth'
-import React, {FC, Suspense} from 'react'
+import {checkEmailExists} from '@/lib/serverActions/auth'
+import React, {FC} from 'react'
 import {redirect} from "next/navigation";
 import UserProfileForm from "@/components/entities/Auth/UserRegisterForm";
 

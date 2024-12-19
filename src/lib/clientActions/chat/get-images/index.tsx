@@ -14,7 +14,6 @@ const fetchImages = async (
                 }
             });
 
-            console.log(img)
         })
     } catch (error) {
         console.error('Error fetching answer:', error);

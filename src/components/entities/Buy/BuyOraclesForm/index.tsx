@@ -2,7 +2,6 @@
 import {Button} from "@nextui-org/react";
 import React, {useState} from "react";
 import OracleCards from "@/components/entities/Buy/OracleCards";
-import {fetchServerResponse} from "next/dist/client/components/router-reducer/fetch-server-response";
 import fetchService from "@/configs/http-service/fetch-settings";
 import {StripeSessionType} from "@/lib/types/stripe-session.types";
 import {useRouter} from "next/navigation";

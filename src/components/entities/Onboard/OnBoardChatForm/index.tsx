@@ -85,8 +85,8 @@ const OnBoardChatForm = () => {
                                         setOpen={setHowItWorksModalOpen}
                                         nonButtonTrigger={
                                             <div onClick={() => setHowItWorksModalOpen(true)}
-                                                 className={`${!showSecondMessage && 'hidden'} cursor-pointer flex gap-1 text-[#3BB4CE] pl-2 pt-1`}>
-                                                <CircleHelp className={'rounded-full text-white bg-[#3BB4CE]'}/>
+                                                 className={`${!showSecondMessage && 'hidden'} cursor-pointer flex gap-1 text-[#27ACC9] hover:text-[#32cbed] transition-colors pl-2 pt-1`}>
+                                                <CircleHelp className={'rounded-full text-white bg-[#27ACC9]'}/>
                                                 <p>How it works?</p>
                                             </div>
                                         }
@@ -123,7 +123,7 @@ const OnBoardChatForm = () => {
                                         </div>
                                         <div className={'pt-2 pb-4 w-full items-center'}>
                                             <Button size={'lg'}
-                                                    className={cn(`flex w-full items-center gap-2 sticky shadow-button bg-[#27ACC9] h-[60px] font-semibold text-xl rounded-[60px]`)}
+                                                    className={cn(`flex w-full items-center gap-2 sticky shadow-button bg-[#27ACC9] data-[hover=true]:bg-[#32cbed] h-[60px] font-semibold text-xl rounded-[60px]`)}
                                                     type={'button'}
                                                     onClick={() => router.push('/auth/register')}
                                             >

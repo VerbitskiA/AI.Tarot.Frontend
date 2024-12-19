@@ -1,11 +1,11 @@
 import React from "react";
 import fetchService from '@/configs/http-service/fetch-settings';
 import {Spread} from "@/lib/types/spread.types";
-import fetchImages from "@/lib/clientActions/chat/get-images";
 
 interface Message {
     message: string;
     isUser: boolean;
+    images?: string[];
 }
 
 const fetchAnswer = async (
@@ -20,7 +20,7 @@ const fetchAnswer = async (
     setLoading(true);
     setAitaIsTyping(true);
     try {
-        console.log('Fetching answer:', question);
+        // console.log('Fetching answer:', question); TODO
         const res = await fetchService.post<Spread>('api/spread/create/', {
             body: JSON.stringify({ question }),
             credentials: 'include',
@@ -31,6 +31,7 @@ const fetchAnswer = async (
         if (res.ok) {
             const { answer, images, spreadCompleted } = res.data;
             setSpreadCompleted(spreadCompleted)
+            // console.log(spreadCompleted)
             setLoading(false);
             setMessages(prev => {
                 if (!prev.some(msg => msg.message === answer)) {

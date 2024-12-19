@@ -18,9 +18,7 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message, isUser, userName
     const isDesktop = useMediaQuery({ minWidth: 1024 });
 
     const openModal = (image: string) => {
-        console.log(image)
         setSelectedImage(image);
-        console.log(selectedImage)
         onOpen();
     };
 

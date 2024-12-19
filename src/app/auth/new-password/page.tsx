@@ -1,5 +1,5 @@
 import {loginIntoAccount} from '@/lib/serverActions/auth'
-import React, {FC} from 'react'
+import React from 'react'
 import {redirect} from "next/navigation";
 import NewPasswordForm from "@/components/entities/Auth/NewPasswordForm";
 

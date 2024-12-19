@@ -1,5 +1,5 @@
 'use client'
-import React, {useCallback, useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {useConfiguration} from "@/components/providers/ConfigurationProvider";
 import {useRouter} from "next/navigation";
 import MessagesDisplay from "@/components/entities/message/MessageDisplay";
@@ -49,7 +49,7 @@ const NewChatForm = ({onboardQuestion}: {onboardQuestion: boolean}) => {
     return (
         <>
             <div className="grid place-items-start h-full">
-                <div className="flex flex-col min-h-[calc(100dvh-58px)] h-full justify-center gap-2 w-full">
+                <div className="flex flex-col min-h-[calc(100dvh-158px)] h-full justify-center gap-2 w-full">
                     <MessagesDisplay messages={messages} userName={configuration?.currentUser.username}
                                      loading={aitaIsTyping}/>
                     {spreadCompleted ?
@@ -64,7 +64,7 @@ const NewChatForm = ({onboardQuestion}: {onboardQuestion: boolean}) => {
                                 <Image src={'/arrowToNewChat.svg'} height={16} width={16} radius={'none'}/>
                             </div>
                             <Button onClick={() => router.push('/chat/new')}
-                                    className={`flex items-center mx-7 gap-2 sticky shadow-button bg-[#27ACC9] h-[60px] sm:h-[76px] font-semibold text-xl sm:text-2xl rounded-[60px]`}>
+                                    className={`flex items-center mx-7 gap-2 sticky shadow-button bg-[#27ACC9] data-[hover=true]:bg-[#32cbed] transition-colors h-[60px] sm:h-[76px] font-semibold text-xl sm:text-2xl rounded-[60px]`}>
                                 Get a Tarot reading
                             </Button>
                         </div>

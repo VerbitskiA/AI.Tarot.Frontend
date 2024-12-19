@@ -1,5 +1,4 @@
 import React from "react";
-import ImageBlock from "@/components/entities/Auth/ImageBlock";
 
 
 const MessageLoadingIndicator = () => {

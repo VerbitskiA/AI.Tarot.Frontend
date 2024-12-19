@@ -1,6 +1,6 @@
 'use client'
 import { Card, CardBody } from "@nextui-org/card";
-import React, {FC, useEffect, useState} from "react";
+import React, {FC} from "react";
 import { Image } from "@nextui-org/image";
 
 interface Card {

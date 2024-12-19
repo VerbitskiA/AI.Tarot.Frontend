@@ -7,8 +7,6 @@ import Link from "next/link";
 import ImageBlock from "@/components/entities/Auth/ImageBlock";
 import fetchService from "@/configs/http-service/fetch-settings";
 import {useRouter} from "next/navigation";
-import {TOKENS_KEYS} from "@/configs/http-service/constants/authTokens";
-import {setCookie} from "cookies-next";
 import {useConfiguration} from "@/components/providers/ConfigurationProvider";
 
 type Props = {
@@ -43,7 +41,6 @@ const UserLoginForm: FC<Props> = ({handleAuth}) => {
                     await fetchConfiguration();
                     router.push('/?startScreen=true')
                 }
-                console.log(res)
             } catch (e) {
                 if (e instanceof Error) {
                     return {

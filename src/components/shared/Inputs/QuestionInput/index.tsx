@@ -28,7 +28,7 @@ const QuestionInput: React.FC<QuestionInputProps> = ({ questionInputValue, setQu
                 <Button
                     onClick={() => handleAskQuestion(questionInputValue)}
                     isIconOnly
-                    className="bg-[#22879D] w-full rounded-full max-w-[44px] sm:max-w-[62px] h-[44px] sm:h-[62px] shadow-button"
+                    className="bg-[#27ACC9] data-[hover=true]:bg-[#32cbed] w-full rounded-full max-w-[44px] sm:max-w-[62px] h-[44px] sm:h-[62px] shadow-button"
                 >
                     <Image src="/ic_send.svg" width={20} height={20} />
                 </Button>
@@ -37,7 +37,7 @@ const QuestionInput: React.FC<QuestionInputProps> = ({ questionInputValue, setQu
             variant="faded"
             radius="lg"
             classNames={{
-                inputWrapper: 'border-[1px] h-[60px] sm:h-[78px] border-gray-700 focus:ring-indigo-500 focus:border-indigo-500',
+                inputWrapper: 'border-[1px] h-[60px] sm:h-[78px] border-gray-700 focus:ring-none focus:border-none',
                 input: 'h-full placeholder:text-[#e9e9e9] text-[#ffffff] text-medium sm:text-lg',
                 label: 'text-sm sm:text-xl font-semibold',
             }}

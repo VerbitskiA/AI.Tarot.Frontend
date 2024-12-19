@@ -1,4 +1,4 @@
-import React, {FC} from 'react'
+import React from 'react'
 import BuyOraclesForm from "@/components/entities/Buy/BuyOraclesForm";
 
 const Page = async() => {

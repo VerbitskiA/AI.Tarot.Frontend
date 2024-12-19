@@ -22,13 +22,12 @@ const Page: FC<Props> = async({searchParams, params}) => {
                 tags: ['spread']
             }
         })
-    console.log(data)
     if (!ok) {
         redirect('/auth/onboard')
     } else {
         return (
             <>
-                <HistoryChat messages={[{message: data.question, isUser: true}, {message: data.answer, isUser: false}]}/>
+                <HistoryChat messages={[{message: data.question, isUser: true}, {message: data.answer, isUser: false, images: data.images}]}/>
             </>
         )
     }

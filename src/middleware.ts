@@ -1,4 +1,3 @@
-import {TOKENS_KEYS} from '@/configs/http-service/constants/authTokens'
 import {NextRequest, NextResponse} from 'next/server'
 
 export async function middleware(req: NextRequest) {

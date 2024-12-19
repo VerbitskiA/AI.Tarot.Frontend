@@ -1,6 +1,5 @@
 import {Image} from "@nextui-org/image";
-import React, {FC, useEffect, useRef} from "react";
-import { motion } from "framer-motion";
+import React, {FC} from "react";
 
 type Props = {
     children?: React.ReactNode,

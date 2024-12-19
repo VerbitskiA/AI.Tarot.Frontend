@@ -21,11 +21,14 @@ const MessagesDisplay: React.FC<MessagesDisplayProps> = ({ messages, userName, l
         className={`z-10 flex-grow overflow-y-auto 
         ${isHistoryChat ? 
             isDesktop ?
-                'max-h-[calc(100dvh-300px)] sm:max-h-[calc(100dvh-300px)]'
+                'max-h-[calc(100dvh-310px)] min-h-[calc(100dvh-310px)] sm:max-h-[calc(100dvh-310px)]'
                 :
                 'max-h-[calc(100dvh-250px)] sm:max-h-[calc(100dvh-250px)]'
             :
-            'max-h-[calc(100dvh-150px)] sm:max-h-[calc(100dvh-150px)]'
+            isDesktop ?
+                'max-h-[calc(100dvh-300px)] min-h-[calc(100dvh-180px)] sm:max-h-[calc(100dvh-300px)]'
+                :
+                'max-h-[calc(100dvh-150px)] sm:max-h-[calc(100dvh-150px)]'
         }`}>
         <div className="flex flex-col w-full gap-6 h-full">
             <div className="text-medium sm:text-lg flex px-2 flex-col gap-2 items-start w-full max-w-[396px] sm:max-w-full">

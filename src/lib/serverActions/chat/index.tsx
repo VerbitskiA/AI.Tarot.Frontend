@@ -1,8 +1,6 @@
 'use server'
 import {ActionResponse} from "@/configs/http-service/fetch-settings/types";
 import fetchService from "@/configs/http-service/fetch-settings";
-import {cookies} from "next/headers";
-import {TOKENS_KEYS} from "@/configs/http-service/constants/authTokens";
 import {Spread} from "@/lib/types/spread.types";
 
 const askOnboardQuestion = async (fd: FormData): Promise<ActionResponse> => {

@@ -1,7 +1,5 @@
 'use client'
 import React, {FC, useRef} from 'react'
-import {toast} from 'sonner'
-import {ActionResponse} from "@/configs/http-service/fetch-settings/types";
 import SubmitButton from "@/components/shared/Buttons/SubmitButton";
 
 type CustomFormProps = {
@@ -38,7 +36,7 @@ const FormWrapper: FC<CustomFormProps> = ({
 
     const handleSubmit = async (fd: FormData) => {
         const actionResponse = await action(fd)
-        console.log('FORM SUBMISSION RESULTS:', actionResponse)
+        // console.log('FORM SUBMISSION RESULTS:', actionResponse)
         const {status} = actionResponse !== undefined ? actionResponse : {status: 'ok'}
         switch (status) {
             case 'ok':

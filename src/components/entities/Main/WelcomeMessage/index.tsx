@@ -4,7 +4,7 @@ import React from "react";
 const WelcomeMessage = ({isDesktop}: {isDesktop: boolean}) => {
     return (
         <div
-            className={`z-10 flex-grow flex flex-col ${isDesktop ? 'gap-8' : 'gap-2'} px-2 h-full justify-start items-start max-h-[calc(100dvh-150px)] sm:max-h-[calc(100dvh-150px)]`}>
+            className={`z-10 flex-grow flex flex-col ${isDesktop ? 'gap-8 max-h-[calc(100dvh-300px)] min-h-[calc(100dvh-180px)] sm:max-h-[calc(100dvh-300px)]' : 'gap-2 max-h-[calc(100dvh-150px)] sm:max-h-[calc(100dvh-150px)]'} px-2 h-full justify-start items-start `}>
             <p>
                 Getting a tarot spread from me is simple
             </p>

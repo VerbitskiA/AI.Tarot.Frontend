@@ -25,7 +25,7 @@ const getAuthToken: (source: 'client' | 'server') => Promise<string | null> = as
 
 
 const returnErrorFetchData = async (response: Response) => {
-    console.log(response)
+    // console.log(response)
     switch (response.status) {
         case 500:
             return {
@@ -69,7 +69,7 @@ const returnErrorFetchData = async (response: Response) => {
 }
 const returnFetchData = async (response: Response) => {
     const data = await response?.json()
-    console.log(data)
+    // console.log(data)
     return {
         status: response.status,
         headers: response.headers,
@@ -92,8 +92,8 @@ const retrieveFetchResponse = async (url: string, method: string, options?: Fetc
         ?? ''
 
     const token = await getAuthToken(options?.source ?? 'server')
-    console.log('TOKEN')
-    console.log(token?.split(';')[0])
+    // console.log('TOKEN')
+    // console.log(token?.split(';')[0])
 
     return await fetch(`${BASE_URL}${url}${params ? '?' + params : ''}`, {
         method,
@@ -111,7 +111,7 @@ const fetchService: FetchServiceT = {
         return await resolveFetchResponse(response)
     },
     post: async (url, options) => {
-        console.log(url)
+        // console.log(url)
         const response = await retrieveFetchResponse(url, 'POST', options)
         return await resolveFetchResponse(response)
     },
