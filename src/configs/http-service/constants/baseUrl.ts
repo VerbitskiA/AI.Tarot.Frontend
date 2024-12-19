@@ -1,5 +1,5 @@
-const DEV_BASE_URL = 'https://aitarot.io/'
-const PROD_BASE_URL = 'https://aitarot.io/'
+const DEV_BASE_URL = 'https://159.89.41.176/'
+const PROD_BASE_URL = 'https://159.89.41.176/'
 
 export const baseUrls = {
     'prod':PROD_BASE_URL,
