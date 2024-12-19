@@ -26,10 +26,13 @@ const Page = async() => {
                 console.info('Login successful, tokens have been installed')
             } else {
                 const message = res.data?.detail
+
                 throw new Error(message)
             }
         } catch (e) {
             if (e instanceof Error) {
+                console.log(e.message)
+                console.log(e)
                 return {
                     status: 'error',
                     message: e.message,
