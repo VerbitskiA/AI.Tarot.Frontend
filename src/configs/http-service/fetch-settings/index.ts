@@ -1,6 +1,7 @@
 import BASE_URL from '@/configs/http-service/constants/baseUrl'
 import {TOKENS_KEYS} from '@/configs/http-service/constants/authTokens'
 import {FetchOptionsT, FetchServiceT} from '@/configs/http-service/fetch-settings/types'
+import {getCookie} from "cookies-next";
 
 const defaultHeaders: { [key: string]: string } = {
     'Content-Type': 'application/json',
@@ -69,7 +70,7 @@ const returnErrorFetchData = async (response: Response) => {
 }
 const returnFetchData = async (response: Response) => {
     const data = await response?.json()
-    // console.log(data)
+
     return {
         status: response.status,
         headers: response.headers,
@@ -92,6 +93,7 @@ const retrieveFetchResponse = async (url: string, method: string, options?: Fetc
         ?? ''
 
     const token = await getAuthToken(options?.source ?? 'server')
+    const cookieHeader = token?.split(';')[0];
 
     return await fetch(`${BASE_URL}${url}${params ? '?' + params : ''}`, {
         method,
