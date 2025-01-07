@@ -48,7 +48,8 @@ const UserProfileForm: FC<Props> = ({handleCheckEmail, onboardQuestion}) => {
     }, [value])
 
     const handleRegister = async (fd: FormData) => {
-        console.log(fd);
+        console.log(fd.get('email'));
+        console.log(fd.get('password'));
         const res = await registerAccount(fd)
         if (res.status === 'ok') {
             try {
