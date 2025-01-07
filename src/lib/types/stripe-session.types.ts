@@ -15,7 +15,7 @@ type StripeSessionType = {
     // "client_reference_id": null,
     // "consent": null,
     // "consent_collection": null,
-    // "created": 1679600215,
+    // "created": 1679600216,
     // "currency": "usd",
     // "custom_fields": [],
     // "custom_text": {
