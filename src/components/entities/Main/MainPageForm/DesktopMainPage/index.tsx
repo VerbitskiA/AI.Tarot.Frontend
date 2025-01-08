@@ -103,13 +103,6 @@ const DesktopMainPage: FC<Props> = ({olderSpreads, searchParams}) => {
         router.push('/');
     }
 
-    // useEffect(() => {
-    //     console.log('onboardQuestion:', onboardQuestion); // Логируем onboardQuestion
-    //     if (onboardQuestion && !messages.some(msg => msg.message === onboardQuestion)) {
-    //         handleAskQuestion(onboardQuestion);
-    //     }
-    // }, [onboardQuestion]);
-
     return (
         <>
             <div className={'justify-between items-center h-full w-full lg:flex hidden'}>
@@ -148,14 +141,6 @@ const DesktopMainPage: FC<Props> = ({olderSpreads, searchParams}) => {
                                     </div>
                                 </div>
                             </div>
-                            {/*<div*/}
-                            {/*    className="flex-shrink-0 flex justify-center  flex-col pb-3 gap-2 w-full ifems-center">*/}
-                            {/*    <Button onClick={() => router.push('/chat/new')}*/}
-                            {/*            className={`flex items-center gap-2 sticky shadow-button bg-[#27ACC9] h-[60px] sm:h-[76px] font-semibold text-xl sm:text-2xl rounded-[60px]`}>*/}
-                            {/*        Get a Tarot reading*/}
-                            {/*    </Button>*/}
-                            {/*    /!*<SubmitButton label={'Get a Tarot reading'}/>*!/*/}
-                            {/*</div>*/}
                         </div>
                     </div>
 

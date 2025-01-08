@@ -63,9 +63,9 @@ const BuyOraclesForm = () => {
                     </Button>
                     <div className="flex flex-col gap-2 text-[#9999A3] text-center font-normal text-xs">
                         <div className="flex justify-center gap-5">
-                            <a href="#" className="underline">Privacy</a>
-                            <a href="#" className="underline">Contact Support</a>
-                            <a href="#" className="underline">Terms</a>
+                            <a href="/privacy-policy" className="underline">Privacy</a>
+                            <a href="/privacy-policy" className="underline">Contact Support</a>
+                            <a href="/privacy-policy" className="underline">Terms</a>
                         </div>
                         <p>© 2024 Aita by Aitarot.io. All rights reserved.</p>
                     </div>

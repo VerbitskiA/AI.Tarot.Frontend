@@ -82,24 +82,24 @@ const SideBar: FC<Props> = ({ open, setOpen }) => {
                                 </Link>
                             </li>
                             <li className="w-full font-light text-xl">
-                                <a href="#" className="w-full text-[#c4c4c4] hover:text-[#ffffff] transition-colors">
+                                <a href={'../privacy-policy'} className="w-full text-[#c4c4c4] hover:text-[#ffffff] transition-colors">
                                     Aita
                                 </a>
                             </li>
                             <li className="w-full font-light text-xl">
-                                <a href="#" className="w-full text-[#c4c4c4] hover:text-[#ffffff] transition-colors">
+                                <a href={'../privacy-policy'} className="w-full text-[#c4c4c4] hover:text-[#ffffff] transition-colors">
                                     How it works?
                                 </a>
                             </li>
                         </>
                     }
                     <li className="w-full font-light text-sm">
-                        <a href="#" className="w-full text-[#c4c4c4] hover:text-[#ffffff] transition-colors">
+                        <a href={'../privacy-policy'} className="w-full text-[#c4c4c4] hover:text-[#ffffff] transition-colors">
                             Privacy policy
                         </a>
                     </li>
                     <li className="w-full font-light text-sm">
-                        <a href="#" className="w-full text-[#c4c4c4] hover:text-[#ffffff] transition-colors">
+                        <a href={'../privacy-policy'} className="w-full text-[#c4c4c4] hover:text-[#ffffff] transition-colors">
                             Terms of Service
                         </a>
                     </li>

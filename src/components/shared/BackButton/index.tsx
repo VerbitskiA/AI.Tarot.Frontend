@@ -55,6 +55,8 @@ const BackButton = () => {
             case pathname === '/payment/error':
             case pathname === '/payment/success':
                 return true;
+            case pathname === '/privacy-policy':
+                return true;
             default:
                 return false;
         }

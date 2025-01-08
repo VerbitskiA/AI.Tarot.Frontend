@@ -31,6 +31,7 @@ const config: Config = {
                 'gradient-main-chat': "linear-gradient(180deg, rgba(14, 23, 36, 0) 0%, #0E1724 95%), url('/mainBackground.png')",
                 'gradient-main-left': "linear-gradient(180deg, rgba(14, 23, 36, 0) 0%, #0E1724 95%), url('/chatBackground.png')",
                 'gradient-chat': "linear-gradient(180deg, rgba(14, 23, 36, 0.25) 0%, #0E1724 69%), url('/chatBackground.png')",
+                'gradient-with-image-privacy-policy': "linear-gradient(180deg, #0E1724 10%, #0E1724 95%)",
             },
             animation: {
                 scaleUpDown: 'scaleUpDown 2s ease-in-out infinite',

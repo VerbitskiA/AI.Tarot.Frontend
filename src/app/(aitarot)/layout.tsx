@@ -5,9 +5,7 @@ import BASE_URL from "@/configs/http-service/constants/baseUrl";
 
 const AppLayout = async({children}: { children: React.ReactNode }) => {
     const config = await getConfiguration()
-    if(!config.currentUser.isAuthenticated) {
-        return redirect('/auth/onboard')
-    }
+
     return (
         <>
             {children}
