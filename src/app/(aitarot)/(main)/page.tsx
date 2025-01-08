@@ -4,6 +4,7 @@ import {redirect} from "next/navigation";
 import {Spread} from "@/lib/types/spread.types";
 import fetchService from "@/configs/http-service/fetch-settings";
 import {askOnboardQuestion} from "@/lib/serverActions/chat";
+import {getConfiguration} from "@/lib/serverActions/auth";
 
 type Props = {
     searchParams: {
@@ -13,6 +14,11 @@ type Props = {
 }
 
 const Page: FC<Props> = async({searchParams}) => {
+
+    const config = await getConfiguration()
+    if (!config.currentUser.isAuthenticated) {
+        redirect('/auth/onboard')
+    }
 
     const {ok, data} = await
         fetchService.get<Spread[]>('api/spread/all/', {

@@ -2,11 +2,12 @@
 import {Image} from "@nextui-org/image";
 import React from "react";
 import {usePathname, useRouter} from "next/navigation";
+import {useConfiguration} from "@/components/providers/ConfigurationProvider";
 
 const BackButton = () => {
     const router = useRouter()
     const pathname = usePathname()
-
+    const config = useConfiguration();
     const goToLink = () => {
         switch (true) {
             case pathname.includes('/auth'):
@@ -33,6 +34,8 @@ const BackButton = () => {
                 return '/auth';
             case pathname === '/auth':
                 return '/auth/register';
+            case pathname === '/privacy-policy':
+                return config.configuration?.currentUser.isAuthenticated ? '/' : '/auth/onboard';
             default:
                 return '/';
         }
