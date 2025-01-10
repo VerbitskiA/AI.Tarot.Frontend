@@ -52,43 +52,12 @@ const UserProfileForm: FC<Props> = ({handleCheckEmail, onboardQuestion}) => {
         console.log(fd.get('password'));
         const res = await registerAccount(fd)
         if (res.status === 'ok') {
-            try {
-                const res = await fetchService.post('api/account/login/', {
-                    body: JSON.stringify({
-                        email: fd.get('email'),
-                        password: fd.get('password')
-                    }),
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                    },
-                    source: 'client',
-                    credentials: 'include',
-                })
-
-                if(res.ok) {
                     await fetchConfiguration();
                     onboardQuestion ?
                         router.push(`/auth/approve-email?onboardQuestion=${onboardQuestion}&email=${emailValue}`)
                         :
                         router.push(`/auth/approve-email?email=${emailValue}`)
-                }
-            } catch (e) {
-                if (e instanceof Error) {
-                    return {
-                        status: 'error',
-                        message: e.message,
-                    }
-                }
-                return {
-                    status: 'error',
-                    message: 'Что-то пошло не так, попробуйте еще раз',
-                }
-            }
-            return {
-                status: 'ok',
-                message: 'Аутентификация успешна'
-            }
+
         }
         return res
     }

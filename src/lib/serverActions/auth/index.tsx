@@ -61,6 +61,7 @@ const loginIntoAccount = async (fd: FormData): Promise<ActionResponse> => {
 
         if (res.ok) {
             const cookieValue = res.headers.get('Set-Cookie') || '';  // Provide a default empty string if null
+            const cookieHeader = cookieValue?.split(';')[0];
             cookies().set(TOKENS_KEYS.access, cookieValue, {
                 priority: 'high',
                 sameSite: 'none',
@@ -102,11 +103,16 @@ const registerAccount = async (fd: FormData): Promise<ActionResponse> => {
             }),
         })
         if (res.ok) {
-            const cookieValue = res.headers.get('Set-Cookie') || '';  // Provide a default empty string if null
+            const cookieHeader = res.headers.get('Set-Cookie') || '';  // Provide a default empty string if null
+            const cookie = cookieHeader?.split(';')
+            const cookieValue = cookie[0].split('=')[1];
+            const expiresStr = cookie[1].split('=')[1];
+            const expires = new Date(expiresStr);
             cookies().set(TOKENS_KEYS.access, cookieValue, {
                 priority: 'high',
                 sameSite: 'none',
                 secure: true,
+                expires: expires,
                 httpOnly: true
             });
             console.info('Login successful, tokens have been installed')
