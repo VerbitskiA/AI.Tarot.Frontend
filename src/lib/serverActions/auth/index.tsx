@@ -1,22 +1,17 @@
 'use server'
 import fetchService from '@/configs/http-service/fetch-settings'
 import {ActionResponse} from '@/configs/http-service/fetch-settings/types'
-import { ConfigurationType } from '@/lib/types/config.types';
+import {ConfigurationType} from '@/lib/types/config.types';
 import {TOKENS_KEYS} from "@/configs/http-service/constants/authTokens";
 import {cookies} from "next/headers";
-
 
 
 const getConfiguration = async(): Promise<ConfigurationType> => {
     const res = await fetchService.get(`api/configuration/`,
         {
-            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': '*/*',
-            },
-            next: {
-                tags: ['all']
             }
         })
     return res.data

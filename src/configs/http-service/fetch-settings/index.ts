@@ -94,13 +94,15 @@ const retrieveFetchResponse = async (url: string, method: string, options?: Fetc
 
     const token = await getAuthToken(options?.source ?? 'server')
 
+    const head = {
+        ...({'Cookie': `ai-tarot-id=${token}`}),
+        ...(options?.headers ? {...options?.headers} : {...defaultHeaders}),
+    }
+
     const response = await fetch(`${BASE_URL}${url}${params ? '?' + params : ''}`, {
         method,
         ...options,
-        headers: {
-            ...(!options?.source && {'Cookie': `ai-tarot-id=${token}`}),
-            ...(options?.headers ? {...options?.headers} : {...defaultHeaders}),
-        },
+        headers: head,
 
     })
 

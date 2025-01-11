@@ -78,7 +78,6 @@ const DesktopMainPage: FC<Props> = ({olderSpreads, searchParams}) => {
     useEffect(() => {
         const getSpreads = async () => {
             const res = await fetchService.get<Spread[]>('api/spread/all/', {
-                credentials: 'include',
                 source: 'client',
                 headers: {
                     'Content-Type': 'application/json',
