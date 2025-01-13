@@ -24,11 +24,12 @@ export const ConfigurationProvider: React.FC<{ children: React.ReactNode }> = ({
 
 	const fetchConfiguration = async () => {
 		const res = await fetchService.get('api/configuration/', {
+			credentials: 'include',
+			source: 'client',
 			headers: {
 				'Content-Type': 'application/json',
-				'Accept': '*/*'
+				'Accept': '*/*',
 			},
-			source: 'client'
 		});
 		setConfiguration(res.data);
 	};
