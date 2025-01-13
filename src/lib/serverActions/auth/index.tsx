@@ -105,7 +105,7 @@ const registerAccount = async (fd: FormData): Promise<ActionResponse> => {
             const expires = new Date(expiresStr);
             cookies().set(TOKENS_KEYS.access, cookieValue, {
                 priority: 'high',
-                sameSite: 'none',
+                sameSite: 'lax',
                 secure: true,
                 expires: expires,
                 httpOnly: true
