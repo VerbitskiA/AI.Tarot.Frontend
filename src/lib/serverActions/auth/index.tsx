@@ -106,6 +106,7 @@ const registerAccount = async (fd: FormData): Promise<ActionResponse> => {
             cookies().set(TOKENS_KEYS.access, cookieValue, {
                 priority: 'high',
                 sameSite: 'lax',
+                domain: '.aitarot.io',
                 secure: true,
                 expires: expires,
                 httpOnly: true
