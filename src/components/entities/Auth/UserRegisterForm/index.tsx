@@ -49,7 +49,8 @@ const UserProfileForm: FC<Props> = ({handleCheckEmail, onboardQuestion}) => {
 	const handleRegister = async (fd: FormData) => {
 		console.log(fd.get('email'));
 		console.log(fd.get('password'));
-		const res = await registerAccount(fd)
+		const res = await registerAccount(fd);
+		await fetchConfiguration();
 		if (res.status === 'ok') {
 			onboardQuestion ?
 				router.push(`/auth/approve-email?onboardQuestion=${onboardQuestion}&email=${emailValue}`)
