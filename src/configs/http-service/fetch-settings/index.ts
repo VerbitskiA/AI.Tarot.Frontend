@@ -103,7 +103,7 @@ const retrieveFetchResponse = async (url: string, method: string, options?: Fetc
         method,
         ...options,
         headers: head,
-
+        credentials: 'include',
     })
 
     return response;
