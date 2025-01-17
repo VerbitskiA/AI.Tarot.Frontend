@@ -20,7 +20,7 @@ const BuyOraclesForm = () => {
     const pay = async() => {
         const res = await fetchService.post<{sessionId: string}>('api/payments/create-session', {
             body: JSON.stringify({
-                amount: selectedCard.price * 100,
+                packageId: 1,
                 description: 'Buy Oracles',
             }),
             credentials: 'include',
