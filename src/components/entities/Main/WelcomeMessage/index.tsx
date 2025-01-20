@@ -23,9 +23,6 @@ const WelcomeMessage = ({isDesktop}: {isDesktop: boolean}) => {
                             <li>
                                 Card photos 📸
                             </li>
-                            <li>
-                                A voice message with the interpretation 🎙️
-                            </li>
                         </ul>
                     </li>
                 </ol>
