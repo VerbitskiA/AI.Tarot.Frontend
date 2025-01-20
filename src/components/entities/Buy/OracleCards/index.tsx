@@ -1,13 +1,13 @@
 'use client'
-import { Card, CardBody } from "@nextui-org/card";
+import {Card, CardBody} from "@nextui-org/card";
 import React, {FC} from "react";
-import { Image } from "@nextui-org/image";
+import {Image} from "@nextui-org/image";
 
 interface Card {
     id: number;
-    oracles: number;
+    count: number;
     price: number;
-    image: string;
+    image?: string;
 }
 
 interface Props {
@@ -67,7 +67,7 @@ const OracleCards: FC<Props> = ({cards, selectedCard, setSelectedCard}) => {
                                 </div>
                             </div>
                             <div className="flex flex-col justify-between">
-                                <p className="font-medium">{card.oracles} Oracles</p>
+                                <p className="font-medium">{card.count} Oracles</p>
                                 <p className="text-[#27ACC9] font-light text-xs">${card.price}</p>
                             </div>
                         </CardBody>
