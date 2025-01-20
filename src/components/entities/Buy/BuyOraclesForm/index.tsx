@@ -22,6 +22,8 @@ const BuyOraclesForm = () => {
 		const fetchData = async () => {
 			const res = await fetchService.get(`api/payments/credits-packages/`,
 				{
+					credentials: 'include',
+					source: 'client',
 					headers: {
 						'Content-Type': 'application/json',
 						'Accept': '*/*',
