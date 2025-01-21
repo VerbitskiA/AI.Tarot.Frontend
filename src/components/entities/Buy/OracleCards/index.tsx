@@ -4,31 +4,30 @@ import React, {FC} from "react";
 import {Image} from "@nextui-org/image";
 
 interface Card {
-    id: number;
+    packageId: number;
     count: number;
     price: number;
-    image?: string;
+    image: string;
 }
 
 interface Props {
     cards: Card[];
-    selectedCard: Card;
-    setSelectedCard: React.Dispatch<React.SetStateAction<Card>>;
+    selectedCard: Card | null;
+    setSelectedCard: React.Dispatch<React.SetStateAction<Card | null>>;
 }
 
 const OracleCards: FC<Props> = ({cards, selectedCard, setSelectedCard}) => {
 
-
-    const selectedCardObj = cards.find(card => card.id === selectedCard.id);
+    const selectedCardObj = cards.find(card => card.packageId === selectedCard?.packageId);
     if (!selectedCardObj) {
         console.error('Selected card not found!');
         return null;
     }
 
     const sortedCards = [
-        ...cards.filter(card => card.id !== selectedCard.id).slice(0, 1),
+        ...cards.filter(card => card.packageId !== selectedCard?.packageId).slice(0, 1),
         selectedCardObj, // Выбранную карточку в центр
-        ...cards.filter(card => card.id !== selectedCard.id).slice(1),
+        ...cards.filter(card => card.packageId !== selectedCard?.packageId).slice(1),
     ];
 
     return (
@@ -36,19 +35,19 @@ const OracleCards: FC<Props> = ({cards, selectedCard, setSelectedCard}) => {
             <div className="flex gap-4  items-end">
                 {sortedCards.map((card, index) => (
                     <Card
-                        key={card.id}
+                        key={card.packageId}
                         isPressable
                         disableRipple
                         onPress={() => setSelectedCard(card)}
                         className={`${
-                            selectedCard.id === card.id
+                            selectedCard?.packageId === card.packageId
                                 ? 'border-3 border-[#27ACC9] transform z-10'
                                 : 'border-transparent transform'
                         } cursor-pointer relative overflow-visible transition-all`}
                     >
                         <CardBody
                             className={`${
-                                selectedCard.id === card.id
+                                selectedCard?.packageId === card.packageId
                                     ? 'bg-[#27ACC9] m-[5px]'
                                     : 'bg-[#A3C6CD]'
                             } bg-opacity-25 p-0 text-center flex flex-col py-2 w-[150px]  h-[140px] overflow-visible rounded backdrop-blur-xl transform transition-all justify-between`}

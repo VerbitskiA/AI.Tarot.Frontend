@@ -7,42 +7,58 @@ import {StripeSessionType} from "@/lib/types/stripe-session.types";
 import {useRouter} from "next/navigation";
 
 type Card = {
-	id: number;
+	packageId: number;
 	count: number;
 	price: number;
-	image?: string;
+	image: string;
 };
 
 const BuyOraclesForm = () => {
 	const router = useRouter()
 
-	const [cards, setData] = useState<Card[]>([]);
+	const [cards, setCards] = useState<Card[]>([]);
+	const [selectedCard, setSelectedCard] = useState<Card | null>(null);
 
 	useEffect(() => {
 		const fetchData = async () => {
-			const res = await fetchService.get(`api/payments/credits-packages/`,
-				{
-					credentials: 'include',
-					source: 'client',
+			try {
+				const res = await fetchService.get("api/payments/credits-packages/", {
+					credentials: "include",
+					source: "client",
 					headers: {
-						'Content-Type': 'application/json',
-						'Accept': '*/*',
-					}
-				})
+						"Content-Type": "application/json",
+						Accept: "*/*",
+					},
+				});
 
-			const result: Card[] = res.data;
-			const updatedData = result.map((item, index) => ({
-				...item,
-				image: `oracles${index + 1}`, // Уникальное значение
-			}));
-
-			setData(updatedData);
+				console.log("Полученные данные:", res.data); // Убедимся, что данные приходят
+				if (Array.isArray(res.data)) {
+					setCards(res.data);
+					// Выбираем карту с индексом 1, если она есть
+					if (res.data[1]) {
+						setSelectedCard(res.data[1]);
+					}// Устанавливаем данные в состояние
+				} else {
+					console.error("Ожидался массив, но получен другой тип данных");
+				}
+			} catch (error) {
+				console.error("Ошибка при загрузке данных:", error);
+			}
 		};
 
 		fetchData();
 	}, []);
 
-	const [selectedCard, setSelectedCard] = useState<Card>(cards[1]);
+	// Проверяем обновление состояния
+	useEffect(() => {
+		console.log("Обновлённое состояние packages:", cards);
+	}, [cards]);
+
+	// Если данные ещё не загружены, возвращаем null
+	if (cards.length === 0) {
+		return null;
+	}
+
 
 	const pay = async () => {
 		const res = await fetchService.post<{ sessionId: string }>('api/payments/create-session', {
@@ -90,9 +106,9 @@ const BuyOraclesForm = () => {
 					</Button>
 					<div className="flex flex-col gap-2 text-[#9999A3] text-center font-normal text-xs">
 						<div className="flex justify-center gap-5">
-							<a href="/privacy-policy" className="underline">Privacy</a>
-							<a href="/privacy-policy" className="underline">Contact Support</a>
-							<a href="/privacy-policy" className="underline">Terms</a>
+							<a href="/privacy-policy" className="underline">Privacy Policy</a>
+							<a href="/privacy-policy" className="underline">Terms of Service</a>
+							<a href="/privacy-policy" className="underline">Refund Policy</a>
 						</div>
 						<p>© 2024 Aita by Aitarot.io. All rights reserved.</p>
 					</div>
