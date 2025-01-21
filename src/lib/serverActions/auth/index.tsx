@@ -63,7 +63,7 @@ const loginIntoAccount = async (fd: FormData): Promise<ActionResponse> => {
             cookies().set(TOKENS_KEYS.access, cookieValue, {
                 priority: 'high',
                 sameSite: 'lax',
-                domain: 'localhost',
+                domain: '.aitarot.ai',
                 secure: true,
                 expires: expires,
                 httpOnly: true
@@ -110,7 +110,7 @@ const registerAccount = async (fd: FormData): Promise<ActionResponse> => {
             cookies().set(TOKENS_KEYS.access, cookieValue, {
                 priority: 'high',
                 sameSite: 'lax',
-                domain: 'localhost',
+                domain: '.aitarot.ai',
                 secure: true,
                 expires: expires,
                 httpOnly: true

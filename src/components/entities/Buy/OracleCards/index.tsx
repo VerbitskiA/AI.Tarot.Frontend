@@ -67,7 +67,7 @@ const OracleCards: FC<Props> = ({cards, selectedCard, setSelectedCard}) => {
                             </div>
                             <div className="flex flex-col justify-between">
                                 <p className="font-medium">{card.count} Oracles</p>
-                                <p className="text-[#27ACC9] font-light text-xs">${card.price}</p>
+                                <p className="text-[#27ACC9] font-light text-xs">${card.price / 100}</p>
                             </div>
                         </CardBody>
                     </Card>

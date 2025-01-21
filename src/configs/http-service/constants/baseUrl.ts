@@ -1,5 +1,5 @@
-const DEV_BASE_URL = 'http://localhost:5009/'
-const PROD_BASE_URL = 'http://localhost:5009/'
+const DEV_BASE_URL = 'https://api.aitarot.ai/'
+const PROD_BASE_URL = 'https://api.aitarot.ai/'
 
 export const baseUrls = {
     'prod':PROD_BASE_URL,
