@@ -7,28 +7,32 @@ import React from 'react'
 const rubik = Rubik({subsets: ['latin']})
 
 export const metadata: Metadata = {
-    title: 'AI Tarot',
-    icons: {
-        icon: '/favicon.ico', // путь к вашему favicon
-        shortcut: '/favicon.ico', // для добавления ярлыка
-        apple: '/apple-touch-icon.png', // для устройств Apple
-    }
+	title: 'AI Tarot',
+	icons: {
+		icon: '/favicon.ico', // путь к вашему favicon
+		shortcut: '/favicon.ico', // для добавления ярлыка
+		apple: '/apple-touch-icon.png' // для устройств Apple
+	}
 }
 
 export default function RootLayout({
-                                       children,
-                                   }: Readonly<{
-    children: React.ReactNode;
+																		 children
+																	 }: Readonly<{
+	children: React.ReactNode;
 }>) {
-    return (
-        <html lang="en">
-        <body className={rubik.className}>
-        <AppProviders>
-            <>
-                {children}
-            </>
-        </AppProviders>
-        </body>
-        </html>
-    )
+	return (
+		<html lang="en">
+		<head>
+			<meta name="google-site-verification" content="1TbY-NR0RN_A1wSxmcN7ceEAJU7lEWvYdUTEP2saecE" />
+
+		</head>
+		<body className={rubik.className}>
+		<AppProviders>
+			<>
+				{children}
+			</>
+		</AppProviders>
+		</body>
+		</html>
+	)
 }
