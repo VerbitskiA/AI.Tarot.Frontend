@@ -3,6 +3,7 @@ import type {Metadata} from 'next'
 import {Rubik} from 'next/font/google'
 import './globals.css'
 import React from 'react'
+import Script from 'next/script';
 
 const rubik = Rubik({subsets: ['latin']})
 
@@ -23,8 +24,20 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 		<head>
-			<meta name="google-site-verification" content="1TbY-NR0RN_A1wSxmcN7ceEAJU7lEWvYdUTEP2saecE" />
+			<meta name="google-site-verification" content="1TbY-NR0RN_A1wSxmcN7ceEAJU7lEWvYdUTEP2saecE"/>
 
+
+			{/* Google Analytics Script */}
+			<Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-JDLGQM4N11"/>
+			<Script strategy="afterInteractive">
+				{`
+				window.dataLayer = window.dataLayer || [];
+				function gtag(){dataLayer.push(arguments);}
+				gtag('js', new Date());
+
+				gtag('config', 'G-JDLGQM4N11');
+				`}
+			</Script>
 		</head>
 		<body className={rubik.className}>
 		<AppProviders>
@@ -32,6 +45,7 @@ export default function RootLayout({
 				{children}
 			</>
 		</AppProviders>
+
 		</body>
 		</html>
 	)
