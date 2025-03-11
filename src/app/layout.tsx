@@ -38,8 +38,6 @@ export default function RootLayout({
 				`}
 			</Script>
 
-			<Script type="text/javascript">var userip;</Script>
-			<Script type="text/javascript" src="https://www.l2.io/ip.js?var=userip"></Script>
 			{/* Yandex.Metrika counter */}
 			<Script type="text/javascript">
 				{`(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
@@ -51,7 +49,6 @@ export default function RootLayout({
 				ym(99624370, "init", {
 				clickmap:true,
 				trackLinks:true,
-				params:{ip: userip},
 				accurateTrackBounce:true,
 				webvisor:true
 			});
