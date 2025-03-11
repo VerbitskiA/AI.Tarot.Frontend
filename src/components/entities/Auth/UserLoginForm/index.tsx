@@ -39,7 +39,7 @@ const UserLoginForm: FC<Props> = ({handleAuth}) => {
 
                 if(res.ok) {
                     await fetchConfiguration();
-                    router.push('chat/new')
+                    router.push('/')
                 }
             } catch (e) {
                 if (e instanceof Error) {
