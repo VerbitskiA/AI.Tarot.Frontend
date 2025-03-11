@@ -38,6 +38,8 @@ export default function RootLayout({
 				`}
 			</Script>
 
+			<Script type="text/javascript">var userip;</Script>
+			<Script type="text/javascript" src="https://www.l2.io/ip.js?var=userip"></Script>
 			{/* Yandex.Metrika counter */}
 			<Script type="text/javascript">
 				{`(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
@@ -45,10 +47,11 @@ export default function RootLayout({
 				for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
 				k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
 				(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-
+				var userip;
 				ym(99624370, "init", {
 				clickmap:true,
 				trackLinks:true,
+				params:{ip: userip},
 				accurateTrackBounce:true,
 				webvisor:true
 			});
