@@ -40,18 +40,22 @@
 
 .avatar {
   --avatar-border: 4px;
+  --avatar-box-shadow: none;
 }
 
 .avatar.medium { /* medium */
   --avatar-size: 180px;
+  --avatar-box-shadow: none;
 }
 
 .avatar.small {
   --avatar-size: 132px;
+  --avatar-box-shadow: none;
 }
 
 .avatar.large {
   --avatar-size: 308px;
+  --avatar-box-shadow: 0px 1px 32px 0px #67E4FF99;
 }
 
 .avatar {
@@ -64,6 +68,7 @@
 
 .avatar {
   --xy-offset: calc((var(--container-size) - (var(--avatar-size) + 2 * var(--img-margin))) / 2);
+  --avatar-main-width: calc(var(--avatar-size) + 2 * var(--img-margin));
 }
 
 .animatedAvatar {
@@ -90,7 +95,7 @@
   margin: var(--img-margin);
 
   border: var(--avatar-border) solid #27ACC9;
-  box-shadow: 0px 1px 32px 0px #67E4FF99;
+  box-shadow: var(--avatar-box-shadow);
 }
 
 .animatedAvatar canvas {
@@ -105,7 +110,7 @@
 
 .avatar {
   position: relative;
-  width: 210px;
-  height: 210px;
+  width: var(--avatar-main-width);
+  height: var(--avatar-main-width);
   overflow: hidden;
 }

@@ -1,6 +1,5 @@
-import { FC } from "react"
+import { FC, memo, useMemo } from "react"
 
-import { memo } from "react"
 import { Canvas } from "@react-three/fiber"
 import Image from "next/image"
 import Blob from "./blob"
@@ -11,11 +10,26 @@ type SizeType = "small" | "medium" | "large"
 
 type AnimatedAvatarProps = {
     imageSrc: string,
-    sideLength: number,
     size: SizeType,
 }
 
-const AnimatedAvatar: FC<AnimatedAvatarProps> = ({imageSrc, sideLength, size}) => {
+const getSize = (size: SizeType) => {
+    switch (size) {
+        case "small":
+            return 132
+        case "medium":
+            return 180
+        case "large":
+            return 308
+        default:
+            return 180
+    }
+}
+
+const AnimatedAvatar: FC<AnimatedAvatarProps> = ({imageSrc, size}) => {
+    const sizeValue = useMemo(() => {
+        return getSize(size)
+    }, [size])
 
     return (
         <div className={`avatar ${size}`}>
@@ -26,8 +40,8 @@ const AnimatedAvatar: FC<AnimatedAvatarProps> = ({imageSrc, sideLength, size}) =
                             src={imageSrc}
                             alt="logo"
                             className="imgBlock__image"
-                            width={sideLength}
-                            height={sideLength}
+                            width={sizeValue}
+                            height={sizeValue}
                         />
                     </div>
                     <Canvas className="block" camera={{ position: [0.0, 0.0, 8.0] }}>
