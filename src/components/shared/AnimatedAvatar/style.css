@@ -1,0 +1,111 @@
+/*
+  size - w and h
+
+  avatarSize = a
+  containerSize = b = 2 * a 
+  margin(t and b) = b * 0.04
+
+  container xyOffset = (b-a)/2
+
+  450
+  280
+
+
+  avatar img sizes:
+  ~180 - small
+  ~203 - medium
+  ~308 - large
+
+  132 (bz -2*4px border) - small
+
+  180 - medium
+    a - 360
+    b - 180
+    xyOffset - 75
+    m - 15
+
+  ~308 - large
+  a - 450
+  b - 280
+  xyOffset - 85
+  m - 20
+
+  TODO: delete 280
+  ~280 - medium
+    a - 450
+    b - 280
+    xyOffset - 85
+    m - 20
+*/
+
+.avatar {
+  --avatar-border: 4px;
+}
+
+.avatar.medium { /* medium */
+  --avatar-size: 180px;
+}
+
+.avatar.small {
+  --avatar-size: 132px;
+}
+
+.avatar.large {
+  --avatar-size: 308px;
+}
+
+.avatar {
+  --container-size: calc(var(--avatar-size) * 2);
+}
+
+.avatar {
+  --img-margin: calc(var(--container-size) * 0.04);
+}
+
+.avatar {
+  --xy-offset: calc((var(--container-size) - (var(--avatar-size) + 2 * var(--img-margin))) / 2);
+}
+
+.animatedAvatar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--container-size);
+  height: var(--container-size);
+}
+
+.animatedAvatar__imgBlock {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: var(--xy-offset);
+  left: var(--xy-offset);
+  border-radius: 50%;
+  overflow: hidden;
+  width: var(--avatar-size);
+  height: var(--avatar-size);
+
+  margin: var(--img-margin);
+
+  border: var(--avatar-border) solid #27ACC9;
+  box-shadow: 0px 1px 32px 0px #67E4FF99;
+}
+
+.animatedAvatar canvas {
+  display: block;
+}
+
+.avatar__container {
+  position: absolute;
+  top: calc(var(--xy-offset) * -1);
+  left: calc(var(--xy-offset) * -1);
+}
+
+.avatar {
+  position: relative;
+  width: 210px;
+  height: 210px;
+  overflow: hidden;
+}
