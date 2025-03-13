@@ -14,9 +14,10 @@ type AnimatedAvatarProps = {
 }
 
 const getSize = (size: SizeType) => {
+    // size includes x2 border (2 * 4)
     switch (size) {
         case "small":
-            return 132
+            return 140
         case "medium":
             return 180
         case "large":
@@ -26,16 +27,24 @@ const getSize = (size: SizeType) => {
     }
 }
 
+/* 
+    animatedAvatar sizes:
+
+        small   -   140 + 2 * 15 = 170
+        medium  -   180 + 2 * 20 = 220
+        large   -   308 + 2 * 32 = 372
+*/
+
 const AnimatedAvatar: FC<AnimatedAvatarProps> = ({imageSrc, size}) => {
     const sizeValue = useMemo(() => {
         return getSize(size)
     }, [size])
 
     return (
-        <div className={`avatar ${size}`}>
-            <div className='avatar__container'>
-                <div className='animatedAvatar'>
-                    <div className='animatedAvatar__imgBlock imgBlock'>
+        <div className={`taroAvatar ${size}`}>
+            <div className='taroAvatar__containerForAnimation'>
+                <div className='taroAvatar__avatar avatar'>
+                    <div className='avatar__imgBlock imgBlock'>
                         <Image
                             src={imageSrc}
                             alt="logo"
@@ -44,7 +53,7 @@ const AnimatedAvatar: FC<AnimatedAvatarProps> = ({imageSrc, size}) => {
                             height={sizeValue}
                         />
                     </div>
-                    <Canvas camera={{ position: [0.0, 0.0, 8.0] }}>
+                    <Canvas className="imgBlock__canvas" camera={{ position: [0.0, 0.0, 8.0] }}>
                         <Blob />
                     </Canvas>
                 </div>

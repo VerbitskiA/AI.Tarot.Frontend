@@ -3,75 +3,62 @@
 
   avatarSize = a
   containerSize = b = 2 * a 
-  margin(t and b) = b * 0.04
+  margin(t and b) ~= b * 0.04
 
   container xyOffset = (b-a)/2
 
-  450
-  280
-
-
   avatar img sizes:
-  ~180 - small
-  ~203 - medium
+  ~140 - small
+  ~180 - medium
   ~308 - large
 
-  132 (bz -2*4px border) - small
-
-  180 - medium
-    a - 360
-    b - 180
-    xyOffset - 75
-    m - 15
-
-  ~308 - large
-  a - 450
-  b - 280
-  xyOffset - 85
-  m - 20
-
-  TODO: delete 280
-  ~280 - medium
-    a - 450
-    b - 280
-    xyOffset - 85
-    m - 20
+  p.s. sizes includes x2 border (2 * 4px)
 */
 
-.avatar {
+.taroAvatar {
   --avatar-border: 4px;
   --avatar-box-shadow: none;
 }
 
-.avatar.medium { /* medium */
+/* small */
+.taroAvatar.small {
+  --avatar-size: 140px;
+  --avatar-box-shadow: none;
+
+  --img-margin: 15px;
+}
+
+/* medium */
+.taroAvatar.medium {
   --avatar-size: 180px;
   --avatar-box-shadow: none;
+
+  --img-margin: 20px;
 }
 
-.avatar.small {
-  --avatar-size: 132px;
-  --avatar-box-shadow: none;
-}
-
-.avatar.large {
+/* large */
+.taroAvatar.large {
   --avatar-size: 308px;
   --avatar-box-shadow: 0px 1px 32px 0px #67E4FF99;
+
+  --img-margin: 32px;
 }
 
-.avatar {
+.taroAvatar {
   --container-size: calc(var(--avatar-size) * 2);
 }
 
-.avatar {
+/* Uncomment if you want to calc img margin */
+/* .taroAvatar {
   --img-margin: calc(var(--container-size) * 0.04);
-}
+} */
 
-.avatar {
+.taroAvatar {
   --xy-offset: calc((var(--container-size) - (var(--avatar-size) + 2 * var(--img-margin))) / 2);
   --avatar-main-width: calc(var(--avatar-size) + 2 * var(--img-margin));
 }
 
-.animatedAvatar {
+.taroAvatar__avatar {
   position: relative;
   display: flex;
   align-items: center;
@@ -80,7 +67,7 @@
   height: var(--container-size);
 }
 
-.animatedAvatar__imgBlock {
+.avatar__imgBlock {
   position: absolute;
   display: flex;
   align-items: center;
@@ -98,17 +85,17 @@
   box-shadow: var(--avatar-box-shadow);
 }
 
-.animatedAvatar canvas {
+.taroAvatar__avatar canvas {
   display: block;
 }
 
-.avatar__container {
+.taroAvatar__containerForAnimation {
   position: absolute;
   top: calc(var(--xy-offset) * -1);
   left: calc(var(--xy-offset) * -1);
 }
 
-.avatar {
+.taroAvatar {
   position: relative;
   width: var(--avatar-main-width);
   height: var(--avatar-main-width);
