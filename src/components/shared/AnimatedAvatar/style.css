@@ -69,9 +69,6 @@
 
 .avatar__imgBlock {
   position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   top: var(--xy-offset);
   left: var(--xy-offset);
   border-radius: 50%;

@@ -13,18 +13,28 @@ type AnimatedAvatarProps = {
     size: SizeType,
 }
 
-const getSize = (size: SizeType) => {
+const blockSizes = {
+    "small": {
+        value: 170,
+        margin: 15,
+        border: 4,
+    },
+    "medium": {
+        value: 220,
+        margin: 20,
+        border: 4,
+    },
+    "large": {
+        value: 372,
+        margin: 32,
+        border: 4,
+    },
+} as const
+
+const getImgSize = (size: SizeType) => {
     // size includes x2 border (2 * 4)
-    switch (size) {
-        case "small":
-            return 140
-        case "medium":
-            return 180
-        case "large":
-            return 308
-        default:
-            return 180
-    }
+    const sizeData = blockSizes[size]
+    return sizeData.value - 2 * sizeData.margin
 }
 
 /* 
@@ -37,7 +47,7 @@ const getSize = (size: SizeType) => {
 
 const AnimatedAvatar: FC<AnimatedAvatarProps> = ({imageSrc, size}) => {
     const sizeValue = useMemo(() => {
-        return getSize(size)
+        return getImgSize(size)
     }, [size])
 
     return (
