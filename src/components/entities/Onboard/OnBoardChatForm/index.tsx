@@ -1,12 +1,13 @@
 'use client'
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useCallback} from 'react'
 import {Button, cn} from "@nextui-org/react";
 import {CircleHelp} from "lucide-react";
 import ModalComponent from "@/components/shared/ModalComponent";
 import {useRouter} from "next/navigation";
 import ImageBlock from "@/components/entities/Auth/ImageBlock";
 import QuestionInput from "@/components/shared/Inputs/QuestionInput";
-
+import CustomList from '@/components/shared/CustomList';
+import DEF_QUESTIONS from '@/components/entities/Onboard/OnBoardChatForm/constants';
 
 const OnBoardChatForm = () => {
 	const [showFirstMessage, setShowFirstMessage] = useState(false)
@@ -44,6 +45,10 @@ const OnBoardChatForm = () => {
 		return
 	}
 
+	const handleAskDefaultQuestion = useCallback((id: number) => {
+		// TODO
+		console.log("id", id)
+	}, [])
 
 	return (
 		<>
@@ -150,6 +155,7 @@ const OnBoardChatForm = () => {
 						handleAskQuestion={handleAskQuestion}
 						loading={loading}
 					/>
+					<CustomList listData={DEF_QUESTIONS} handleClick={handleAskDefaultQuestion}/>
 				</div>
 			</div>
 		</>
