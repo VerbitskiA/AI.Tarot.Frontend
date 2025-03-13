@@ -85,7 +85,7 @@ const UserProfileForm: FC<Props> = ({handleCheckEmail, onboardQuestion}) => {
 					<input hidden name={'password'} value={value}/>
 					<input hidden name={'gender'} value={selectedGender}/>
 					<div className={'flex flex-col w-full gap-3 h-full '}>
-						<ImageBlock imageSrc={'/registerImage.png'}>
+						<ImageBlock imageSrc={'/authImage.jpg'}>
 							<h1 className={'w-full text-center text-2xl sm:text-3xl font-bold'}>
 								{addInfo ?
 									'Please provide details for a more accurate tarot reading'

@@ -123,7 +123,7 @@ const VerifyEMailCodeForm: FC<Props> = ({resetPassword, email, handleCheck, hand
                              actionLabel={'Verify'}>
                     <input hidden name={'code'} value={code}/>
                     <div className={'flex flex-col w-full gap-6 h-full '}>
-                        <ImageBlock imageSrc={'/authImage.png'}>
+                        <ImageBlock imageSrc={'/authImage.jpg'}>
                             <h1 className={'w-full text-center text-2xl sm:text-3xl font-bold'}>
                                 {resetPassword ?
                                     'Please check your email'

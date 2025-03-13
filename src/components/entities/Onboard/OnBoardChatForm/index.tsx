@@ -53,7 +53,7 @@ const OnBoardChatForm = () => {
 						className={`z-10 flex-grow overflow-y-auto max-h-[calc(100dvh-150px)] sm:max-h-[calc(100dvh-150px)]'`}>
 						<div className={'flex flex-col w-full gap-6 h-full '}>
 							<div className={'w-full flex flex-col justify-center text-center'}>
-								<ImageBlock imageSrc={'/onboard.png'}/>
+								<ImageBlock imageSrc={'/onboard.jpg'}/>
 								<div
 									className={`${showSecondMessage ? 'hidden' : ''} flex gap-2 text-center items-center justify-center w-full pb-2 pt-3`}>
 									<div className="flex space-x-1 justify-center items-center">

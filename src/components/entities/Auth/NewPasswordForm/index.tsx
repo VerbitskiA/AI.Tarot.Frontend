@@ -29,7 +29,7 @@ const NewPasswordForm: FC<Props> = ({handleResetPassword}) => {
                              actionLabel={'Reset password'}>
                     <div className={'flex flex-col w-full gap-6 h-full '}>
                         <div className={'w-full flex flex-col gap-2 justify-center text-center items-center'}>
-                            <Image src={'/authImage.png'} alt={'logo'} width={200} height={200}/>
+                            <Image src={'/authImage.jpg'} alt={'logo'} width={200} height={200}/>
                             <h1 className={'w-full text-center text-2xl font-bold'}>
                                 Create new password
                             </h1>
