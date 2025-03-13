@@ -5,7 +5,7 @@ const Page = async() => {
     return (
         <>
             <div className={'flex flex-col max-h-[calc(100dvh-58px)] h-full justify-center items-center'}>
-                <ImageBlock imageSrc={'/onboard.png'}>
+                <ImageBlock imageSrc={'/onboard.jpg'}>
                     <h1 className={'text-3xl font-bold'}>Payment Error</h1>
                     <p className={'text-xl text-[#BEBEBE]'}>Something went wrong</p>
                 </ImageBlock>
