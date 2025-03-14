@@ -2,25 +2,30 @@
     --list-item-height: 31px;
     --item-border: 1px;
     --item-margin: 2px;
-    --scroll-x-width: 22px;
+    --scroll-x-width: 8px;
+    --list-height: calc((var(--list-item-height) + (var(--item-margin) + var(--item-border)) * 2) * 2);
+}
+
+@media (width >= 40rem) {
+    .taro-custom-list {
+        --scroll-x-width: 18px;
+    }
 }
 
 .taro-custom-list {
     position: relative;
     width: 100%;
-    padding-bottom: 8px;
+    margin: 0;
 
-    height: calc((var(--list-item-height) + var(--item-margin)) * 2 + var(--scroll-x-width));
+    height: calc(var(--list-height) + var(--scroll-x-width));
 
     overflow-x: scroll;
-    overflow-y: hidden;
 }
 
 .taro-custom-list__inner {
     color: white;
     position: absolute;
-
-    height: 74px;
+    height: calc((var(--list-item-height) + (var(--item-margin) + var(--item-border)) * 2) * 2);
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
