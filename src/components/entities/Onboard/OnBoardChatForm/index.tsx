@@ -55,7 +55,9 @@ const OnBoardChatForm = () => {
 		---------------------
 		gap-2 		- 	0.8rem = 8px
 		---------------------
-		qInput		-	78px
+		qInput		-	60px
+		---------------------
+		qInput:sm	-	78px
 		---------------------
 		custList	-	74px
 		---------------------
@@ -63,15 +65,15 @@ const OnBoardChatForm = () => {
 		---------------------
 		cScroll:sm	-	18px
 		---------------------
-		res			=	58px + 2*8 + 78 + 74 + 8px 		= 234px (was 150px (withot customList))
-		res:sm		=	res + (cScroll:sm - cScroll) 	= 244px
+		res			=	58px + 2*8 + 60 + 74 + 8px 		= 216px (was 150px (withot customList))
+		res:sm		=	res + (cScroll:sm - cScroll) + (qInput:sm - qInput) 	= 244px
 	*/
 
 	return (
 		<>
 			<div className="grid place-items-start h-full">
 				<div className="flex flex-col min-h-[calc(100dvh-58px)] h-full justify-center gap-2 w-full">
-					<div className={`z-10 flex-grow overflow-y-auto max-h-[calc(100dvh-234px)] sm:max-h-[calc(100dvh-244px)]`}>
+					<div className={`z-10 flex-grow overflow-y-auto max-h-[calc(100dvh-216px)] sm:max-h-[calc(100dvh-244px)]`}>
 						<div className={'flex flex-col w-full gap-6 h-full '}>
 							<div className={'w-full flex flex-col justify-center text-center'}>
 								<ImageBlock imageSrc={'/onboard.png'}/>
