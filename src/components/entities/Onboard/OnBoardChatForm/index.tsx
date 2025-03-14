@@ -8,6 +8,8 @@ import ImageBlock from "@/components/entities/Auth/ImageBlock";
 import QuestionInput from "@/components/shared/Inputs/QuestionInput";
 import CustomList from '@/components/shared/CustomList';
 import DEF_QUESTIONS from '@/components/entities/Onboard/OnBoardChatForm/constants';
+import { getDefaultAvatarSize, isNotMobileMediaQuery } from '@/components/shared/helpers';
+import { useMediaQuery } from 'react-responsive';
 
 const OnBoardChatForm = () => {
 	const [showFirstMessage, setShowFirstMessage] = useState(false)
@@ -17,6 +19,7 @@ const OnBoardChatForm = () => {
 	const [questionInputValue, setQuestionInputValue] = useState('');
 	const [loading, setLoading] = useState(false);
 	const [time, setTime] = useState<string>("");
+	const isNotMobile = useMediaQuery(isNotMobileMediaQuery)
 
 	useEffect(() => {
 		const now = new Date();
@@ -78,7 +81,7 @@ const OnBoardChatForm = () => {
 					<div className={`z-10 flex-grow overflow-y-auto max-h-[calc(100dvh-216px)] sm:max-h-[calc(100dvh-244px)]`}>
 						<div className={'flex flex-col w-full gap-6 h-full '}>
 							<div className={'w-full flex flex-col justify-center text-center'}>
-								<ImageBlock imageSrc={'/onboard.jpg'}/>
+								<ImageBlock imageSrc={'/onboard.jpg'} avatarSize={getDefaultAvatarSize(isNotMobile)}/>
 								<div
 									className={`${showSecondMessage ? 'hidden' : ''} flex gap-2 text-center items-center justify-center w-full pb-2 pt-3`}>
 									<div className="flex space-x-1 justify-center items-center">

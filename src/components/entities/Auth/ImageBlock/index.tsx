@@ -1,13 +1,14 @@
 import React, {FC} from "react";
-import AnimatedAvatar from "@/components/shared/AnimatedAvatar";
+import AnimatedAvatar, { SizeType } from "@/components/shared/AnimatedAvatar";
 
 type Props = {
     children?: React.ReactNode,
     imageSrc: string,
-    isMainPage?: boolean
+    isMainPage?: boolean,
+    avatarSize: SizeType,
 }
 
-const ImageBlock: FC<Props> = ({children, imageSrc, isMainPage}) => {
+const ImageBlock: FC<Props> = ({children, imageSrc, isMainPage, avatarSize}) => {
     
     return (
         <div className="w-full flex flex-col gap-4 justify-center items-center text-center relative">
@@ -27,7 +28,7 @@ const ImageBlock: FC<Props> = ({children, imageSrc, isMainPage}) => {
             </div>
 
             <div className="flex justify-center items-center">
-                <AnimatedAvatar imageSrc={imageSrc} size={isMainPage ? "large" : "medium"}/>
+                <AnimatedAvatar imageSrc={imageSrc} size={avatarSize}/>
             </div>
             {children && <div className={'w-full flex flex-col gap-2'}>{children}</div>}
         </div>

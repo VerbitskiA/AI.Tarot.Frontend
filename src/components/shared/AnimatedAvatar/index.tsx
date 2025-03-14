@@ -6,7 +6,7 @@ import Blob from "./blob"
 
 import "./style.css"
 
-type SizeType = "small" | "medium" | "large"
+export type SizeType = "small" | "medium" | "large"
 
 type AnimatedAvatarProps = {
     imageSrc: string,

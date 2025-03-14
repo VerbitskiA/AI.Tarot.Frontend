@@ -8,6 +8,8 @@ import ImageBlock from "@/components/entities/Auth/ImageBlock";
 import fetchService from "@/configs/http-service/fetch-settings";
 import {useRouter} from "next/navigation";
 import {useConfiguration} from "@/components/providers/ConfigurationProvider";
+import { getDefaultAvatarSize, isNotMobileMediaQuery } from '@/components/shared/helpers';
+import { useMediaQuery } from 'react-responsive';
 
 type Props = {
     handleAuth: ((fd: FormData) => Promise<any>)
@@ -17,6 +19,7 @@ type Props = {
 const UserLoginForm: FC<Props> = ({handleAuth}) => {
     const router = useRouter();
     const { fetchConfiguration } = useConfiguration();
+    const isNotMobile = useMediaQuery(isNotMobileMediaQuery)
 
     const handleLogin = async (fd: FormData) => {
         // 'use server'
@@ -79,7 +82,7 @@ const UserLoginForm: FC<Props> = ({handleAuth}) => {
                              actionLabel={'Log in'}>
                     <input hidden value={'login'} name={'auth'}/>
                     <div className={'flex flex-col w-full gap-3 h-full '}>
-                        <ImageBlock imageSrc={'/authImage.jpg'}>
+                        <ImageBlock imageSrc={'/authImage.jpg'} avatarSize={getDefaultAvatarSize(isNotMobile)}>
                             <h1 className={'w-full text-center text-2xl sm:text-3xl font-bold'}>
                                 Nice to meet you 👋
                             </h1>

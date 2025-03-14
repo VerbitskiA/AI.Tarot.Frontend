@@ -5,6 +5,8 @@ import FormWrapper from "@/components/shared/FormWrapper";
 import {ActionResponse} from "@/configs/http-service/fetch-settings/types";
 import Link from "next/link";
 import ImageBlock from "@/components/entities/Auth/ImageBlock";
+import { getDefaultAvatarSize, isNotMobileMediaQuery } from '@/components/shared/helpers';
+import { useMediaQuery } from 'react-responsive';
 
 type Props = {
     resetPassword: boolean,
@@ -23,6 +25,8 @@ const VerifyEMailCodeForm: FC<Props> = ({resetPassword, email, handleCheck, hand
         useRef(null),
         useRef(null),
     ];
+
+    const isNotMobile = useMediaQuery(isNotMobileMediaQuery)
 
     // ts-ignore
     // @ts-ignore
@@ -123,7 +127,7 @@ const VerifyEMailCodeForm: FC<Props> = ({resetPassword, email, handleCheck, hand
                              actionLabel={'Verify'}>
                     <input hidden name={'code'} value={code}/>
                     <div className={'flex flex-col w-full gap-6 h-full '}>
-                        <ImageBlock imageSrc={'/authImage.jpg'}>
+                        <ImageBlock imageSrc={'/authImage.jpg'} avatarSize={getDefaultAvatarSize(isNotMobile)}>
                             <h1 className={'w-full text-center text-2xl sm:text-3xl font-bold'}>
                                 {resetPassword ?
                                     'Please check your email'

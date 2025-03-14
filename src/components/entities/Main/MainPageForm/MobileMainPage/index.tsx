@@ -38,7 +38,7 @@ const MobileMainPage: FC<Props> = ({olderSpreads, searchParams}) => {
 			<div
 				className={`flex-grow overflow-y-auto max-h-[calc(100dvh-140px)] sm:max-h-[calc(100dvh-60px)]`}>
 				<div className={'flex flex-col w-full items-center gap-4 h-full pt-5'}>
-					<ImageBlock imageSrc={'/onboard.jpg'}>
+					<ImageBlock imageSrc={'/onboard.jpg'} avatarSize="medium">
 						<h1 className={'w-full text-center text-2xl sm:text-3xl font-bold'}>
 							Nice to meet you 👋
 						</h1>
