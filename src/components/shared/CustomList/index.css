@@ -4,6 +4,8 @@
     --item-margin: 2px;
     --scroll-x-width: 8px;
     --list-height: calc((var(--list-item-height) + (var(--item-margin) + var(--item-border)) * 2) * 2);
+    /* TODO:  --list-item-bg-color */
+    --list-item-bg-color: #424242;
 }
 
 @media (width >= 40rem) {
@@ -40,7 +42,7 @@
     padding: 0 10px;
     border-radius: var(--list-item-height);
 
-    /* TODO */
-    border: var(--item-border) solid white;
-    /* border-image-source: linear-gradient(90deg, #7F18FF 3%, #27ACC9 100%); */
+    border: var(--item-border) solid transparent;
+    background: linear-gradient(var(--list-item-bg-color), var(--list-item-bg-color)) padding-box,
+    linear-gradient(90deg, #7F18FF 3%, #27ACC9 100%) border-box;
 }
