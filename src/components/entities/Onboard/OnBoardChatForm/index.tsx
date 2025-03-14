@@ -67,6 +67,8 @@ const OnBoardChatForm = () => {
 		---------------------
 		res			=	58px + 2*8 + 60 + 74 + 8px 		= 216px (was 150px (withot customList))
 		res:sm		=	res + (cScroll:sm - cScroll) + (qInput:sm - qInput) 	= 244px
+
+		max-h-[calc(100dvh-res)]
 	*/
 
 	return (
