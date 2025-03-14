@@ -4,8 +4,10 @@
     --item-margin: calc(2 * var(--item-border));
     --scroll-x-width: 8px;
     --list-height: calc((var(--list-item-height) + (var(--item-margin) + var(--item-border)) * 2) * 2);
-    /* TODO:  --list-item-bg-color */
+
+    /* TODO: create vars hogher */
     --list-item-bg-color: #424242;
+    --list-item-text-color-active: #27ACC9;
 }
 
 @media (width >= 40rem) {
@@ -46,4 +48,9 @@
     border: var(--item-border) solid transparent;
     background: linear-gradient(var(--list-item-bg-color), var(--list-item-bg-color)) padding-box,
     linear-gradient(90deg, #7F18FF 3%, #27ACC9 100%) border-box;
+}
+
+/* TODO */
+.taro-custom-list__item:active {
+    color: var(--list-item-text-color-active);
 }
