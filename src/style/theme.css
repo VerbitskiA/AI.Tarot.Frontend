@@ -1,0 +1,8 @@
+:root.dark {
+    --bg-color-input-primary: rgb(var(--gray-600));
+}
+
+/* TODO */
+:root.light {
+    --bg-color-input-primary: rgb(var(--gray-600));
+}

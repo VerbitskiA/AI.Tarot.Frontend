@@ -6,7 +6,7 @@
     --list-height: calc((var(--list-item-height) + (var(--item-margin) + var(--item-border)) * 2) * 2);
 
     /* TODO: create vars hogher */
-    --list-item-bg-color: #424242;
+    --list-item-bg-color: var(--bg-color-input-primary);
     --list-item-text-color-active: #27ACC9;
 }
 
