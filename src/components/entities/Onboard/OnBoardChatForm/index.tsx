@@ -47,7 +47,7 @@ const OnBoardChatForm = () => {
 
 	const handleAskDefaultQuestion = useCallback((id: number) => {
 		// TODO
-		setQuestionInputValue(DEF_QUESTIONS[id].value || '')
+		setQuestionInputValue(DEF_QUESTIONS[id - 1].value || '')
 	}, [])
 
 	/*	
