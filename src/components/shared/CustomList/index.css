@@ -1,7 +1,7 @@
 .taro-custom-list {
     --list-item-height: 31px;
     --item-border: 1px;
-    --item-margin: 2px;
+    --item-margin: calc(2 * var(--item-border));
     --scroll-x-width: 8px;
     --list-height: calc((var(--list-item-height) + (var(--item-margin) + var(--item-border)) * 2) * 2);
     /* TODO:  --list-item-bg-color */
@@ -26,6 +26,7 @@
 
 .taro-custom-list__inner {
     color: white;
+    left: calc(var(--item-margin) * -1);
     position: absolute;
     height: calc((var(--list-item-height) + (var(--item-margin) + var(--item-border)) * 2) * 2);
     display: flex;
