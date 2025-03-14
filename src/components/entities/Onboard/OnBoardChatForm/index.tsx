@@ -1,12 +1,13 @@
 'use client'
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useCallback} from 'react'
 import {Button, cn} from "@nextui-org/react";
 import {CircleHelp} from "lucide-react";
 import ModalComponent from "@/components/shared/ModalComponent";
 import {useRouter} from "next/navigation";
 import ImageBlock from "@/components/entities/Auth/ImageBlock";
 import QuestionInput from "@/components/shared/Inputs/QuestionInput";
-
+import CustomList from '@/components/shared/CustomList';
+import DEF_QUESTIONS from '@/components/entities/Onboard/OnBoardChatForm/constants';
 
 const OnBoardChatForm = () => {
 	const [showFirstMessage, setShowFirstMessage] = useState(false)
@@ -44,13 +45,37 @@ const OnBoardChatForm = () => {
 		return
 	}
 
+	const handleAskDefaultQuestion = useCallback((id: number) => {
+		// TODO
+		setQuestionInputValue(DEF_QUESTIONS[id - 1].value || '')
+	}, [])
+
+	/*	
+		header 		- 	58px
+		---------------------
+		gap-2 		- 	0.8rem = 8px
+		---------------------
+		qInput		-	60px
+		---------------------
+		qInput:sm	-	78px
+		---------------------
+		custList	-	74px
+		---------------------
+		cScroll		-	8px
+		---------------------
+		cScroll:sm	-	18px
+		---------------------
+		res			=	58px + 2*8 + 60 + 74 + 8px 		= 216px (was 150px (withot customList))
+		res:sm		=	res + (cScroll:sm - cScroll) + (qInput:sm - qInput) 	= 244px
+
+		max-h-[calc(100dvh-res)]
+	*/
 
 	return (
 		<>
 			<div className="grid place-items-start h-full">
 				<div className="flex flex-col min-h-[calc(100dvh-58px)] h-full justify-center gap-2 w-full">
-					<div
-						className={`z-10 flex-grow overflow-y-auto max-h-[calc(100dvh-150px)] sm:max-h-[calc(100dvh-150px)]'`}>
+					<div className={`z-10 flex-grow overflow-y-auto max-h-[calc(100dvh-216px)] sm:max-h-[calc(100dvh-244px)]`}>
 						<div className={'flex flex-col w-full gap-6 h-full '}>
 							<div className={'w-full flex flex-col justify-center text-center'}>
 								<ImageBlock imageSrc={'/onboard.png'}/>
@@ -150,6 +175,7 @@ const OnBoardChatForm = () => {
 						handleAskQuestion={handleAskQuestion}
 						loading={loading}
 					/>
+					<CustomList listData={DEF_QUESTIONS} handleClick={handleAskDefaultQuestion}/>
 				</div>
 			</div>
 		</>
