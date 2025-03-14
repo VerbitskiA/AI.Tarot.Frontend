@@ -16,9 +16,9 @@ type CustomListProps = {
 
 // TODO: add p, m, border props, realize getWidth
 const getWidth = (listData: TextListData[]) => {
-    const padding = 10
-    const border = 1
-    const margin = 2
+    // const padding = 10
+    // const border = 1
+    // const margin = 2
 
     return {width: `${2850}px`}
 }
