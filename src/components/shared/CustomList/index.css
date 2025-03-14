@@ -30,9 +30,6 @@
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: start;
-
-    /* TODO */
-    width: 2850px;
 }
 
 .taro-custom-list__item {
