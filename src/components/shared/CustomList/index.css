@@ -1,0 +1,56 @@
+.taro-custom-list {
+    --list-item-height: 31px;
+    --item-border: 1px;
+    --item-margin: calc(2 * var(--item-border));
+    --scroll-x-width: 8px;
+    --list-height: calc((var(--list-item-height) + (var(--item-margin) + var(--item-border)) * 2) * 2);
+
+    /* TODO: create vars hogher */
+    --list-item-bg-color: var(--bg-color-input-primary);
+    --list-item-text-color-active: #27ACC9;
+}
+
+@media (width >= 40rem) {
+    .taro-custom-list {
+        --scroll-x-width: 18px;
+    }
+}
+
+.taro-custom-list {
+    position: relative;
+    width: 100%;
+    margin: 0;
+
+    height: calc(var(--list-height) + var(--scroll-x-width));
+
+    overflow-x: scroll;
+}
+
+.taro-custom-list__inner {
+    color: white;
+    left: calc(var(--item-margin) * -1);
+    position: absolute;
+    height: calc((var(--list-item-height) + (var(--item-margin) + var(--item-border)) * 2) * 2);
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: start;
+}
+
+.taro-custom-list__item {
+    cursor: pointer;
+    line-height: var(--list-item-height);
+    margin: calc(2 * var(--item-border));
+    white-space: nowrap;
+    padding: 0 10px;
+    border-radius: var(--list-item-height);
+
+    border: var(--item-border) solid transparent;
+    background: linear-gradient(var(--list-item-bg-color), var(--list-item-bg-color)) padding-box,
+    linear-gradient(90deg, #7F18FF 3%, #27ACC9 100%) border-box;
+}
+
+/* TODO */
+.taro-custom-list__item:active {
+    color: var(--list-item-text-color-active);
+}
