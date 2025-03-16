@@ -61,6 +61,7 @@ const AnimatedAvatar: FC<AnimatedAvatarProps> = ({imageSrc, size}) => {
                             className="imgBlock__image"
                             width={sizeValue}
                             height={sizeValue}
+                            priority={true}
                         />
                     </div>
                     <Canvas className="imgBlock__canvas" camera={{ position: [0.0, 0.0, 8.0] }}>

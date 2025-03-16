@@ -24,6 +24,7 @@ const OnBoardChatForm = () => {
 	const avatarSize = useMemo(() => getDefaultAvatarSize(isLaptopOrDesktop), []);
 
 	const onboardingChatRef = useRef<HTMLDivElement>(null)
+	const aitaIsTypingRef = useRef<HTMLParagraphElement>(null)
 
 	useEffect(() => {
 		const now = new Date();
@@ -38,6 +39,13 @@ const OnBoardChatForm = () => {
 
 	useEffect(() => {
 		const chat = onboardingChatRef.current
+		const aitaIsTyping = aitaIsTypingRef.current
+
+		setTimeout(() => {
+			if (aitaIsTyping) {
+				aitaIsTyping.style = "display:flex;"
+			}
+		}, 1000);
 
 		setTimeout(() => {
 			setShowFirstMessage(true)
@@ -53,6 +61,10 @@ const OnBoardChatForm = () => {
 			if (chat) {
 				
 				chat.scrollTo(0, chat.scrollHeight)
+			}
+
+			if (aitaIsTyping) {
+				aitaIsTyping.style = "display:none;"
 			}
 		}, 5000);
 	}, []);
@@ -98,8 +110,8 @@ const OnBoardChatForm = () => {
 						<div className={'flex flex-col w-full gap-6 h-full '}>
 							<div className={'w-full flex flex-col justify-center text-center'}>
 								<ImageBlock imageSrc={'/onboard.jpg'} avatarSize={avatarSize}/>
-								<div
-									className={`${showSecondMessage ? 'hidden' : ''} flex gap-2 text-center items-center justify-center w-full pb-2 pt-3`}>
+								<div ref={aitaIsTypingRef}
+									className={"hidden gap-2 text-center items-center justify-center w-full pb-2 pt-3"}>
 									<div className="flex space-x-1 justify-center items-center">
 										<div
 											className="w-1.5 h-1.5 bg-[#BEBEBE] animate-scaleUpDown rounded-full"></div>
