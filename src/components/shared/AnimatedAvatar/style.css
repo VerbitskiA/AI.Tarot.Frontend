@@ -31,7 +31,7 @@
 /* medium */
 .taroAvatar.medium {
   --avatar-size: 180px;
-  --avatar-box-shadow: none;
+  --avatar-box-shadow: 0px 1px 20px 0px var(--box-shadow-color-avatar);
 
   --img-margin: 20px;
 }
@@ -39,7 +39,7 @@
 /* large */
 .taroAvatar.large {
   --avatar-size: 308px;
-  --avatar-box-shadow: 0px 1px 32px 0px #67E4FF99;
+  --avatar-box-shadow: 0px 1px 32px 0px var(--box-shadow-color-avatar);
 
   --img-margin: 32px;
 }
@@ -78,7 +78,7 @@
 
   margin: var(--img-margin);
 
-  border: var(--avatar-border) solid #27ACC9;
+  border: var(--avatar-border) solid var(--border-color-animated-avatar);
   box-shadow: var(--avatar-box-shadow);
 }
 
