@@ -113,7 +113,7 @@ const OnBoardChatForm = () => {
 									</p>
 								</div>
 								<div
-									className={`${showSecondMessage && 'pt-5'} text-medium sm:text-lg flex pl-2 flex-col gap-2 text-start items-start w-[70vw] max-w-[396px]`}>
+									className={`text-medium sm:text-lg flex pl-2 flex-col gap-2 text-start items-start w-[70vw] max-w-[396px]`}>
 									<div
 										className={`${!showFirstMessage && 'hidden'} px-4 py-3 flex items-end flex-col bg-[#343434] rounded-tr-2xl rounded-b-3xl`}>
 										<p className={''}>
