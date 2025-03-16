@@ -1,5 +1,6 @@
 import React, {FC, memo} from "react";
-import AnimatedAvatar, { SizeType } from "@/components/shared/AnimatedAvatar";
+import { SizeType } from "@/components/shared/AnimatedAvatar";
+import dynamic from "next/dynamic";
 
 type Props = {
     children?: React.ReactNode,
@@ -9,6 +10,7 @@ type Props = {
 }
 
 const ImageBlock: FC<Props> = ({children, imageSrc, isMainPage, avatarSize}) => {
+    const DyncamicAvatar = dynamic(() => import('@/components/shared/AnimatedAvatar'), {ssr: false})
     
     return (
         <div className="w-full flex flex-col gap-4 justify-center items-center text-center relative">
@@ -28,7 +30,7 @@ const ImageBlock: FC<Props> = ({children, imageSrc, isMainPage, avatarSize}) => 
             </div>
 
             <div className="flex justify-center items-center">
-                <AnimatedAvatar imageSrc={imageSrc} size={avatarSize}/>
+                <DyncamicAvatar imageSrc={imageSrc} size={avatarSize}/>
             </div>
             {children && <div className={'w-full flex flex-col gap-2'}>{children}</div>}
         </div>
