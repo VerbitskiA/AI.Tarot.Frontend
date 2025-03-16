@@ -8,7 +8,7 @@ import ImageBlock from "@/components/entities/Auth/ImageBlock";
 import fetchService from "@/configs/http-service/fetch-settings";
 import {useRouter} from "next/navigation";
 import {useConfiguration} from "@/components/providers/ConfigurationProvider";
-import { getDefaultAvatarSize, isNotMobileMediaQuery } from '@/components/shared/helpers';
+import { getDefaultAvatarSize, isLaptopOrDesktopMediaQuery } from '@/components/shared/helpers';
 import { useMediaQuery } from 'react-responsive';
 
 type Props = {
@@ -19,7 +19,7 @@ type Props = {
 const UserLoginForm: FC<Props> = ({handleAuth}) => {
     const router = useRouter();
     const { fetchConfiguration } = useConfiguration();
-    const isNotMobile = useMediaQuery(isNotMobileMediaQuery)
+    const isNotMobile = useMediaQuery(isLaptopOrDesktopMediaQuery)
 
     const handleLogin = async (fd: FormData) => {
         // 'use server'

@@ -1,10 +1,10 @@
 import React from 'react'
 import ImageBlock from "@/components/entities/Auth/ImageBlock";
-import { getDefaultAvatarSize, isNotMobileMediaQuery } from '@/components/shared/helpers';
+import { getDefaultAvatarSize, isLaptopOrDesktopMediaQuery } from '@/components/shared/helpers';
 import { useMediaQuery } from 'react-responsive';
 
 const Page = async() => {
-    const isNotMobile = useMediaQuery(isNotMobileMediaQuery)
+    const isNotMobile = useMediaQuery(isLaptopOrDesktopMediaQuery)
     
     return (
         <>

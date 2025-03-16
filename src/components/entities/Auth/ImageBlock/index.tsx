@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React, {FC, memo} from "react";
 import AnimatedAvatar, { SizeType } from "@/components/shared/AnimatedAvatar";
 
 type Props = {
@@ -35,4 +35,4 @@ const ImageBlock: FC<Props> = ({children, imageSrc, isMainPage, avatarSize}) => 
     )
 }
 
-export default ImageBlock
+export default memo(ImageBlock)

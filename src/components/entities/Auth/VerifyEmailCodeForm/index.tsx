@@ -5,7 +5,7 @@ import FormWrapper from "@/components/shared/FormWrapper";
 import {ActionResponse} from "@/configs/http-service/fetch-settings/types";
 import Link from "next/link";
 import ImageBlock from "@/components/entities/Auth/ImageBlock";
-import { getDefaultAvatarSize, isNotMobileMediaQuery } from '@/components/shared/helpers';
+import { getDefaultAvatarSize, isLaptopOrDesktopMediaQuery } from '@/components/shared/helpers';
 import { useMediaQuery } from 'react-responsive';
 
 type Props = {
@@ -26,7 +26,7 @@ const VerifyEMailCodeForm: FC<Props> = ({resetPassword, email, handleCheck, hand
         useRef(null),
     ];
 
-    const isNotMobile = useMediaQuery(isNotMobileMediaQuery)
+    const isNotMobile = useMediaQuery(isLaptopOrDesktopMediaQuery)
 
     // ts-ignore
     // @ts-ignore

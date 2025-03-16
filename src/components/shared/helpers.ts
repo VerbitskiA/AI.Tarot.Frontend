@@ -1,8 +1,13 @@
-const getDefaultAvatarSize = (isNotMobile: boolean) => isNotMobile ? 'large' : 'medium'
+import { SizeType } from "./AnimatedAvatar"
 
-const isNotMobileMediaQuery = { minWidth: 1024 }
+const getDefaultAvatarSize = (isLaptopOrDesktop: boolean): SizeType => {
+
+    return isLaptopOrDesktop ? 'large' : 'medium'
+}
+
+const isLaptopOrDesktopMediaQuery = { minWidth: 1024 }
 
 export {
     getDefaultAvatarSize,
-    isNotMobileMediaQuery
+    isLaptopOrDesktopMediaQuery
 }
