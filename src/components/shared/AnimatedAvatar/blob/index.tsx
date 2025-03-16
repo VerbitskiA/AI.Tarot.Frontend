@@ -27,7 +27,7 @@ const Blob = () => {
 
   return (
     <mesh ref={mesh} scale={1.5} position={[0, 0, 0]}>
-      <icosahedronBufferGeometry args={[2, 20]} />
+      <icosahedronGeometry args={[2, 20]} />
       <shaderMaterial
         vertexShader={vertexShader}
         fragmentShader={fragmentShader}
