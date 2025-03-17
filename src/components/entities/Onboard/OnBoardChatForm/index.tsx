@@ -1,5 +1,5 @@
 'use client'
-import React, {useEffect, useState, useCallback} from 'react'
+import React, {useEffect, useState, useCallback, useMemo, useRef} from 'react'
 import {Button, cn} from "@nextui-org/react";
 import {CircleHelp} from "lucide-react";
 import ModalComponent from "@/components/shared/ModalComponent";
@@ -8,6 +8,8 @@ import ImageBlock from "@/components/entities/Auth/ImageBlock";
 import QuestionInput from "@/components/shared/Inputs/QuestionInput";
 import CustomList from '@/components/shared/CustomList';
 import DEF_QUESTIONS from '@/components/entities/Onboard/OnBoardChatForm/constants';
+import { getDefaultAvatarSize, isLaptopOrDesktopMediaQuery } from '@/components/shared/helpers';
+import { useMediaQuery } from 'react-responsive';
 
 const OnBoardChatForm = () => {
 	const [showFirstMessage, setShowFirstMessage] = useState(false)
@@ -17,6 +19,12 @@ const OnBoardChatForm = () => {
 	const [questionInputValue, setQuestionInputValue] = useState('');
 	const [loading, setLoading] = useState(false);
 	const [time, setTime] = useState<string>("");
+
+	const isLaptopOrDesktop = useMediaQuery(isLaptopOrDesktopMediaQuery);
+	const avatarSize = useMemo(() => getDefaultAvatarSize(isLaptopOrDesktop), []);
+
+	const onboardingChatRef = useRef<HTMLDivElement>(null)
+	const aitaIsTypingRef = useRef<HTMLParagraphElement>(null)
 
 	useEffect(() => {
 		const now = new Date();
@@ -30,11 +38,34 @@ const OnBoardChatForm = () => {
 	}, []);
 
 	useEffect(() => {
+		const chat = onboardingChatRef.current
+		const aitaIsTyping = aitaIsTypingRef.current
+
+		setTimeout(() => {
+			if (aitaIsTyping) {
+				aitaIsTyping.style = "display:flex;"
+			}
+		}, 1000);
+
 		setTimeout(() => {
 			setShowFirstMessage(true)
+			
+			if (chat) {
+				
+				chat.scrollTo(0, chat.scrollHeight)
+			}
 		}, 2000);
 		setTimeout(() => {
 			setShowSecondMessage(true)
+
+			if (chat) {
+				
+				chat.scrollTo(0, chat.scrollHeight)
+			}
+
+			if (aitaIsTyping) {
+				aitaIsTyping.style = "display:none;"
+			}
 		}, 5000);
 	}, []);
 
@@ -75,12 +106,12 @@ const OnBoardChatForm = () => {
 		<>
 			<div className="grid place-items-start h-full">
 				<div className="flex flex-col min-h-[calc(100dvh-var(--header-height))] h-full justify-center gap-2 w-full">
-					<div className={`z-10 flex-grow overflow-y-auto max-h-[calc(100dvh-216px)] sm:max-h-[calc(100dvh-244px)]`}>
+					<div ref={onboardingChatRef} className={`z-10 flex-grow overflow-y-auto max-h-[calc(100dvh-216px)] sm:max-h-[calc(100dvh-244px)]`}>
 						<div className={'flex flex-col w-full gap-6 h-full '}>
 							<div className={'w-full flex flex-col justify-center text-center'}>
-								<ImageBlock imageSrc={'/onboard.png'}/>
-								<div
-									className={`${showSecondMessage ? 'hidden' : ''} flex gap-2 text-center items-center justify-center w-full pb-2 pt-3`}>
+								<ImageBlock imageSrc={'/onboard.jpg'} avatarSize={avatarSize}/>
+								<div ref={aitaIsTypingRef}
+									className={"hidden gap-2 text-center items-center justify-center w-full pb-2 pt-3"}>
 									<div className="flex space-x-1 justify-center items-center">
 										<div
 											className="w-1.5 h-1.5 bg-[#BEBEBE] animate-scaleUpDown rounded-full"></div>
@@ -94,7 +125,7 @@ const OnBoardChatForm = () => {
 									</p>
 								</div>
 								<div
-									className={`${showSecondMessage && 'pt-5'} text-medium sm:text-lg flex pl-2 flex-col gap-2 text-start items-start w-[70vw] max-w-[396px]`}>
+									className={`text-medium sm:text-lg flex pl-2 flex-col gap-2 text-start items-start w-[70vw] max-w-[396px]`}>
 									<div
 										className={`${!showFirstMessage && 'hidden'} px-4 py-3 flex items-end flex-col bg-[#343434] rounded-tr-2xl rounded-b-3xl`}>
 										<p className={''}>

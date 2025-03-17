@@ -12,6 +12,8 @@ import {I18nProvider} from "@react-aria/i18n";
 import ImageBlock from "@/components/entities/Auth/ImageBlock";
 import {registerAccount} from "@/lib/serverActions/auth";
 import {useConfiguration} from "@/components/providers/ConfigurationProvider";
+import { getDefaultAvatarSize, isLaptopOrDesktopMediaQuery } from '@/components/shared/helpers';
+import { useMediaQuery } from 'react-responsive';
 
 type Props = {
 	handleCheckEmail: ((fd: FormData) => Promise<ActionResponse>),
@@ -30,6 +32,7 @@ const UserProfileForm: FC<Props> = ({handleCheckEmail, onboardQuestion}) => {
 	const searchParams = useSearchParams();
 	const addInfo = !!searchParams?.get('addInfo')
 	const question = searchParams?.get('onboardQuestion') ?? ''
+	const isNotMobile = useMediaQuery(isLaptopOrDesktopMediaQuery)
 
 	useEffect(() => {
 		setEmailExists(false)
@@ -85,7 +88,7 @@ const UserProfileForm: FC<Props> = ({handleCheckEmail, onboardQuestion}) => {
 					<input hidden name={'password'} value={value}/>
 					<input hidden name={'gender'} value={selectedGender}/>
 					<div className={'flex flex-col w-full gap-3 h-full '}>
-						<ImageBlock imageSrc={'/registerImage.png'}>
+						<ImageBlock imageSrc={'/authImage.jpg'} avatarSize={getDefaultAvatarSize(isNotMobile)}>
 							<h1 className={'w-full text-center text-2xl sm:text-3xl font-bold'}>
 								{addInfo ?
 									'Please provide details for a more accurate tarot reading'

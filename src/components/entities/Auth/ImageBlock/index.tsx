@@ -1,13 +1,16 @@
-import {Image} from "@nextui-org/image";
-import React, {FC} from "react";
+import React, {FC, memo} from "react";
+import { SizeType } from "@/components/shared/AnimatedAvatar";
+import dynamic from "next/dynamic";
 
 type Props = {
     children?: React.ReactNode,
     imageSrc: string,
-    isMainPage?: boolean
+    isMainPage?: boolean,
+    avatarSize: SizeType,
 }
 
-const ImageBlock: FC<Props> = ({children, imageSrc, isMainPage}) => {
+const ImageBlock: FC<Props> = ({children, imageSrc, isMainPage, avatarSize}) => {
+    const DyncamicAvatar = dynamic(() => import('@/components/shared/AnimatedAvatar'), {ssr: false})
     
     return (
         <div className="w-full flex flex-col gap-4 justify-center items-center text-center relative">
@@ -26,29 +29,12 @@ const ImageBlock: FC<Props> = ({children, imageSrc, isMainPage}) => {
                 </div>
             </div>
 
-            <div className="relative flex justify-center items-center">
-                <Image
-                    src={imageSrc}
-                    alt="logo"
-                    width={isMainPage ? 320 : 280}
-                    height={isMainPage ? 320 : 280}
-                    classNames={{
-                        img: ["backdrop-blur-xs z-10"],
-                        wrapper: [
-                            "rounded-full shadow-[#22879D] shadow-[0_0_25px_1px_rgba(0,0,0,0.3)] mt-4 sm:mt-0 bg-opacity-55 bg-[#22879D] relative",
-                        ],
-                    }}
-                    style={{
-                        width: "50vw",
-                        maxWidth: isMainPage ? "320px" : "280px",
-                        height: "auto",
-                        transition: "width 0.5s ease-in-out",
-                    }}
-                />
+            <div className="flex justify-center items-center">
+                <DyncamicAvatar imageSrc={imageSrc} size={avatarSize}/>
             </div>
             {children && <div className={'w-full flex flex-col gap-2'}>{children}</div>}
         </div>
     )
 }
 
-export default ImageBlock
+export default memo(ImageBlock)
