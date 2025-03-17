@@ -119,7 +119,7 @@ const LaptopMainPage: FC<Props> = ({olderSpreads, searchParams}) => {
                             <div
                                 className={`flex-grow overflow-y-auto`}>
                                 <div
-                                    className={'flex flex-col w-full justify-start items-center gap-4 min-h-[calc(100dvh-58px)] h-full'}>
+                                    className={'flex flex-col w-full justify-start items-center gap-4 min-h-[calc(100dvh-var(--header-height))] h-full'}>
                                     <ImageBlock imageSrc={'/onboard.png'} isMainPage>
                                         <h1 className={'z-10 w-full text-center text-2xl sm:text-lg font-bold'}>
                                             Nice to meet you 👋
