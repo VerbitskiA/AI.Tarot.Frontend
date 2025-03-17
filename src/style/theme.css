@@ -1,8 +1,18 @@
 :root.dark {
-    --bg-color-input-primary: rgb(var(--gray-600));
+    --bg-color-input-primary: var(--gray-600);
+
+    /* animated avatar */
+    --box-shadow-color-avatar: var(--blue-300);
+    --border-color-animated-avatar: var(--blue-400);
+    /* _______________ */
 }
 
 /* TODO */
 :root.light {
-    --bg-color-input-primary: rgb(var(--gray-600));
+    --bg-color-input-primary: var(--gray-600);
+
+    /* animated avatar */
+    --box-shadow-color-avatar: var(--blue-300);
+    --border-color-animated-avatar: var(--blue-400);
+    /* _______________ */
 }

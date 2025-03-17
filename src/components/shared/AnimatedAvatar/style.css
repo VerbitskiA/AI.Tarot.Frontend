@@ -1,0 +1,100 @@
+/*
+  size - w and h
+
+  avatarSize = a
+  containerSize = b = 2 * a 
+  margin(t and b) ~= b * 0.04
+
+  container xyOffset = (b-a)/2
+
+  avatar img sizes:
+  ~140 - small
+  ~180 - medium
+  ~308 - large
+
+  p.s. sizes includes x2 border (2 * 4px)
+*/
+
+.taroAvatar {
+  --avatar-border: 4px;
+  --avatar-box-shadow: none;
+}
+
+/* small */
+.taroAvatar.small {
+  --avatar-size: 140px;
+  --avatar-box-shadow: none;
+
+  --img-margin: 15px;
+}
+
+/* medium */
+.taroAvatar.medium {
+  --avatar-size: 180px;
+  --avatar-box-shadow: 0px 1px 20px 0px var(--box-shadow-color-avatar);
+
+  --img-margin: 20px;
+}
+
+/* large */
+.taroAvatar.large {
+  --avatar-size: 308px;
+  --avatar-box-shadow: 0px 1px 32px 0px var(--box-shadow-color-avatar);
+
+  --img-margin: 32px;
+}
+
+.taroAvatar {
+  --container-size: calc(var(--avatar-size) * 2);
+}
+
+/* Uncomment if you want to calc img margin */
+/* .taroAvatar {
+  --img-margin: calc(var(--container-size) * 0.04);
+} */
+
+.taroAvatar {
+  --xy-offset: calc((var(--container-size) - (var(--avatar-size) + 2 * var(--img-margin))) / 2);
+  --avatar-main-width: calc(var(--avatar-size) + 2 * var(--img-margin));
+}
+
+.taroAvatar__avatar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--container-size);
+  height: var(--container-size);
+}
+
+.avatar__imgBlock {
+  position: absolute;
+  top: var(--xy-offset);
+  left: var(--xy-offset);
+  border-radius: 50%;
+  overflow: hidden;
+  width: var(--avatar-size);
+  height: var(--avatar-size);
+
+  margin: var(--img-margin);
+
+  border: var(--avatar-border) solid var(--border-color-animated-avatar);
+  box-shadow: var(--avatar-box-shadow);
+}
+
+.taroAvatar__avatar canvas {
+  display: block;
+}
+
+.taroAvatar__containerForAnimation {
+  position: absolute;
+  top: calc(var(--xy-offset) * -1);
+  left: calc(var(--xy-offset) * -1);
+}
+
+.taroAvatar {
+  position: relative;
+  width: var(--avatar-main-width);
+  height: var(--avatar-main-width);
+  overflow: hidden;
+}
