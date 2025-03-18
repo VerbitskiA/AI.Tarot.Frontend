@@ -114,7 +114,7 @@ const DesktopMainPage: FC<Props> = ({olderSpreads, searchParams}) => {
                             <div
                                 className={`flex-grow overflow-y-auto`}>
                                 <div
-                                    className={'flex flex-col w-full justify-start items-center gap-4 min-h-[calc(100dvh-58px)] h-full'}>
+                                    className={'flex flex-col w-full justify-start items-center gap-4 min-h-[calc(100dvh-var(--header-height))] h-full'}>
                                     <ImageBlock imageSrc={'/onboard.jpg'} avatarSize="large" isMainPage>
                                         <h1 className={'z-10 w-full text-center text-2xl sm:text-lg font-bold'}>
                                             Nice to meet you 👋
@@ -145,7 +145,7 @@ const DesktopMainPage: FC<Props> = ({olderSpreads, searchParams}) => {
 
                     <div className="grid place-items-start h-full">
                         <div
-                            className="flex flex-col min-h-[calc(100dvh-58px)] w-[580px] justify-between gap-2">
+                            className="flex flex-col min-h-[calc(100dvh-var(--header-height))] w-[580px] justify-between gap-2">
                             <div className={`flex h-full justify-center gap-2 w-full`}>
                                 {/*<div*/}
                                 {/*    className={`flex-grow overflow-y-auto`}>*/}

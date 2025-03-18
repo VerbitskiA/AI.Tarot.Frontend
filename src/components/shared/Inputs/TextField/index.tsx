@@ -8,16 +8,16 @@ type TextFieldProps = {
 } & InputProps & { readonly label?: string }
 
 const TextField: FC<TextFieldProps> = ({
-                                            ...props
-                                       }) => {
+    ...props
+}) => {
     const [touched, setTouched] = React.useState(false)
 
     return (
         <Input
+            // TODO: {...props}
+            // Type error: Expression produces a union type that is too complex to represent
+            // @ts-ignore
             {...props}
-            InputProps={{
-                autocomplete: 'off'
-            }}
             autoComplete="off"
             variant={'faded'}
             labelPlacement={'outside'}

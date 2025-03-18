@@ -89,7 +89,7 @@ const BuyOraclesForm = () => {
 	}
 
 	return (
-		<div className="flex flex-col gap-6 min-h-[calc(100dvh-58px)] justify-end overflow-hidden w-screen">
+		<div className="flex flex-col gap-6 min-h-[calc(100dvh-var(--header-height))] justify-end overflow-hidden w-screen">
 			<h2 className="text-3xl lg:text-[44px] text-center font-semibold px-4">
 				Add more Oracles to ask next question
 			</h2>

@@ -34,7 +34,7 @@ const MobileMainPage: FC<Props> = ({olderSpreads, searchParams}) => {
 
 	return (
 		<div
-			className={`flex flex-col px-2 min-h-[calc(100dvh-58px)] lg:hidden h-full justify-center gap-2 w-full`}>
+			className={`flex flex-col px-2 min-h-[calc(100dvh-var(--header-height))] lg:hidden h-full justify-center gap-2 w-full`}>
 			<div
 				className={`flex-grow overflow-y-auto max-h-[calc(100dvh-140px)] sm:max-h-[calc(100dvh-60px)]`}>
 				<div className={'flex flex-col w-full items-center gap-4 h-full pt-5'}>

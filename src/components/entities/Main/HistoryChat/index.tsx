@@ -15,7 +15,7 @@ const NewChatForm = ({messages}: { messages: Message[] }) => {
 	return (
 		<>
 			<div className={'grid place-items-start h-full'}>
-				<div className={`flex flex-col min-h-[calc(100dvh-58px)] h-full justify-center gap-2 w-full`}>
+				<div className={`flex flex-col min-h-[calc(100dvh-var(--header-height))] h-full justify-center gap-2 w-full`}>
 					<MessageDisplay messages={messages} isHistoryChat loading={false}
 													userName={configuration?.currentUser.username}/>
 					<div className="flex-shrink-0 flex justify-center flex-col pb-3 gap-2 w-full ifems-center">

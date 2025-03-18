@@ -53,7 +53,7 @@ const FormWrapper: FC<CustomFormProps> = ({
     return (
         <form
             action={handleSubmit}
-            className={`flex flex-col min-h-[calc(100dvh-58px)] h-full justify-center gap-2 w-full`}
+            className={`flex flex-col min-h-[calc(100dvh-var(--header-height))] h-full justify-center gap-2 w-full`}
             onClick={e => e.stopPropagation()}
             ref={formRef}
         >

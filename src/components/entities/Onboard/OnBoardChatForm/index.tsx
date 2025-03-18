@@ -43,7 +43,7 @@ const OnBoardChatForm = () => {
 
 		setTimeout(() => {
 			if (aitaIsTyping) {
-				aitaIsTyping.style = "display:flex;"
+				aitaIsTyping.style.display = "flex"
 			}
 		}, 1000);
 
@@ -64,7 +64,7 @@ const OnBoardChatForm = () => {
 			}
 
 			if (aitaIsTyping) {
-				aitaIsTyping.style = "display:none;"
+				aitaIsTyping.style.display = "none"
 			}
 		}, 5000);
 	}, []);
@@ -105,7 +105,7 @@ const OnBoardChatForm = () => {
 	return (
 		<>
 			<div className="grid place-items-start h-full">
-				<div className="flex flex-col min-h-[calc(100dvh-58px)] h-full justify-center gap-2 w-full">
+				<div className="flex flex-col min-h-[calc(100dvh-var(--header-height))] h-full justify-center gap-2 w-full">
 					<div ref={onboardingChatRef} className={`z-10 flex-grow overflow-y-auto max-h-[calc(100dvh-216px)] sm:max-h-[calc(100dvh-244px)]`}>
 						<div className={'flex flex-col w-full gap-6 h-full '}>
 							<div className={'w-full flex flex-col justify-center text-center'}>
