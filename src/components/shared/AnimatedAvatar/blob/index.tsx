@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useMemo, useRef } from "react"
 import vertexShader from "./vertexShader"
 import fragmentShader from "./fragmentShader"
