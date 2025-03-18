@@ -8,8 +8,8 @@ type TextFieldProps = {
 } & InputProps & { readonly label?: string }
 
 const TextField: FC<TextFieldProps> = ({
-                                            ...props
-                                       }) => {
+    ...props
+}) => {
     const [touched, setTouched] = React.useState(false)
 
     return (
