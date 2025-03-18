@@ -43,7 +43,7 @@ const OnBoardChatForm = () => {
 
 		setTimeout(() => {
 			if (aitaIsTyping) {
-				aitaIsTyping.style = "display:flex;"
+				aitaIsTyping.style.display = "flex"
 			}
 		}, 1000);
 
