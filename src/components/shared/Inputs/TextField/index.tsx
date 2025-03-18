@@ -14,10 +14,10 @@ const TextField: FC<TextFieldProps> = ({
 
     return (
         <Input
+            // TODO: {...props}
+            // Type error: Expression produces a union type that is too complex to represent
+            // @ts-ignore
             {...props}
-            InputProps={{
-                autocomplete: 'off'
-            }}
             autoComplete="off"
             variant={'faded'}
             labelPlacement={'outside'}
