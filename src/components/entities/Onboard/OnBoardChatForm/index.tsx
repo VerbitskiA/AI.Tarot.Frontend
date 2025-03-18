@@ -64,7 +64,7 @@ const OnBoardChatForm = () => {
 			}
 
 			if (aitaIsTyping) {
-				aitaIsTyping.style = "display:none;"
+				aitaIsTyping.style.display = "none"
 			}
 		}, 5000);
 	}, []);
