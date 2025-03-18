@@ -1,9 +1,11 @@
+"use client"
+
 import React from 'react'
 import ImageBlock from "@/components/entities/Auth/ImageBlock";
 import { getDefaultAvatarSize, isLaptopOrDesktopMediaQuery } from '@/components/shared/helpers';
 import { useMediaQuery } from 'react-responsive';
 
-const Page = async() => {
+const Page = () => {
     const isNotMobile = useMediaQuery(isLaptopOrDesktopMediaQuery)
 
     return (
