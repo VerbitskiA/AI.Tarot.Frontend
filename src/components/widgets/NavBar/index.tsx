@@ -50,7 +50,7 @@ const NavBar = () => {
 
 	return (
 		<>
-			<Navbar className={`z-50 bg-opacity-0 ${pathname === '/' ? 'lg:hidden' : ''}`} isBlurred={false} height={'58px'}
+			<Navbar className={`appNavBar z-50 bg-opacity-0 ${pathname === '/' ? 'lg:hidden' : ''}`} isBlurred={false} height={'58px'}
 							maxWidth={'full'} classNames={{
 				item: [
 					"items-center",
