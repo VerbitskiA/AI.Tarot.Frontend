@@ -14,6 +14,7 @@ import {registerAccount} from "@/lib/serverActions/auth";
 import {useConfiguration} from "@/components/providers/ConfigurationProvider";
 import { getDefaultAvatarSize, isLaptopOrDesktopMediaQuery } from '@/components/shared/helpers';
 import { useMediaQuery } from 'react-responsive';
+import GoogleBtn from '../GoogleBtn';
 
 type Props = {
 	handleCheckEmail: ((fd: FormData) => Promise<ActionResponse>),
@@ -69,7 +70,8 @@ const UserProfileForm: FC<Props> = ({handleCheckEmail, onboardQuestion}) => {
 			{/*<div className={'flex flex-col justify-center gap-4 h-full'}>*/}
 			{/*    */}
 			<div className={'grid place-items-start h-full'}>
-				<FormWrapper action={addInfo ? handleRegister : handleCheckEmail}
+				<FormWrapper
+                    action={addInfo ? handleRegister : handleCheckEmail}
                     infoUnderButton={!addInfo &&
                         <div className={'flex gap-1 text-center w-full items-center'}>
                             <p className={'text-xs w-full text-center text-[#BEBEBE]'}>
@@ -81,6 +83,8 @@ const UserProfileForm: FC<Props> = ({handleCheckEmail, onboardQuestion}) => {
                             </p>
                         </div>
                     }
+                    googleLoginButton={<GoogleBtn/>}
+                    isAbsoluteHeader={true}
                     setInvalid={addInfo ? setDateOfBirthExists : setEmailExists}
                     actionLabel={addInfo ? 'Complete & get tarot spread' : 'Create account'}
 				>

@@ -16,6 +16,7 @@ type CustomFormProps = {
     // customButton?: React.ReactNode
     infoUnderButton?: React.ReactNode | boolean
     isAbsoluteHeader?: boolean
+    googleLoginButton?: React.ReactNode
 } & React.ComponentProps<"form">
 
 const FormWrapper: FC<CustomFormProps> = ({
@@ -31,7 +32,8 @@ const FormWrapper: FC<CustomFormProps> = ({
     infoUnderButton,
     // customButton,
     // calcHeight,
-    isAbsoluteHeader
+    isAbsoluteHeader,
+    googleLoginButton,
 }) => {
     const formRef = useRef<HTMLFormElement>(null)
 
@@ -68,24 +70,39 @@ const FormWrapper: FC<CustomFormProps> = ({
     */
 
     /* formInnerMaxHeight - height of content (without buttonsBlock) */
-    const formInnerMaxHeight = "max-h-[calc(100dvh-132px)] sm:max-h-[calc(100dvh-157px)]"
+    // const formInnerMaxHeight = "max-h-[calc(100dvh-132px)] sm:max-h-[calc(100dvh-157px)]"
+    const formInnerMaxHeight = ""
 
-    const buttonsBlock = (
-        <div className="ifems-center flex w-full flex-shrink-0 flex-col justify-center gap-2">
-            <SubmitButton label={actionLabel} />
-            {infoUnderButton && infoUnderButton}
-        </div>
-    )
+    let buttonsBlock
+
+    if (googleLoginButton) {
+        buttonsBlock = (
+            <div className="ifems-center flex w-full flex-shrink-0 flex-col justify-center gap-2">
+                {googleLoginButton}
+                <div>or</div>
+                <SubmitButton label={actionLabel} />
+                {infoUnderButton && infoUnderButton}
+            </div>
+        )
+    }
+    else {
+        buttonsBlock = (
+            <div className="ifems-center flex w-full flex-shrink-0 flex-col justify-center gap-2">
+                <SubmitButton label={actionLabel} />
+                {infoUnderButton && infoUnderButton}
+            </div>
+        )
+    }
 
     return (
         <form
             action={handleSubmit}
-            className={`flex h-full ${isAbsoluteHeader ? "" : "min-h-[calc(100dvh-var(--header-height))]"} w-full flex-col justify-center gap-2`}
+            className={`flex h-full ${isAbsoluteHeader ? "" : "min-h-[calc(100dvh-var(--header-height))]"} w-full flex-col justify-center gap-2 overflow-y-auto`}
             onClick={(e) => e.stopPropagation()}
             ref={formRef}
         >
             <div
-                className={`flex-grow overflow-y-auto ${formInnerMaxHeight}`}
+                className={`flex-grow ${formInnerMaxHeight}`}
             >
                 {children}
             </div>

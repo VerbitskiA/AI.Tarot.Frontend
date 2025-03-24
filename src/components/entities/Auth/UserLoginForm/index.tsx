@@ -10,6 +10,7 @@ import {useRouter} from "next/navigation";
 import {useConfiguration} from "@/components/providers/ConfigurationProvider";
 import { getDefaultAvatarSize, isLaptopOrDesktopMediaQuery } from '@/components/shared/helpers';
 import { useMediaQuery } from 'react-responsive';
+import GoogleBtn from '../GoogleBtn';
 
 type Props = {
     handleAuth: ((fd: FormData) => Promise<any>)
@@ -67,19 +68,22 @@ const UserLoginForm: FC<Props> = ({handleAuth}) => {
     return (
         <>
             <div className={'grid place-items-start h-full'}>
-                <FormWrapper action={handleLogin}
-                             infoUnderButton={
-                                 <div className={'flex gap-1 text-center w-full items-center'}>
-                                     <p className={'text-sm w-full text-[#BEBEBE] text-center'}>
-                                         {'Don’t have an account? '}
-                                         <Link href={'/auth/register'}
-                                               className={'text-sm font-extrabold text-center text-[#27ACC9] hover:underline'}>
-                                             Sign up
-                                         </Link>
-                                     </p>
-                                 </div>
-                             }
-                             actionLabel={'Log in'}>
+                <FormWrapper
+                    action={handleLogin}
+                    infoUnderButton={
+                        <div className={'flex gap-1 text-center w-full items-center'}>
+                            <p className={'text-sm w-full text-[#BEBEBE] text-center'}>
+                                {'Don’t have an account? '}
+                                <Link href={'/auth/register'}
+                                    className={'text-sm font-extrabold text-center text-[#27ACC9] hover:underline'}>
+                                    Sign up
+                                </Link>
+                            </p>
+                        </div>
+                    }
+                    isAbsoluteHeader={true}
+                    googleLoginButton={<GoogleBtn/>}
+                    actionLabel={'Log in'}>
                     <input hidden value={'login'} name={'auth'}/>
                     <div className={'flex flex-col w-full gap-3 h-full '}>
                         <ImageBlock imageSrc={'/authImage.jpg'} avatarSize={getDefaultAvatarSize(isNotMobile)}>

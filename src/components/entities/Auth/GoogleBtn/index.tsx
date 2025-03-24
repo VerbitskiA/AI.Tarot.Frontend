@@ -22,8 +22,8 @@ export default function GoogleBtn() {
     }
 
     return (
-        <div className=" w-full p-[0_20px] flex justify-center h-[var(--google-sign-in-height)] customMinH769:h-[76px] bg-[var(--bg-color-google-sign-in)] text-[var(--text-color-google-sign-in)] rounded-[var(--google-sign-in-height)] font-semibold text-xl customMinH769:text-2xl">
-            <img className=" mr-[12px]" src="/google-icon.svg"/>
+        <div className="googleAuthButton w-full p-[0_20px] flex justify-center items-center h-[var(--google-sign-in-height)] customMinH769:h-[76px] bg-[var(--bg-color-google-sign-in)] text-[var(--text-color-google-sign-in)] font-semibold text-xl customMinH769:text-2xl rounded-full">
+            <img className=" mr-[12px] w-[32px] h-[32px]" src="/google-icon.svg"/>
             <button onClick={handleClick}>{btnText}</button>
         </div>
     )
