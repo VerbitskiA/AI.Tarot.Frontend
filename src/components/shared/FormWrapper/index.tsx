@@ -73,26 +73,18 @@ const FormWrapper: FC<CustomFormProps> = ({
     // const formInnerMaxHeight = "max-h-[calc(100dvh-132px)] sm:max-h-[calc(100dvh-157px)]"
     const formInnerMaxHeight = ""
 
-    let buttonsBlock
-
-    if (googleLoginButton) {
-        buttonsBlock = (
-            <div className="ifems-center flex w-full flex-shrink-0 flex-col justify-center gap-2">  
-                <SubmitButton label={actionLabel} />
-                <span className="text-center">or</span>
-                {googleLoginButton}
-                {infoUnderButton && infoUnderButton}
-            </div>
-        )
-    }
-    else {
-        buttonsBlock = (
-            <div className="ifems-center flex w-full flex-shrink-0 flex-col justify-center gap-2">
-                <SubmitButton label={actionLabel} />
-                {infoUnderButton && infoUnderButton}
-            </div>
-        )
-    }
+    const buttonsBlock = (
+        <div className="ifems-center flex w-full flex-shrink-0 flex-col justify-center gap-2">  
+            <SubmitButton label={actionLabel} />
+            {googleLoginButton && (
+                <div className="w-full flex flex-col gap-2 items-center">
+                    <span className="text-center">or</span>
+                    {googleLoginButton}
+                </div>
+            )}
+            {infoUnderButton && infoUnderButton}
+        </div>
+    )
 
     return (
         <form

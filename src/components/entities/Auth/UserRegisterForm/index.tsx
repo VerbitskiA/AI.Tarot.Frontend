@@ -86,7 +86,7 @@ const UserProfileForm: FC<Props> = ({handleCheckEmail, onboardQuestion}) => {
                             </p>
                         </div>
                     }
-                    googleLoginButton={<GoogleBtn/>}
+                    googleLoginButton={addInfo ? null : <GoogleBtn/>}
                     isAbsoluteHeader={true}
                     setInvalid={addInfo ? setDateOfBirthExists : setEmailExists}
                     actionLabel={addInfo ? 'Complete & get tarot spread' : 'Create account'}
