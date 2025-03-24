@@ -10,10 +10,16 @@ type EndPoint = {
     size: SizeType
 }
 
+/**
+ * Your endpoints arr should be sorted from Z to A by endpoint value 
+ * @param endpoints - arr of screen endpoints
+ * @param minSize - the smallest size you use 
+ * @returns - avatar size 
+ */
 const getAvatarSize = (endpoints: EndPoint[], minSize: SizeType): SizeType => {
     let avatarSize: SizeType = minSize
 
-    for(const endpoint of endpoints) {
+    for (const endpoint of endpoints) {
         if (endpoint.value) {
             avatarSize = endpoint.size
             break
