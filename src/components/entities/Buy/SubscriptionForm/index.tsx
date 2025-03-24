@@ -39,7 +39,7 @@ const SubscriptionForm = () => {
     }
 
     return (
-        <div className="flex flex-col gap-6 min-h-[calc(100dvh-58px)] justify-end">
+        <div className="flex flex-col gap-6 min-h-[calc(100dvh-var(--header-height))] justify-end">
             <h2 className="text-3xl lg:text-[44px] text-center font-semibold ">Subscribe to unlock all Aita features</h2>
             <div className={'flex flex-col gap-6 lg:px-12 text-center items-center justify-between'}>
                 <div className={'w-full px-12'}>

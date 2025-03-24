@@ -20,7 +20,7 @@ const getWidth = (listData: TextListData[]) => {
     // const border = 1
     // const margin = 2
 
-    return {width: `${2850}px`}
+    return {width: `${2855}px`}
 }
 
 const CustomList: FC<CustomListProps> = ({listData, handleClick}) => {
