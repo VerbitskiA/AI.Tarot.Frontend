@@ -9,6 +9,9 @@ const config: Config = {
         './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}',
     ],
     theme: {
+        screens: {
+            customMinH769: {'raw': '(min-height: 769px)'} /* iPad mini - 768x1024 */
+        },
         extend: {
             boxShadow: {
                 'spread-card': '0px 2px 14px 0px rgba(34, 135, 157, 0.65)',
