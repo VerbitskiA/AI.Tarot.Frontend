@@ -1,6 +1,9 @@
+// "use client"
+
 import React, {FC, memo} from "react";
 import { SizeType } from "@/components/shared/AnimatedAvatar";
 import dynamic from "next/dynamic";
+// import AnimatedAvatar from "@/components/shared/AnimatedAvatar";
 
 type Props = {
     children?: React.ReactNode,
@@ -31,6 +34,7 @@ const ImageBlock: FC<Props> = ({children, imageSrc, isMainPage, avatarSize}) => 
 
             <div className="flex justify-center items-center">
                 <DyncamicAvatar imageSrc={imageSrc} size={avatarSize}/>
+                {/* <AnimatedAvatar imageSrc={imageSrc} size={avatarSize}/> */}
             </div>
             {children && <div className={'w-full flex flex-col gap-2'}>{children}</div>}
         </div>
