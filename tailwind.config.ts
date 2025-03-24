@@ -10,7 +10,8 @@ const config: Config = {
     ],
     theme: {
         screens: {
-            customMinH769: {'raw': '(min-height: 769px)'},      /* iPad mini - 768x1024 >768 */
+            customMinH769: {'raw': '(min-height: 768px)'},      /* iPad mini - 768x1024 >=768 */
+            customMinH1024: {'raw': '(min-height: 1024px)'},    /* iPad Pro - 1024x1366 >=1024 */
             customMaxH767: {'raw': '(max-height: 767px)'},      /* iPad mini - 768x1024 <768 */
             customMaxH1023: {'raw': '(max-height: 1023px)'},    /* iPad Pro - 1024x1366 <1024 */
         },
