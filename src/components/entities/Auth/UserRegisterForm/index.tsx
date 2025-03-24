@@ -12,7 +12,7 @@ import {I18nProvider} from "@react-aria/i18n";
 import ImageBlock from "@/components/entities/Auth/ImageBlock";
 import {registerAccount} from "@/lib/serverActions/auth";
 import {useConfiguration} from "@/components/providers/ConfigurationProvider";
-import { getDefaultAvatarSize, isLaptopOrDesktopMediaQuery } from '@/components/shared/helpers';
+import { getDefaultAvatarSizeNew, isMaxHeight1023MediaQuery, isMaxHeight767MediaQuery } from '@/components/shared/helpers';
 import { useMediaQuery } from 'react-responsive';
 import GoogleBtn from '../GoogleBtn';
 
@@ -33,7 +33,9 @@ const UserProfileForm: FC<Props> = ({handleCheckEmail, onboardQuestion}) => {
 	const searchParams = useSearchParams();
 	const addInfo = !!searchParams?.get('addInfo')
 	const question = searchParams?.get('onboardQuestion') ?? ''
-	const isNotMobile = useMediaQuery(isLaptopOrDesktopMediaQuery)
+	
+    const isMaxHeight767 = useMediaQuery(isMaxHeight767MediaQuery)
+    const isMaxHeight1023 = useMediaQuery(isMaxHeight1023MediaQuery)
 
 	useEffect(() => {
 		setEmailExists(false)
@@ -92,7 +94,7 @@ const UserProfileForm: FC<Props> = ({handleCheckEmail, onboardQuestion}) => {
 					<input hidden name={'password'} value={value}/>
 					<input hidden name={'gender'} value={selectedGender}/>
 					<div className={'flex flex-col w-full gap-3 h-full '}>
-						<ImageBlock imageSrc={'/authImage.jpg'} avatarSize={getDefaultAvatarSize(isNotMobile)}>
+						<ImageBlock imageSrc={'/authImage.jpg'} avatarSize={getDefaultAvatarSizeNew(isMaxHeight767, isMaxHeight1023)}>
 							<h1 className={'w-full text-center text-2xl sm:text-3xl font-bold'}>
 								{addInfo ?
 									'Please provide details for a more accurate tarot reading'
