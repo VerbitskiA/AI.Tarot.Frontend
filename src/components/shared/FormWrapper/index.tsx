@@ -79,7 +79,7 @@ const FormWrapper: FC<CustomFormProps> = ({
         buttonsBlock = (
             <div className="ifems-center flex w-full flex-shrink-0 flex-col justify-center gap-2">
                 {googleLoginButton}
-                <div>or</div>
+                <span className="text-center">or</span>
                 <SubmitButton label={actionLabel} />
                 {infoUnderButton && infoUnderButton}
             </div>
