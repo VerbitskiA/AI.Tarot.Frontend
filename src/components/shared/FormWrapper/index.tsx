@@ -67,6 +67,7 @@ const FormWrapper: FC<CustomFormProps> = ({
         
     */
 
+    /* formInnerMaxHeight - height of content (without buttonsBlock) */
     const formInnerMaxHeight = "max-h-[calc(100dvh-132px)] sm:max-h-[calc(100dvh-157px)]"
 
     const buttonsBlock = (
