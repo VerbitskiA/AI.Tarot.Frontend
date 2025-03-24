@@ -94,7 +94,7 @@ const UserProfileForm: FC<Props> = ({handleCheckEmail, onboardQuestion}) => {
 					<input hidden name={'email'} value={emailValue}/>
 					<input hidden name={'password'} value={value}/>
 					<input hidden name={'gender'} value={selectedGender}/>
-					<div className={'flex flex-col w-full gap-3 h-full '}>
+					<div className={'flex flex-col justify-end customMinH769:justify-center  w-full gap-3 h-full '}>
 						<ImageBlock imageSrc={'/authImage.jpg'} avatarSize={getDefaultAvatarSizeNew(isMaxHeight767, isMaxHeight1023, isMaxHeight668)}>
 							<h1 className={'w-full text-center text-2xl sm:text-3xl font-bold'}>
 								{addInfo ?
