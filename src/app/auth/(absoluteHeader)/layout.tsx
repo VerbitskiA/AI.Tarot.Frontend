@@ -20,7 +20,7 @@ const AuthLayoutWithAbcoluteHeader = async ({
                 className={`flex h-full w-full items-center justify-center overflow-y-hidden`}
             >
                 <main
-                    className={"h-full w-full max-w-[520px] overflow-auto px-2"}
+                    className={"h-full w-full max-w-[520px] px-2"}
                 >
                     {children}
                 </main>
