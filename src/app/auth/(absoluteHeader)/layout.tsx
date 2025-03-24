@@ -2,13 +2,13 @@ import React from "react"
 import AppNavBar from "@/components/widgets/AppNavBar"
 import "@/app/auth/(absoluteHeader)/index.css"
 
-type AuthLayoutWithAbcoluteHeaderProps = {
+type AuthLayoutWithAbsoluteHeaderProps = {
     children: React.ReactNode
 }
 
-const AuthLayoutWithAbcoluteHeader = async ({
+const AuthLayoutWithAbsoluteHeader  = async ({
     children
-}: AuthLayoutWithAbcoluteHeaderProps) => {
+}: AuthLayoutWithAbsoluteHeaderProps) => {
     return (
         <div
             className={
@@ -29,4 +29,4 @@ const AuthLayoutWithAbcoluteHeader = async ({
     )
 }
 
-export default AuthLayoutWithAbcoluteHeader
+export default AuthLayoutWithAbsoluteHeader 
