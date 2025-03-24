@@ -52,7 +52,7 @@ const FormWrapper: FC<CustomFormProps> = ({
         return
     }
 
-    let formInnerMaxHeight
+    let formInnerMaxHeight = ""
 
     if (calcHeight) {
         if (infoUnderButton) {
