@@ -9,11 +9,11 @@ type CustomFormProps = {
     setInvalid?: React.Dispatch<React.SetStateAction<boolean>>
     readonly actionLabel?: string
     calcHeight?: string
-    withOutDefaultButton?: boolean
+    // withOutDefaultButton?: boolean
     // disablePaddings?: boolean
     // withoutPopover?: boolean
     clearAfterSubmit?: boolean
-    customButton?: React.ReactNode
+    // customButton?: React.ReactNode
     infoUnderButton?: React.ReactNode | boolean
     isAbsoluteHeader?: boolean
 } & React.ComponentProps<"form">
@@ -24,12 +24,12 @@ const FormWrapper: FC<CustomFormProps> = ({
     modalControl,
     actionLabel = "Сохранить",
     action,
-    withOutDefaultButton = false,
+    // withOutDefaultButton = false,
     // disablePaddings = false,
     clearAfterSubmit = false,
     setInvalid,
     infoUnderButton,
-    customButton,
+    // customButton,
     calcHeight,
     isAbsoluteHeader
 }) => {
@@ -63,6 +63,13 @@ const FormWrapper: FC<CustomFormProps> = ({
         }
     }
 
+    const buttonBlock = (
+        <div className="ifems-center flex w-full flex-shrink-0 flex-col justify-center gap-2">
+            <SubmitButton label={actionLabel} />
+            {infoUnderButton && infoUnderButton}
+        </div>
+    )
+
     return (
         <form
             action={handleSubmit}
@@ -75,7 +82,8 @@ const FormWrapper: FC<CustomFormProps> = ({
             >
                 {children}
             </div>
-            {!withOutDefaultButton && (
+            {buttonBlock}
+            {/* {!withOutDefaultButton && (
                 <div className="ifems-center flex w-full flex-shrink-0 flex-col justify-center gap-2">
                     <SubmitButton label={actionLabel} />
                     {infoUnderButton && infoUnderButton}
@@ -85,7 +93,7 @@ const FormWrapper: FC<CustomFormProps> = ({
                 <div className="ifems-center flex w-full flex-shrink-0 flex-col justify-center gap-2">
                     {customButton}
                 </div>
-            )}
+            )} */}
         </form>
     )
 }
