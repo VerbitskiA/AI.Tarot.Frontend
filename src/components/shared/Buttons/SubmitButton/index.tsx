@@ -11,11 +11,11 @@ type SubmitBtn = {
 } & React.ComponentProps<'button'>
 
 const SubmitButton: React.FC<SubmitBtn> = ({
-                                               label = 'Сохранить',
-                                               destructive = false,
-                                               small = false,
-                                               ...props
-                                           }) => {
+    label = 'Сохранить',
+    destructive = false,
+    small = false,
+    ...props
+}) => {
 
     const {pending} = useFormStatus()
 
