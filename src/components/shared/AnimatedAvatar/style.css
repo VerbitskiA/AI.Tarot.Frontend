@@ -20,6 +20,14 @@
   --avatar-box-shadow: none;
 }
 
+/* ultraSmall */
+.taroAvatar.ultraSmall {
+  --avatar-size: 120px;
+  --avatar-box-shadow: none;
+
+  --img-margin: 12px;
+}
+
 /* small */
 .taroAvatar.small {
   --avatar-size: 140px;
