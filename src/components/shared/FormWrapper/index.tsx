@@ -63,7 +63,7 @@ const FormWrapper: FC<CustomFormProps> = ({
         }
     }
 
-    const buttonBlock = (
+    const buttonsBlock = (
         <div className="ifems-center flex w-full flex-shrink-0 flex-col justify-center gap-2">
             <SubmitButton label={actionLabel} />
             {infoUnderButton && infoUnderButton}
@@ -82,7 +82,7 @@ const FormWrapper: FC<CustomFormProps> = ({
             >
                 {children}
             </div>
-            {buttonBlock}
+            {buttonsBlock}
             {/* {!withOutDefaultButton && (
                 <div className="ifems-center flex w-full flex-shrink-0 flex-col justify-center gap-2">
                     <SubmitButton label={actionLabel} />
