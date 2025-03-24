@@ -10,8 +10,8 @@ type CustomFormProps = {
     readonly actionLabel?: string
     calcHeight?: string
     withOutDefaultButton?: boolean
-    disablePaddings?: boolean
-    withoutPopover?: boolean
+    // disablePaddings?: boolean
+    // withoutPopover?: boolean
     clearAfterSubmit?: boolean
     customButton?: React.ReactNode
     infoUnderButton?: React.ReactNode | boolean
@@ -19,13 +19,13 @@ type CustomFormProps = {
 } & React.ComponentProps<"form">
 
 const FormWrapper: FC<CustomFormProps> = ({
-    withoutPopover = false,
+    // withoutPopover = false,
     children,
     modalControl,
     actionLabel = "Сохранить",
     action,
     withOutDefaultButton = false,
-    disablePaddings = false,
+    // disablePaddings = false,
     clearAfterSubmit = false,
     setInvalid,
     infoUnderButton,
