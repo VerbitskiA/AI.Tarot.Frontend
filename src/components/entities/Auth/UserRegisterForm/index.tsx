@@ -91,9 +91,10 @@ const UserProfileForm: FC<Props> = ({handleCheckEmail, onboardQuestion}) => {
                     setInvalid={addInfo ? setDateOfBirthExists : setEmailExists}
                     actionLabel={addInfo ? 'Complete & get tarot spread' : 'Create account'}
 				>
-					<input hidden name={'email'} value={emailValue}/>
-					<input hidden name={'password'} value={value}/>
-					<input hidden name={'gender'} value={selectedGender}/>
+					{/* TODO: check value -> defaultValue */}
+					<input hidden name={'email'} defaultValue={emailValue}/>
+					<input hidden name={'password'} defaultValue={value}/>
+					<input hidden name={'gender'} defaultValue={selectedGender}/>
 					<div className={'flex flex-col justify-end customMinH769:justify-center  w-full gap-3 h-full '}>
 						<ImageBlock imageSrc={'/authImage.jpg'} avatarSize={getDefaultAvatarSizeNew(isMaxHeight767, isMaxHeight1023, isMaxHeight668)}>
 							<h1 className={'w-full text-center text-2xl sm:text-3xl font-bold'}>

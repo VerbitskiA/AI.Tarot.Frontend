@@ -87,7 +87,8 @@ const UserLoginForm: FC<Props> = ({handleAuth}) => {
                     isAbsoluteHeader={true}
                     googleLoginButton={<GoogleBtn/>}
                     actionLabel={'Log in'}>
-                    <input hidden value={'login'} name={'auth'}/>
+                        {/* TODO: check value -> defaultValue={'login'} */}
+                    <input hidden defaultValue={'login'} name={'auth'}/>
                     <div className={'flex flex-col justify-end customMinH769:justify-center w-full gap-3 h-full '}>
                         <ImageBlock imageSrc={'/authImage.jpg'} avatarSize={getDefaultAvatarSizeNew(isMaxHeight767, isMaxHeight1023, isMaxHeight668)}>
                             <h1 className={'w-full text-center text-2xl sm:text-3xl font-bold'}>
