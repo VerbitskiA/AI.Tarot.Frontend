@@ -8,7 +8,7 @@ import ImageBlock from "@/components/entities/Auth/ImageBlock";
 import fetchService from "@/configs/http-service/fetch-settings";
 import {useRouter} from "next/navigation";
 import {useConfiguration} from "@/components/providers/ConfigurationProvider";
-import { getDefaultAvatarSize, isLaptopOrDesktopMediaQuery } from '@/components/shared/helpers';
+import { getDefaultAvatarSizeNew, isMaxHeight1023MediaQuery, isMaxHeight767MediaQuery } from '@/components/shared/helpers';
 import { useMediaQuery } from 'react-responsive';
 import GoogleBtn from '../GoogleBtn';
 
@@ -20,7 +20,9 @@ type Props = {
 const UserLoginForm: FC<Props> = ({handleAuth}) => {
     const router = useRouter();
     const { fetchConfiguration } = useConfiguration();
-    const isNotMobile = useMediaQuery(isLaptopOrDesktopMediaQuery)
+    
+    const isMaxHeight767 = useMediaQuery(isMaxHeight767MediaQuery)
+    const isMaxHeight1023 = useMediaQuery(isMaxHeight1023MediaQuery)
 
     const handleLogin = async (fd: FormData) => {
         // 'use server'
@@ -86,7 +88,7 @@ const UserLoginForm: FC<Props> = ({handleAuth}) => {
                     actionLabel={'Log in'}>
                     <input hidden value={'login'} name={'auth'}/>
                     <div className={'flex flex-col w-full gap-3 h-full '}>
-                        <ImageBlock imageSrc={'/authImage.jpg'} avatarSize={getDefaultAvatarSize(isNotMobile)}>
+                        <ImageBlock imageSrc={'/authImage.jpg'} avatarSize={getDefaultAvatarSizeNew(isMaxHeight767, isMaxHeight1023)}>
                             <h1 className={'w-full text-center text-2xl sm:text-3xl font-bold'}>
                                 Nice to meet you 👋
                             </h1>
