@@ -12,7 +12,7 @@ import {I18nProvider} from "@react-aria/i18n";
 import ImageBlock from "@/components/entities/Auth/ImageBlock";
 import {registerAccount} from "@/lib/serverActions/auth";
 import {useConfiguration} from "@/components/providers/ConfigurationProvider";
-import { getDefaultAvatarSizeNew, isMaxHeight1023MediaQuery, isMaxHeight767MediaQuery, isMaxHeight668MediaQuery } from '@/components/shared/helpers';
+import { getAvatarSize, isMinHeight768MediaQuery, isMinHeight1024MediaQuery } from '@/components/shared/helpers';
 import { useMediaQuery } from 'react-responsive';
 import GoogleBtn from '../GoogleBtn';
 
@@ -34,9 +34,8 @@ const UserProfileForm: FC<Props> = ({handleCheckEmail, onboardQuestion}) => {
 	const addInfo = !!searchParams?.get('addInfo')
 	const question = searchParams?.get('onboardQuestion') ?? ''
 	
-	const isMaxHeight668 = useMediaQuery(isMaxHeight668MediaQuery)
-    const isMaxHeight767 = useMediaQuery(isMaxHeight767MediaQuery)
-    const isMaxHeight1023 = useMediaQuery(isMaxHeight1023MediaQuery)
+    const isMinHeight768 = useMediaQuery(isMinHeight768MediaQuery)
+    const isMinHeight1024 = useMediaQuery(isMinHeight1024MediaQuery)
 
 	useEffect(() => {
 		setEmailExists(false)
@@ -96,14 +95,22 @@ const UserProfileForm: FC<Props> = ({handleCheckEmail, onboardQuestion}) => {
 					<input hidden name={'password'} defaultValue={value}/>
 					<input hidden name={'gender'} defaultValue={selectedGender}/>
 					<div className={'flex flex-col justify-end customMinH769:justify-center  w-full gap-3 h-full '}>
-						<ImageBlock imageSrc={'/authImage.jpg'} avatarSize={getDefaultAvatarSizeNew(isMaxHeight767, isMaxHeight1023, isMaxHeight668)}>
-							<h1 className={'w-full text-center text-2xl sm:text-3xl font-bold'}>
-								{addInfo ?
-									'Please provide details for a more accurate tarot reading'
-									:
-									'Create account to save your chat with the AI taro reader'
-								}
-							</h1>
+						<ImageBlock
+							imageSrc={'/authImage.jpg'}
+							avatarSize={getAvatarSize(
+								[
+									{value: isMinHeight1024, size: "large"},
+									{value: isMinHeight768, size: "medium"},
+								],
+								"ultraSmall"
+							)}>
+								<h1 className={'w-full text-center text-2xl sm:text-3xl font-bold'}>
+									{addInfo ?
+										'Please provide details for a more accurate tarot reading'
+										:
+										'Create account to save your chat with the AI taro reader'
+									}
+								</h1>
 						</ImageBlock>
 						<div className={'flex flex-col'}>
 							{addInfo ?

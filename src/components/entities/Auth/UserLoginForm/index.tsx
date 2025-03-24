@@ -8,7 +8,7 @@ import ImageBlock from "@/components/entities/Auth/ImageBlock";
 import fetchService from "@/configs/http-service/fetch-settings";
 import {useRouter} from "next/navigation";
 import {useConfiguration} from "@/components/providers/ConfigurationProvider";
-import { getDefaultAvatarSizeNew, isMaxHeight1023MediaQuery, isMaxHeight767MediaQuery, isMaxHeight668MediaQuery } from '@/components/shared/helpers';
+import { getAvatarSize, isMinHeight768MediaQuery, isMinHeight1024MediaQuery, isMinHeight669MediaQuery } from '@/components/shared/helpers';
 import { useMediaQuery } from 'react-responsive';
 import GoogleBtn from '../GoogleBtn';
 
@@ -21,9 +21,9 @@ const UserLoginForm: FC<Props> = ({handleAuth}) => {
     const router = useRouter();
     const { fetchConfiguration } = useConfiguration();
     
-    const isMaxHeight668 = useMediaQuery(isMaxHeight668MediaQuery)
-    const isMaxHeight767 = useMediaQuery(isMaxHeight767MediaQuery)
-    const isMaxHeight1023 = useMediaQuery(isMaxHeight1023MediaQuery)
+    const isMinHeight669 = useMediaQuery(isMinHeight669MediaQuery)
+    const isMinHeight768 = useMediaQuery(isMinHeight768MediaQuery)
+    const isMinHeight1024 = useMediaQuery(isMinHeight1024MediaQuery)
 
     const handleLogin = async (fd: FormData) => {
         // 'use server'
@@ -90,10 +90,19 @@ const UserLoginForm: FC<Props> = ({handleAuth}) => {
                         {/* TODO: check value -> defaultValue={'login'} */}
                     <input hidden defaultValue={'login'} name={'auth'}/>
                     <div className={'flex flex-col justify-end customMinH769:justify-center w-full gap-3 h-full '}>
-                        <ImageBlock imageSrc={'/authImage.jpg'} avatarSize={getDefaultAvatarSizeNew(isMaxHeight767, isMaxHeight1023, isMaxHeight668)}>
-                            <h1 className={'w-full text-center text-2xl sm:text-3xl font-bold'}>
-                                Nice to meet you 👋
-                            </h1>
+                        <ImageBlock
+                            imageSrc={'/authImage.jpg'}
+                            avatarSize={getAvatarSize(
+                                [
+                                    {value: isMinHeight1024, size: "large"},
+                                    {value: isMinHeight768, size: "medium"},
+                                    {value: isMinHeight669, size: "small"},
+                                ],
+                                "ultraSmall"
+                            )}>
+                                <h1 className={'w-full text-center text-2xl sm:text-3xl font-bold'}>
+                                    Nice to meet you 👋
+                                </h1>
                         </ImageBlock>
                         <div className={'flex flex-col gap-2'}>
                             <TextField
