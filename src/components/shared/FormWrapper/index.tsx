@@ -15,6 +15,7 @@ type CustomFormProps = {
     clearAfterSubmit?: boolean
     customButton?: React.ReactNode
     infoUnderButton?: React.ReactNode | boolean
+    isAbsoluteHeader?: boolean
 } & React.ComponentProps<"form">
 
 const FormWrapper: FC<CustomFormProps> = ({
@@ -29,7 +30,8 @@ const FormWrapper: FC<CustomFormProps> = ({
     setInvalid,
     infoUnderButton,
     customButton,
-    calcHeight
+    calcHeight,
+    isAbsoluteHeader
 }) => {
     const formRef = useRef<HTMLFormElement>(null)
 
@@ -50,15 +52,26 @@ const FormWrapper: FC<CustomFormProps> = ({
         return
     }
 
+    let formInnerMaxHeight
+
+    if (calcHeight) {
+        if (infoUnderButton) {
+            formInnerMaxHeight = "max-h-[calc(100dvh-172px)] sm:max-h-[calc(100dvh-172px)]"
+        }
+        else {
+            formInnerMaxHeight = "max-h-[calc(100dvh-132px)] sm:max-h-[calc(100dvh-157px)]"
+        }
+    }
+
     return (
         <form
             action={handleSubmit}
-            className={`flex h-full min-h-[calc(100dvh-var(--header-height))] w-full flex-col justify-center gap-2`}
+            className={`flex h-full ${isAbsoluteHeader ? "" : "min-h-[calc(100dvh-var(--header-height))]"} w-full flex-col justify-center gap-2`}
             onClick={(e) => e.stopPropagation()}
             ref={formRef}
         >
             <div
-                className={`flex-grow overflow-y-auto ${calcHeight ? calcHeight : infoUnderButton ? "max-h-[calc(100dvh-172px)] sm:max-h-[calc(100dvh-172px)]" : "max-h-[calc(100dvh-132px)] sm:max-h-[calc(100dvh-157px)]"}`}
+                className={`flex-grow overflow-y-auto ${formInnerMaxHeight}`}
             >
                 {children}
             </div>
