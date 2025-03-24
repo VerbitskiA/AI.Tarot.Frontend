@@ -13,7 +13,7 @@ const getDefaultAvatarSizeNew = (isMaxHeight767: boolean, isMaxHeight1023: boole
         avatarSize = "ultraSmall"
     }
     else if (isMaxHeight767) {
-        avatarSize = "medium"
+        avatarSize = "small"
     }
     else if (isMaxHeight1023) {
         avatarSize = "medium"
