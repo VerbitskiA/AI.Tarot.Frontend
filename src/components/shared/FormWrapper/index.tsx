@@ -8,7 +8,7 @@ type CustomFormProps = {
     modalControl?: React.Dispatch<React.SetStateAction<boolean>>
     setInvalid?: React.Dispatch<React.SetStateAction<boolean>>
     readonly actionLabel?: string
-    calcHeight?: string
+    // calcHeight?: string
     // withOutDefaultButton?: boolean
     // disablePaddings?: boolean
     // withoutPopover?: boolean
@@ -30,7 +30,7 @@ const FormWrapper: FC<CustomFormProps> = ({
     setInvalid,
     infoUnderButton,
     // customButton,
-    calcHeight,
+    // calcHeight,
     isAbsoluteHeader
 }) => {
     const formRef = useRef<HTMLFormElement>(null)
@@ -52,6 +52,8 @@ const FormWrapper: FC<CustomFormProps> = ({
         return
     }
 
+    /* TODO: calcheight
+
     let formInnerMaxHeight = ""
 
     if (calcHeight) {
@@ -62,6 +64,10 @@ const FormWrapper: FC<CustomFormProps> = ({
             formInnerMaxHeight = "max-h-[calc(100dvh-132px)] sm:max-h-[calc(100dvh-157px)]"
         }
     }
+        
+    */
+
+    const formInnerMaxHeight = "max-h-[calc(100dvh-132px)] sm:max-h-[calc(100dvh-157px)]"
 
     const buttonsBlock = (
         <div className="ifems-center flex w-full flex-shrink-0 flex-col justify-center gap-2">
