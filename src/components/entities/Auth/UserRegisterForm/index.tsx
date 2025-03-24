@@ -70,19 +70,19 @@ const UserProfileForm: FC<Props> = ({handleCheckEmail, onboardQuestion}) => {
 			{/*    */}
 			<div className={'grid place-items-start h-full'}>
 				<FormWrapper action={addInfo ? handleRegister : handleCheckEmail}
-										 infoUnderButton={!addInfo &&
-											 <div className={'flex gap-1 text-center w-full items-center'}>
-												 <p className={'text-xs w-full text-center text-[#BEBEBE]'}>
-													 {'By creating an account or signing you agree to our '}
-													 <Link href={'?register'}
-																 className={'font-extrabold text-center underline'}>
-														 Terms and Conditions
-													 </Link>
-												 </p>
-											 </div>
-										 }
-										 setInvalid={addInfo ? setDateOfBirthExists : setEmailExists}
-										 actionLabel={addInfo ? 'Complete & get tarot spread' : 'Create account'}
+                    infoUnderButton={!addInfo &&
+                        <div className={'flex gap-1 text-center w-full items-center'}>
+                            <p className={'text-xs w-full text-center text-[#BEBEBE]'}>
+                                {'By creating an account or signing you agree to our '}
+                                <Link href={'?register'}
+                                            className={'font-extrabold text-center underline'}>
+                                    Terms and Conditions
+                                </Link>
+                            </p>
+                        </div>
+                    }
+                    setInvalid={addInfo ? setDateOfBirthExists : setEmailExists}
+                    actionLabel={addInfo ? 'Complete & get tarot spread' : 'Create account'}
 				>
 					<input hidden name={'email'} value={emailValue}/>
 					<input hidden name={'password'} value={value}/>
