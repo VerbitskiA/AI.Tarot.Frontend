@@ -78,7 +78,7 @@ const FormWrapper: FC<CustomFormProps> = ({
             <SubmitButton label={actionLabel} />
             {googleLoginButton && (
                 <div className="w-full flex flex-col gap-2 items-center">
-                    <span className="text-center">or</span>
+                    <span className="text-center text-l customMinH769:text-xl">or</span>
                     {googleLoginButton}
                 </div>
             )}
