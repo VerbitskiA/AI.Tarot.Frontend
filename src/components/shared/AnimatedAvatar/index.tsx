@@ -15,8 +15,8 @@ type AnimatedAvatarProps = {
 
 const blockSizes = {
     "ultraSmall": {
-        value: 144,
-        margin: 12,
+        value: 130,
+        margin: 10,
         border: 4,
     },
     "small": {

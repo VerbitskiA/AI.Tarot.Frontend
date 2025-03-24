@@ -22,10 +22,10 @@
 
 /* ultraSmall */
 .taroAvatar.ultraSmall {
-  --avatar-size: 120px;
+  --avatar-size: 110px;
   --avatar-box-shadow: none;
 
-  --img-margin: 12px;
+  --img-margin: 10px;
 }
 
 /* small */
