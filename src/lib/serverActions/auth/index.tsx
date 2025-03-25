@@ -20,7 +20,7 @@ const getConfiguration = async (): Promise<ConfigurationType> => {
 
 const checkEmailExists = async (fd: FormData): Promise<ActionResponse> => {
 	try {
-		const res = await fetchService.get(`/api/account/exists/${fd.get('email')}`)
+		const res = await fetchService.get(`/api/auth/exists/${fd.get('email')}`)
 		if (!!res.data) {
 			const message = res.data?.detail
 			throw new Error(message)
@@ -187,7 +187,7 @@ const confirmReset = async (fd: FormData): Promise<ActionResponse> => {
 
 const approveEmail = async (fd: FormData): Promise<ActionResponse> => {
 	try {
-		const res = await fetchService.post(`/api/account/confirm-email`, {
+		const res = await fetchService.post(`/api/auth/confirm-email`, {
 			body: JSON.stringify({
 				code: "1111"
 			})
