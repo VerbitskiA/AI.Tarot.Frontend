@@ -21,7 +21,7 @@ const fetchAnswer = async (
     setAitaIsTyping(true);
     try {
         // console.log('Fetching answer:', question); TODO
-        const res = await fetchService.post<Spread>('/api/spread/create/', {
+        const res = await fetchService.post<Spread>('/api/spread/create', {
             body: JSON.stringify({ question }),
             source: 'client',
             headers: { 'Content-Type': 'application/json' },

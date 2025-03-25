@@ -22,7 +22,7 @@ const BuyOraclesForm = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const res = await fetchService.get("/api/payments/credits-packages/", {
+				const res = await fetchService.get("/api/payments/credits-packages", {
 					credentials: "include",
 					source: "client",
 					headers: {

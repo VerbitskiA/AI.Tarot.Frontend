@@ -10,7 +10,7 @@ const Page = async() => {
     const handleAuth = async (fd: FormData) => {
         'use server'
         try {
-            const res = await fetchService.post('/api/account/login/', {
+            const res = await fetchService.post('/api/account/login', {
                 body: JSON.stringify({
                     email: fd.get('email'),
                     password: fd.get('password')

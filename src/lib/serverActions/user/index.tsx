@@ -4,7 +4,7 @@ import {ConfigurationType} from "@/lib/types/config.types";
 
 
 const getUserInfo = async(): Promise<ConfigurationType> => {
-    const res = await fetchService.get('/api/user/', {
+    const res = await fetchService.get('/api/user', {
         next: {
             tags: ['user-profile'],
         }

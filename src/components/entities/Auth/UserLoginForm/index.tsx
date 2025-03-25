@@ -31,7 +31,7 @@ const UserLoginForm: FC<Props> = ({handleAuth}) => {
 
         if (res.status === 'ok') {
             try {
-                const res = await fetchService.post('/api/account/login/', {
+                const res = await fetchService.post('/api/account/login', {
                     body: JSON.stringify({
                         email: fd.get('email'),
                         password: fd.get('password')
