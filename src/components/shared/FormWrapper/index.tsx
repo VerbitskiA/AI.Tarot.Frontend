@@ -74,7 +74,7 @@ const FormWrapper: FC<CustomFormProps> = ({
     const formInnerMaxHeight = ""
 
     const buttonsBlock = (
-        <div className="ifems-center flex w-full flex-shrink-0 flex-col justify-center gap-2">  
+        <div className="mb-[12px] ifems-center flex w-full flex-shrink-0 flex-col justify-center gap-2">  
             <SubmitButton label={actionLabel} />
             {googleLoginButton && (
                 <div className="w-full flex flex-col gap-2 items-center">
