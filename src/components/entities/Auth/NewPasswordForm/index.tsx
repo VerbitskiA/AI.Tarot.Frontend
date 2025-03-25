@@ -1,5 +1,5 @@
 'use client'
-import React, {FC, useMemo, useState} from 'react'
+import React, {FC, useMemo, useState, useRef} from 'react'
 import PasswordField from "@/components/shared/Inputs/PasswordField";
 import FormWrapper from "@/components/shared/FormWrapper";
 // import {Image} from "@nextui-org/image";
@@ -27,6 +27,11 @@ const NewPasswordForm: FC<Props> = ({handleResetPassword}) => {
         return newPasswordValue !== repeatPasswordValue
     }, [newPasswordValue, repeatPasswordValue])
 
+    const imgBlockChildrens = useRef(
+        <h1 className={'w-full text-center text-2xl font-bold'}>
+            Create new password
+        </h1>
+    )
 
     return (
         <>
@@ -45,9 +50,7 @@ const NewPasswordForm: FC<Props> = ({handleResetPassword}) => {
                                     "medium"
                                 )}
                             >
-                                <h1 className={'w-full text-center text-2xl font-bold'}>
-                                    Create new password
-                                </h1>
+                                {imgBlockChildrens.current}
                             </ImageBlock>
                             {/* <Image src={'/authImage.jpg'} alt={'logo'} width={200} height={200}/>
                             <h1 className={'w-full text-center text-2xl font-bold'}>

@@ -37,6 +37,18 @@ const UserProfileForm: FC<Props> = ({handleCheckEmail, onboardQuestion}) => {
     const isMinHeight768 = useMediaQuery(isMinHeight768MediaQuery)
     const isMinHeight1024 = useMediaQuery(isMinHeight1024MediaQuery)
 
+	const imageBlockText = useMemo(() => {
+		const text = addInfo
+			? 'Please provide details for a more accurate tarot reading'
+			: 'Create account to save your chat with the AI taro reader'
+
+		return (
+			<h1 className={'w-full text-center text-2xl sm:text-3xl font-bold'}>
+				{text}
+			</h1>
+		)
+	}, [addInfo])
+
 	useEffect(() => {
 		setEmailExists(false)
 	}, [emailValue]);
@@ -104,13 +116,7 @@ const UserProfileForm: FC<Props> = ({handleCheckEmail, onboardQuestion}) => {
 								],
 								"ultraSmall"
 							)}>
-								<h1 className={'w-full text-center text-2xl sm:text-3xl font-bold'}>
-									{addInfo ?
-										'Please provide details for a more accurate tarot reading'
-										:
-										'Create account to save your chat with the AI taro reader'
-									}
-								</h1>
+								{imageBlockText}
 						</ImageBlock>
 						<div className={'flex flex-col'}>
 							{addInfo ?
