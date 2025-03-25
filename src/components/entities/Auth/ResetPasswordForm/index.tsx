@@ -14,7 +14,7 @@ type Props = {
 }
 
 const ResetPasswordForm: FC<Props> = ({handleReset}) => {
-    const isMinHeight768 = useMediaQuery(isMinHeight768MediaQuery)
+    // const isMinHeight768 = useMediaQuery(isMinHeight768MediaQuery)
     const isMinHeight1024 = useMediaQuery(isMinHeight1024MediaQuery)
     
     return (
@@ -30,16 +30,16 @@ const ResetPasswordForm: FC<Props> = ({handleReset}) => {
                              }
                              actionLabel={'Send code'}>
                     <input hidden value={'login'} name={'auth'}/>
-                    <div className={'flex flex-col w-full gap-6 h-full '}>
+                    <div className={'flex flex-col w-full gap-6 h-full'}>
                         <div className={'w-full flex flex-col gap-2 justify-center text-center items-center'}>
                             <ImageBlock
                                 imageSrc={'/authImage.jpg'}
                                 avatarSize={getAvatarSize(
                                     [
                                         {value: isMinHeight1024, size: "large"},
-                                        {value: isMinHeight768, size: "medium"},
+                                        // {value: isMinHeight768, size: "medium"},
                                     ],
-                                    "small"
+                                    "medium"
                                 )}
                             >
                                 <h1 className={'w-full text-center text-2xl font-bold'}>
