@@ -13,7 +13,7 @@ const LogoutButton = () => {
     const handleLogout = async(e: any) => {
         e.preventDefault()
         deleteCookie('ai-tarot-id')
-        const res = await fetch(`${BASE_URL}api/account/logout`, {
+        const res = await fetch(`${BASE_URL}/api/account/logout`, {
             method: 'POST',
             // source: 'client',
             credentials: 'include'

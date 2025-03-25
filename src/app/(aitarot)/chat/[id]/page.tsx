@@ -17,7 +17,7 @@ type Props = {
 const Page: FC<Props> = async({searchParams, params}) => {
 
     const {ok, data} = await
-        fetchService.get<Spread>(`api/spread/view/${params.id}/`, {
+        fetchService.get<Spread>(`/api/spread/view/${params.id}/`, {
             next: {
                 tags: ['spread']
             }

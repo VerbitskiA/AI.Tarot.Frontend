@@ -21,7 +21,7 @@ const Page: FC<Props> = async({searchParams}) => {
     }
 
     const {ok, data} = await
-        fetchService.get<Spread[]>('api/spread/all/', {
+        fetchService.get<Spread[]>('/api/spread/all/', {
             next: {
                 tags: ['spreads']
             }

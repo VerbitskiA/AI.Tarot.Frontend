@@ -11,7 +11,7 @@ const askOnboardQuestion = async (fd: FormData): Promise<ActionResponse> => {
 }
 
 const askQuestion = async (fd: FormData): Promise<{status: string, data: Spread}> => {
-    const res = await fetchService.post('api/spread/create/', {
+    const res = await fetchService.post('/api/spread/create/', {
         body: JSON.stringify({
             question: fd.get('question')
         })

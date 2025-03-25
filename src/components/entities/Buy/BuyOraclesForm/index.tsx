@@ -22,7 +22,7 @@ const BuyOraclesForm = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const res = await fetchService.get("api/payments/credits-packages/", {
+				const res = await fetchService.get("/api/payments/credits-packages/", {
 					credentials: "include",
 					source: "client",
 					headers: {
@@ -61,7 +61,7 @@ const BuyOraclesForm = () => {
 
 
 	const pay = async () => {
-		const res = await fetchService.post<{ sessionId: string }>('api/payments/create-session', {
+		const res = await fetchService.post<{ sessionId: string }>('/api/payments/create-session', {
 			body: JSON.stringify({
 				packageId: 1,
 				description: 'Buy Oracles'
@@ -74,7 +74,7 @@ const BuyOraclesForm = () => {
 		})
 		if (res.ok) {
 			const sessionId = res.data.sessionId
-			const sessionRes = await fetchService.get<StripeSessionType>(`api/payments/session/${sessionId}`, {
+			const sessionRes = await fetchService.get<StripeSessionType>(`/api/payments/session/${sessionId}`, {
 				credentials: 'include',
 				source: 'client',
 				headers: {

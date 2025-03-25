@@ -7,7 +7,7 @@ import {cookies} from "next/headers";
 
 
 const getConfiguration = async (): Promise<ConfigurationType> => {
-	const res = await fetchService.get(`api/configuration/`,
+	const res = await fetchService.get(`/api/configuration/`,
 		{
 			headers: {
 				'Content-Type': 'application/json',
@@ -20,7 +20,7 @@ const getConfiguration = async (): Promise<ConfigurationType> => {
 
 const checkEmailExists = async (fd: FormData): Promise<ActionResponse> => {
 	try {
-		const res = await fetchService.get(`api/account/exists/${fd.get('email')}`)
+		const res = await fetchService.get(`/api/account/exists/${fd.get('email')}`)
 		if (!!res.data) {
 			const message = res.data?.detail
 			throw new Error(message)
@@ -47,7 +47,7 @@ const checkEmailExists = async (fd: FormData): Promise<ActionResponse> => {
 
 const loginIntoAccount = async (fd: FormData): Promise<ActionResponse> => {
 	try {
-		const res = await fetchService.post('api/account/login/', {
+		const res = await fetchService.post('/api/account/login/', {
 			body: JSON.stringify({
 				email: fd.get('email'),
 				password: fd.get('password')
@@ -92,7 +92,7 @@ const loginIntoAccount = async (fd: FormData): Promise<ActionResponse> => {
 
 const registerAccount = async (fd: FormData): Promise<ActionResponse> => {
 	try {
-		const res = await fetchService.post('api/account/register/', {
+		const res = await fetchService.post('/api/account/register/', {
 			body: JSON.stringify({
 				username: fd.get('username'),
 				email: fd.get('email'),
@@ -187,7 +187,7 @@ const confirmReset = async (fd: FormData): Promise<ActionResponse> => {
 
 const approveEmail = async (fd: FormData): Promise<ActionResponse> => {
 	try {
-		const res = await fetchService.post(`api/account/confirm-email`, {
+		const res = await fetchService.post(`/api/account/confirm-email`, {
 			body: JSON.stringify({
 				code: "1111"
 			})
