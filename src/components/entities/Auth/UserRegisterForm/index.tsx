@@ -12,8 +12,9 @@ import {I18nProvider} from "@react-aria/i18n";
 import ImageBlock from "@/components/entities/Auth/ImageBlock";
 import {registerAccount} from "@/lib/serverActions/auth";
 import {useConfiguration} from "@/components/providers/ConfigurationProvider";
-import { getDefaultAvatarSize, isLaptopOrDesktopMediaQuery } from '@/components/shared/helpers';
+import { getAvatarSize, isMinHeight768MediaQuery, isMinHeight1024MediaQuery } from '@/components/shared/helpers';
 import { useMediaQuery } from 'react-responsive';
+import GoogleBtn from '../GoogleBtn';
 
 type Props = {
 	handleCheckEmail: ((fd: FormData) => Promise<ActionResponse>),
@@ -32,7 +33,21 @@ const UserProfileForm: FC<Props> = ({handleCheckEmail, onboardQuestion}) => {
 	const searchParams = useSearchParams();
 	const addInfo = !!searchParams?.get('addInfo')
 	const question = searchParams?.get('onboardQuestion') ?? ''
-	const isNotMobile = useMediaQuery(isLaptopOrDesktopMediaQuery)
+	
+    const isMinHeight768 = useMediaQuery(isMinHeight768MediaQuery)
+    const isMinHeight1024 = useMediaQuery(isMinHeight1024MediaQuery)
+
+	const imageBlockText = useMemo(() => {
+		const text = addInfo
+			? 'Please provide details for a more accurate tarot reading'
+			: 'Create account to save your chat with the AI taro reader'
+
+		return (
+			<h1 className={'w-full text-center text-2xl sm:text-3xl font-bold'}>
+				{text}
+			</h1>
+		)
+	}, [addInfo])
 
 	useEffect(() => {
 		setEmailExists(false)
@@ -69,33 +84,39 @@ const UserProfileForm: FC<Props> = ({handleCheckEmail, onboardQuestion}) => {
 			{/*<div className={'flex flex-col justify-center gap-4 h-full'}>*/}
 			{/*    */}
 			<div className={'grid place-items-start h-full'}>
-				<FormWrapper action={addInfo ? handleRegister : handleCheckEmail}
-										 infoUnderButton={!addInfo &&
-											 <div className={'flex gap-1 text-center w-full items-center'}>
-												 <p className={'text-xs w-full text-center text-[#BEBEBE]'}>
-													 {'By creating an account or signing you agree to our '}
-													 <Link href={'?register'}
-																 className={'font-extrabold text-center underline'}>
-														 Terms and Conditions
-													 </Link>
-												 </p>
-											 </div>
-										 }
-										 setInvalid={addInfo ? setDateOfBirthExists : setEmailExists}
-										 actionLabel={addInfo ? 'Complete & get tarot spread' : 'Create account'}
+				<FormWrapper
+                    action={addInfo ? handleRegister : handleCheckEmail}
+                    infoUnderButton={!addInfo &&
+                        <div className={'flex gap-1 text-center w-full items-center'}>
+                            <p className={'text-xs w-full text-center text-[#BEBEBE]'}>
+                                {'By creating an account or signing you agree to our '}
+                                <Link href={'?register'}
+                                            className={'font-extrabold text-center underline'}>
+                                    Terms and Conditions
+                                </Link>
+                            </p>
+                        </div>
+                    }
+                    googleLoginButton={addInfo ? null : <GoogleBtn/>}
+                    isAbsoluteHeader={true}
+                    setInvalid={addInfo ? setDateOfBirthExists : setEmailExists}
+                    actionLabel={addInfo ? 'Complete & get tarot spread' : 'Create account'}
 				>
-					<input hidden name={'email'} value={emailValue}/>
-					<input hidden name={'password'} value={value}/>
-					<input hidden name={'gender'} value={selectedGender}/>
-					<div className={'flex flex-col w-full gap-3 h-full '}>
-						<ImageBlock imageSrc={'/authImage.jpg'} avatarSize={getDefaultAvatarSize(isNotMobile)}>
-							<h1 className={'w-full text-center text-2xl sm:text-3xl font-bold'}>
-								{addInfo ?
-									'Please provide details for a more accurate tarot reading'
-									:
-									'Create account to save your chat with the AI taro reader'
-								}
-							</h1>
+					{/* TODO: check value -> defaultValue */}
+					<input hidden name={'email'} defaultValue={emailValue}/>
+					<input hidden name={'password'} defaultValue={value}/>
+					<input hidden name={'gender'} defaultValue={selectedGender}/>
+					<div className={'flex flex-col justify-end customMinH769:justify-center  w-full gap-3 h-full '}>
+						<ImageBlock
+							imageSrc={'/authImage.jpg'}
+							avatarSize={getAvatarSize(
+								[
+									{value: isMinHeight1024, size: "large"},
+									{value: isMinHeight768, size: "medium"},
+								],
+								"ultraSmall"
+							)}>
+								{imageBlockText}
 						</ImageBlock>
 						<div className={'flex flex-col'}>
 							{addInfo ?
@@ -107,7 +128,8 @@ const UserProfileForm: FC<Props> = ({handleCheckEmail, onboardQuestion}) => {
 										className={'text-xl'}
 										placeholder={'Your Name'}
 										name={'username'}
-										errorMessage={'lfkasjdklfjd'}
+										// TODO: errorMsg
+										errorMessage={'error'}
 										// type={'email'}
 									/>
 

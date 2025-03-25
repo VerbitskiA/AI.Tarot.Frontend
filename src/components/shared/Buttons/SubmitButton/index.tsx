@@ -11,18 +11,18 @@ type SubmitBtn = {
 } & React.ComponentProps<'button'>
 
 const SubmitButton: React.FC<SubmitBtn> = ({
-                                               label = 'Сохранить',
-                                               destructive = false,
-                                               small = false,
-                                               ...props
-                                           }) => {
+    label = 'Сохранить',
+    destructive = false,
+    small = false,
+    ...props
+}) => {
 
     const {pending} = useFormStatus()
 
     return (
         <Button disabled={props.disabled || pending} size={'lg'} color={destructive ? 'danger' : 'primary'}
-                className={cn(`flex items-center gap-2 sticky shadow-button bg-[#27ACC9] data-[hover=true]:bg-[#32cbed] h-[60px] sm:h-[76px] font-semibold text-xl sm:text-2xl rounded-[60px]`, props.className)}
-                type={'submit'}
+            className={cn(`flex items-center gap-2 sticky shadow-button bg-[#27ACC9] data-[hover=true]:bg-[#32cbed] h-[var(--main-submit-button-height)] customMinH769:h-[76px] font-semibold text-xl customMinH769:text-2xl rounded-full`, props.className)}
+            type={'submit'}
         >
             {pending && <ChevronCircleTopLinearIcon className={'animate-spin'}/>}
             {label}

@@ -1,4 +1,6 @@
 :root {
     --header-height: 58px;
 
+    --main-submit-button-height: 60px;
+    --google-sign-in-height: var(--main-submit-button-height);
 }

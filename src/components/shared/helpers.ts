@@ -5,9 +5,41 @@ const getDefaultAvatarSize = (isLaptopOrDesktop: boolean): SizeType => {
     return isLaptopOrDesktop ? 'large' : 'medium'
 }
 
-const isLaptopOrDesktopMediaQuery = { minWidth: 1024 }
+type EndPoint = {
+    value: boolean
+    size: SizeType
+}
+
+/**
+ * Your endpoints arr should be sorted from Z to A by endpoint value 
+ * @param endpoints - arr of screen endpoints
+ * @param minSize - the smallest size you use 
+ * @returns - avatar size 
+ */
+const getAvatarSize = (endpoints: EndPoint[], minSize: SizeType): SizeType => {
+    let avatarSize: SizeType = minSize
+
+    for (const endpoint of endpoints) {
+        if (endpoint.value) {
+            avatarSize = endpoint.size
+            break
+        }
+    }
+
+    return avatarSize
+}
+
+const isLaptopOrDesktopMediaQuery = { minWidth: 1024 } /* iPad Mini (1024x768) */
+
+const isMinHeight669MediaQuery = { minHeight: 669 } /* iPhone 12 Pro lvh height - 669px */
+const isMinHeight768MediaQuery = { minHeight: 768 } /* iPad Mini (1024x768) */
+const isMinHeight1024MediaQuery = { minHeight: 1024 } /* iPad Pro (1024x1366) */
 
 export {
     getDefaultAvatarSize,
-    isLaptopOrDesktopMediaQuery
+    getAvatarSize,
+    isLaptopOrDesktopMediaQuery,
+    isMinHeight669MediaQuery,
+    isMinHeight768MediaQuery,
+    isMinHeight1024MediaQuery
 }

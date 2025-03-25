@@ -1,5 +1,5 @@
 'use server'
-import UserLoginForm from '../../components/entities/Auth/UserLoginForm'
+import UserLoginForm from '../../../components/entities/Auth/UserLoginForm'
 import React from 'react'
 import fetchService from "@/configs/http-service/fetch-settings";
 import {cookies} from "next/headers";

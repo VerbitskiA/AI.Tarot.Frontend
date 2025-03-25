@@ -8,8 +8,9 @@ import ImageBlock from "@/components/entities/Auth/ImageBlock";
 import fetchService from "@/configs/http-service/fetch-settings";
 import {useRouter} from "next/navigation";
 import {useConfiguration} from "@/components/providers/ConfigurationProvider";
-import { getDefaultAvatarSize, isLaptopOrDesktopMediaQuery } from '@/components/shared/helpers';
+import { getAvatarSize, isMinHeight768MediaQuery, isMinHeight1024MediaQuery, isMinHeight669MediaQuery } from '@/components/shared/helpers';
 import { useMediaQuery } from 'react-responsive';
+import GoogleBtn from '../GoogleBtn';
 
 type Props = {
     handleAuth: ((fd: FormData) => Promise<any>)
@@ -19,7 +20,10 @@ type Props = {
 const UserLoginForm: FC<Props> = ({handleAuth}) => {
     const router = useRouter();
     const { fetchConfiguration } = useConfiguration();
-    const isNotMobile = useMediaQuery(isLaptopOrDesktopMediaQuery)
+    
+    const isMinHeight669 = useMediaQuery(isMinHeight669MediaQuery)
+    const isMinHeight768 = useMediaQuery(isMinHeight768MediaQuery)
+    const isMinHeight1024 = useMediaQuery(isMinHeight1024MediaQuery)
 
     const handleLogin = async (fd: FormData) => {
         // 'use server'
@@ -67,25 +71,38 @@ const UserLoginForm: FC<Props> = ({handleAuth}) => {
     return (
         <>
             <div className={'grid place-items-start h-full'}>
-                <FormWrapper action={handleLogin}
-                             infoUnderButton={
-                                 <div className={'flex gap-1 text-center w-full items-center'}>
-                                     <p className={'text-sm w-full text-[#BEBEBE] text-center'}>
-                                         {'Don’t have an account? '}
-                                         <Link href={'/auth/register'}
-                                               className={'text-sm font-extrabold text-center text-[#27ACC9] hover:underline'}>
-                                             Sign up
-                                         </Link>
-                                     </p>
-                                 </div>
-                             }
-                             actionLabel={'Log in'}>
-                    <input hidden value={'login'} name={'auth'}/>
-                    <div className={'flex flex-col w-full gap-3 h-full '}>
-                        <ImageBlock imageSrc={'/authImage.jpg'} avatarSize={getDefaultAvatarSize(isNotMobile)}>
-                            <h1 className={'w-full text-center text-2xl sm:text-3xl font-bold'}>
-                                Nice to meet you 👋
-                            </h1>
+                <FormWrapper
+                    action={handleLogin}
+                    infoUnderButton={
+                        <div className={'flex gap-1 text-center w-full items-center'}>
+                            <p className={'text-sm w-full text-[#BEBEBE] text-center'}>
+                                {'Don’t have an account? '}
+                                <Link href={'/auth/register'}
+                                    className={'text-sm font-extrabold text-center text-[#27ACC9] hover:underline'}>
+                                    Sign up
+                                </Link>
+                            </p>
+                        </div>
+                    }
+                    isAbsoluteHeader={true}
+                    googleLoginButton={<GoogleBtn/>}
+                    actionLabel={'Log in'}>
+                        {/* TODO: check value -> defaultValue={'login'} */}
+                    <input hidden defaultValue={'login'} name={'auth'}/>
+                    <div className={'flex flex-col justify-end customMinH769:justify-center w-full gap-3 h-full '}>
+                        <ImageBlock
+                            imageSrc={'/authImage.jpg'}
+                            avatarSize={getAvatarSize(
+                                [
+                                    {value: isMinHeight1024, size: "large"},
+                                    {value: isMinHeight768, size: "medium"},
+                                    {value: isMinHeight669, size: "small"},
+                                ],
+                                "ultraSmall"
+                            )}>
+                                <h1 className={'w-full text-center text-2xl sm:text-3xl font-bold'}>
+                                    Nice to meet you 👋
+                                </h1>
                         </ImageBlock>
                         <div className={'flex flex-col gap-2'}>
                             <TextField

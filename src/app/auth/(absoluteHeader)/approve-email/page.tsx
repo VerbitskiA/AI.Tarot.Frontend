@@ -1,7 +1,7 @@
 import React, {FC, Suspense} from 'react'
 import {redirect} from "next/navigation";
 import {approveEmail, confirmReset} from "@/lib/serverActions/auth";
-import VerifyEmailCodeForm from "../../../components/entities/Auth/VerifyEmailCodeForm";
+import VerifyEmailCodeForm from "../../../../components/entities/Auth/VerifyEmailCodeForm";
 
 
 type Props = {

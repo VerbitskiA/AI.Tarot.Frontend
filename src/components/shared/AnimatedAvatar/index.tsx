@@ -6,7 +6,7 @@ import Blob from "./blob"
 
 import "./style.css"
 
-export type SizeType = "small" | "medium" | "large"
+export type SizeType = "small" | "medium" | "large" | "ultraSmall"
 
 type AnimatedAvatarProps = {
     imageSrc: string,
@@ -14,6 +14,11 @@ type AnimatedAvatarProps = {
 }
 
 const blockSizes = {
+    "ultraSmall": {
+        value: 130,
+        margin: 10,
+        border: 4,
+    },
     "small": {
         value: 170,
         margin: 15,

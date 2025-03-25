@@ -9,6 +9,12 @@ const config: Config = {
         './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}',
     ],
     theme: {
+        screens: {
+            customMinH769: {'raw': '(min-height: 768px)'},      /* iPad mini - 768x1024 >=768 */
+            customMinH1024: {'raw': '(min-height: 1024px)'},    /* iPad Pro - 1024x1366 >=1024 */
+            customMaxH767: {'raw': '(max-height: 767px)'},      /* iPad mini - 768x1024 <768 */
+            customMaxH1023: {'raw': '(max-height: 1023px)'},    /* iPad Pro - 1024x1366 <1024 */
+        },
         extend: {
             boxShadow: {
                 'spread-card': '0px 2px 14px 0px rgba(34, 135, 157, 0.65)',
