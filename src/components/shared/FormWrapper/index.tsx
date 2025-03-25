@@ -89,7 +89,7 @@ const FormWrapper: FC<CustomFormProps> = ({
     return (
         <form
             action={handleSubmit}
-            className={`flex h-full ${isAbsoluteHeader ? "" : "min-h-[calc(100dvh-var(--header-height))]"} w-full flex-col justify-center gap-2 overflow-y-auto`}
+            className={`flex h-full ${isAbsoluteHeader ? "" : "min-h-[calc(100dvh-var(--header-height))]"} w-full flex-col justify-center gap-2`}
             // TODO: check stopPropagation
             onClick={(e) => e.stopPropagation()}
             ref={formRef}

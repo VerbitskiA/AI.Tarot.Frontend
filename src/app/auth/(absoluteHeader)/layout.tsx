@@ -12,12 +12,12 @@ const AuthLayoutWithAbsoluteHeader  = async ({
     return (
         <div
             className={
-                "layoutWithAbsoluteHeader h-[100dvh] w-full bg-gradient-with-image bg-cover bg-center"
+                "layoutWithAbsoluteHeader h-[100dvh] w-full bg-gradient-with-image bg-cover bg-center overflow-y-auto"
             }
         >
             <AppNavBar />
             <div
-                className={`flex h-full w-full items-center justify-center overflow-y-hidden`}
+                className={`flex h-full w-full items-center justify-center`}
             >
                 <main
                     className={"h-full w-full max-w-[520px] px-2"}
