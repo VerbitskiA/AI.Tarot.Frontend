@@ -2,7 +2,7 @@
 import React, {FC, useMemo, useState} from 'react'
 import PasswordField from "@/components/shared/Inputs/PasswordField";
 import FormWrapper from "@/components/shared/FormWrapper";
-import {Image} from "@nextui-org/image";
+// import {Image} from "@nextui-org/image";
 import {ActionResponse} from "@/configs/http-service/fetch-settings/types";
 import ImageBlock from '../ImageBlock';
 import { getAvatarSize, isMinHeight1024MediaQuery, isMinHeight768MediaQuery } from '@/components/shared/helpers';
