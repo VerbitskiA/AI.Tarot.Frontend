@@ -1,4 +1,4 @@
-const AUTH_ACCESS_TOKEN = 'ai-tarot-id';
+const AUTH_ACCESS_TOKEN = 'ai-tarot-id'
 
 export const TOKENS_KEYS = {
     // TODO: delete "access"
@@ -6,4 +6,4 @@ export const TOKENS_KEYS = {
 
     ACCESS_TOKEN: "accessToken",
     REFRESH_TOKEN: "refreshToken",
-}
+} as const
