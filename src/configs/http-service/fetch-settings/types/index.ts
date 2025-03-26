@@ -7,19 +7,19 @@ export type FetchOptionsT = {
     source?: 'server' | 'client'
 } & Omit<RequestInit, 'method'>
 
-type SuccessFetchResponse<ReturnType = unknown> = {
+export type SuccessFetchResponse<ReturnType = unknown> = {
     status: number,
     headers: Headers,
     ok: true,
     data: ReturnType
 }
-type ErrorFetchResponse = {
+export type ErrorFetchResponse = {
     status: number,
     headers: Headers,
     ok: false,
     data: {detail: string}
 }
-type FetchResponseT<ReturnType = any> = SuccessFetchResponse<ReturnType> | ErrorFetchResponse
+type FetchResponseT<ReturnType = unknown> = SuccessFetchResponse<ReturnType> | ErrorFetchResponse
 
 type SuccessActionResponse = {
     status: 'ok',
@@ -39,7 +39,7 @@ export type PaginatedFetchResponse<Data> = {
 }
 
 export type FetchServiceT= {
-    [key in FetchMethodT]: <ReturnType = any>(
+    [key in FetchMethodT]: <ReturnType = unknown>(
         url: string,
         options?: FetchOptionsT,
     ) => Promise<FetchResponseT<ReturnType>>
