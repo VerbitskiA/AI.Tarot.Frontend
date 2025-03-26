@@ -112,24 +112,24 @@ const retrieveFetchResponse = async (url: string, method: string, options?: Fetc
 const fetchService: FetchServiceT = {
     get: async (url, options) => {
         const response = await retrieveFetchResponse(url, 'GET', options)
-        return await resolveFetchResponse(response)
+        return resolveFetchResponse(response)
     },
     post: async (url, options) => {
         // console.log(url)
         const response = await retrieveFetchResponse(url, 'POST', options)
-        return await resolveFetchResponse(response)
+        return resolveFetchResponse(response)
     },
     patch: async (url, options) => {
         const response = await retrieveFetchResponse(url, 'PATCH', options)
-        return await resolveFetchResponse(response)
+        return resolveFetchResponse(response)
     },
     put: async (url, options) => {
         const response = await retrieveFetchResponse(url, 'PUT', options)
-        return await resolveFetchResponse(response)
+        return resolveFetchResponse(response)
     },
     delete: async (url, options) => {
         const response = await retrieveFetchResponse(url, 'DELETE', options)
-        return await resolveFetchResponse(response)
+        return resolveFetchResponse(response)
     },
 }
 
