@@ -1,33 +1,15 @@
 import BASE_URL from '@/configs/http-service/constants/baseUrl'
-import {TOKENS_KEYS} from '@/configs/http-service/constants/authTokens'
-import {FetchOptionsT, FetchServiceT} from '@/configs/http-service/fetch-settings/types'
-import {getCookie} from "cookies-next";
+import {FetchOptionsT, FetchServiceT, FetchMethodT} from '@/configs/http-service/fetch-settings/types'
+import { ErrorFetchResponse } from '@/configs/http-service/fetch-settings/types';
 
 const defaultHeaders: { [key: string]: string } = {
     'Content-Type': 'application/json',
     'Accept': '/*/',
 }
 
-
-const getAuthToken: (source: 'client' | 'server') => Promise<string | null> = async (source = 'server') => {
-    switch (source) {
-        case 'client':
-            const {getCookie} = await import('cookies-next')
-            return getCookie(TOKENS_KEYS.access)
-                ?? getCookie(TOKENS_KEYS.access)
-                ?? null
-        case 'server':
-            const {cookies} = await import('next/headers')
-            return cookies().get(TOKENS_KEYS.access)?.value
-                ?? cookies().get(TOKENS_KEYS.access)?.value
-                ?? null
-    }
-}
-
-
-const returnErrorFetchData = async (response: Response) => {
-    // console.log(response)
-    switch (response.status) {
+const returnErrorFetchData = async (response: Response): Promise<ErrorFetchResponse> => {
+    // // TODO: response can be undefined, bz fetch is not in the try catch block
+    switch (response?.status) {
         case 500:
             return {
                 ok: false,
@@ -55,21 +37,31 @@ const returnErrorFetchData = async (response: Response) => {
                     detail: 'Доступ запрещен (403), обратитесь к администратору',
                 },
             }
-        default:
-            const data = await response.json()
-            console.log('DEFAULT FETCH ERROR REDIRECT',data)
+        case 401:
             return {
                 ok: false,
                 headers: response.headers,
                 status: response.status,
                 data: {
-                    detail: data.detail ?? `Произошла ошибка при обработке запроса ${response.status}, обратитесь в поддержку`,
+                    detail: `Доступ запрещен (${response.status}), пользователь не авторизован`,
+                },
+            }
+        default:
+            // // TODO: response can be undefined, bz fetch is not in the try catch block
+            const data = await response?.json()
+            console.log('DEFAULT FETCH ERROR REDIRECT',data)
+            return {
+                ok: false,
+                headers: response?.headers,
+                status: response?.status,
+                data: {
+                    detail: data?.detail ?? `Произошла ошибка при обработке запроса ${response?.status}, обратитесь в поддержку`,
                 },
             }
     }
 }
 const returnFetchData = async (response: Response) => {
-    const data = await response?.json()
+    const data = await response.json()
 
     return {
         status: response.status,
@@ -80,57 +72,80 @@ const returnFetchData = async (response: Response) => {
 }
 
 const resolveFetchResponse = async (response: Response) => {
-    if (response.ok) {
+    // TODO: response can be undefined, bz fetch is not in the try catch block
+    if (response?.ok) {
         return await returnFetchData(response)
     } else {
         return await returnErrorFetchData(response)
     }
 }
 
-const retrieveFetchResponse = async (url: string, method: string, options?: FetchOptionsT): Promise<Response> => {
+// TODO: get Auth header type from fetch
+type AuthHeader = {Authorization: string}
 
-    const params = new URLSearchParams(options?.params as unknown as string).toString()
-        ?? ''
+const generateAuthHeader = (token: string): AuthHeader => {
+    return {Authorization: `Bearer ${token}`}
+}
 
-    const token = await getAuthToken(options?.source ?? 'server')
+const retrieveFetchResponse = async (url: string, method: FetchMethodT, options?: FetchOptionsT): Promise<Response> => {
+    const params = new URLSearchParams(options?.params as unknown as string).toString() ?? ''
 
-    const head = {
-        ...({'Cookie': `ai-tarot-id=${token}`}),
-        ...(options?.headers ? {...options?.headers} : {...defaultHeaders}),
+    let accessToken, refreshToken
+
+    if (options?.tokens) {
+        const {accessToken: acess, refreshToken: refresh} = options.tokens
+
+        accessToken = acess
+        refreshToken = refresh
     }
+
+    const getHeaders = (token?: string) => {
+        return {
+            ...(options?.headers ? {...options?.headers} : {...defaultHeaders}),
+            ...(token ? generateAuthHeader(token) : null)
+        }
+    }
+
+    // const refreshMyToken = async (refreshToken: string) => {
+    //     const res = await fetch(`${BASE_URL}/api/auth/refresh-token`, {
+    //         method: "POST",
+    //         ...options,
+    //         headers: getHeaders(refreshToken),
+    //     })
+
+    //     return res
+    // }
 
     const response = await fetch(`${BASE_URL}${url}${params ? '?' + params : ''}`, {
         method,
         ...options,
-        headers: head,
-        credentials: 'include',
+        headers: getHeaders(accessToken),
     })
 
-    return response;
+    // if (response.status === 401 && refreshToken) {
+    //     console.log("refresh token")
+
+    //     // repeat request
+    //     response = await refreshMyToken(refreshToken)
+    // }
+
+    return response
+}
+
+const fetchFunction = (method: FetchMethodT) => {
+    return async <T>(url: string, options: FetchOptionsT | undefined) => {
+        const response = await retrieveFetchResponse(url, method, options)
+    
+        return <T>resolveFetchResponse(response)
+    }
 }
 
 const fetchService: FetchServiceT = {
-    get: async (url, options) => {
-        const response = await retrieveFetchResponse(url, 'GET', options)
-        return resolveFetchResponse(response)
-    },
-    post: async (url, options) => {
-        // console.log(url)
-        const response = await retrieveFetchResponse(url, 'POST', options)
-        return resolveFetchResponse(response)
-    },
-    patch: async (url, options) => {
-        const response = await retrieveFetchResponse(url, 'PATCH', options)
-        return resolveFetchResponse(response)
-    },
-    put: async (url, options) => {
-        const response = await retrieveFetchResponse(url, 'PUT', options)
-        return resolveFetchResponse(response)
-    },
-    delete: async (url, options) => {
-        const response = await retrieveFetchResponse(url, 'DELETE', options)
-        return resolveFetchResponse(response)
-    },
+    get: fetchFunction("get"),
+    post: fetchFunction("post"),
+    patch: fetchFunction("patch"),
+    put: fetchFunction("put"),
+    delete: fetchFunction("delete"),
 }
 
 export default fetchService
