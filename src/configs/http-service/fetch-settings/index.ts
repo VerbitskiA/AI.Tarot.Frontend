@@ -8,8 +8,7 @@ const defaultHeaders: { [key: string]: string } = {
 }
 
 const returnErrorFetchData = async (response: Response): Promise<ErrorFetchResponse> => {
-    // // TODO: response can be undefined, bz fetch is not in the try catch block
-    switch (response?.status) {
+    switch (response.status) {
         case 500:
             return {
                 ok: false,
@@ -47,9 +46,8 @@ const returnErrorFetchData = async (response: Response): Promise<ErrorFetchRespo
                 },
             }
         default:
-            // // TODO: response can be undefined, bz fetch is not in the try catch block
-            const data = await response?.json()
-            console.log('DEFAULT FETCH ERROR REDIRECT',data)
+            const data = await response.json()
+            console.error('DEFAULT FETCH ERROR REDIRECT',data)
             return {
                 ok: false,
                 headers: response?.headers,
@@ -60,8 +58,20 @@ const returnErrorFetchData = async (response: Response): Promise<ErrorFetchRespo
             }
     }
 }
+
 const returnFetchData = async (response: Response) => {
-    const data = await response.json()
+    let data
+    try {
+        data = await response.json()
+    } catch (error) {
+        return {
+            status: response.status,
+            headers: response.headers,
+            ok: true,
+            // "no data" in case with res.ok and "no data expected"
+            data: null,
+        }
+    }
 
     return {
         status: response.status,
@@ -72,8 +82,7 @@ const returnFetchData = async (response: Response) => {
 }
 
 const resolveFetchResponse = async (response: Response) => {
-    // TODO: response can be undefined, bz fetch is not in the try catch block
-    if (response?.ok) {
+    if (response.ok) {
         return await returnFetchData(response)
     } else {
         return await returnErrorFetchData(response)
