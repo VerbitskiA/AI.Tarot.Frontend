@@ -21,9 +21,9 @@ const LogoutButton = () => {
         if (tokens) {
             const res = await logoutUser(tokens)
 
-            if (res?.ok) {
+            if (res.ok) {
                 await fetchConfiguration()
-            }   
+            }
         }
 
         await signOut()

@@ -50,8 +50,6 @@ export const ConfigurationProvider: React.FC<{ children: React.ReactNode }> = ({
         if (tokens) {
             const { accessToken, refreshToken } = tokens
 
-            console.log("fetchConfiguration tokens", tokens)
-
             const res = await fetchService.get<ConfigurationType>(
                 "/api/configuration",
                 {
@@ -85,7 +83,6 @@ export const ConfigurationProvider: React.FC<{ children: React.ReactNode }> = ({
 
     useEffect(() => {
         if (status === "authenticated" || status === "unauthenticated") {
-            console.log("status: ", status)
             fetchConfiguration()
         }
     }, [status])

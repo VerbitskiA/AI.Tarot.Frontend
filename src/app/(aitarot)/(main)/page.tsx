@@ -22,8 +22,6 @@ const Page: FC<Props> = async ({ searchParams }) => {
         tokens = session.user.tokens
     }
 
-    console.log("tokens main page", tokens)
-
     if (!tokens) {
         redirect("/auth/onboard")
     }
