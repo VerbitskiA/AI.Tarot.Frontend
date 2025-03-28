@@ -133,7 +133,7 @@ const retrieveFetchResponse = async (url: string, method: FetchMethodT, options?
 }
 
 const fetchFunction = (method: FetchMethodT) => {
-    return async <T>(url: string, options: FetchOptionsT | undefined) => {
+    return async <T>(url: string, options?: FetchOptionsT) => {
         const response = await retrieveFetchResponse(url, method, options)
     
         return <T>resolveFetchResponse(response)
