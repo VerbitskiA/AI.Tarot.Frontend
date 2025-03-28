@@ -1,15 +1,14 @@
-import NextAuth from 'next-auth'
-import GoogleProvider from 'next-auth/providers/google'
-import { NextAuthOptions } from 'next-auth'
-import CredentialsProvider from 'next-auth/providers/credentials'
-import fetchService from '@/configs/http-service/fetch-settings'
-import { LoginData } from '@/lib/types/responsesData'
+import NextAuth from "next-auth"
+import GoogleProvider from "next-auth/providers/google"
+import { NextAuthOptions } from "next-auth"
+import CredentialsProvider from "next-auth/providers/credentials"
+import { loginIntoAccount } from "@/lib/serverActions/auth"
 
 export const authOptions: NextAuthOptions = {
     providers: [
         GoogleProvider({
             clientId: process.env.GOOGLE_ID ?? "",
-            clientSecret: process.env.GOOGLE_SECRET ?? "",
+            clientSecret: process.env.GOOGLE_SECRET ?? ""
         }),
         CredentialsProvider({
             name: "credentials",
@@ -18,56 +17,78 @@ export const authOptions: NextAuthOptions = {
                 password: {}
             },
             async authorize(credentials) {
-                const res = await fetchService.post<LoginData>('/api/auth/login', {
-                    body: JSON.stringify({
-                        email: credentials?.username,
-                        password: credentials?.password,
-                    }),
-                })
+                if (credentials) {
+                    const { username, password } = credentials
 
-                if (res.ok) {
-                    const {userInfo, tokens} = res.data
+                    try {
+                        const res = await loginIntoAccount(username, password)
 
-                    const user = {
-                        id: userInfo.userId,
-                        userInfo,
-                        tokens,
+                        if (res.ok) {
+                            const { userInfo, tokens } = res.data
+
+                            const user = {
+                                id: userInfo.userId,
+                                userInfo,
+                                tokens
+                            }
+
+                            return user
+                        } else {
+                            throw new Error("Authorize failed")
+                        }
+                        
+                    } catch (error: unknown) {
+                        if (error instanceof Error) {
+                            throw error
+                        }
+                
+                        throw new Error("Something went wrong with authorize")
                     }
-
-                    return user
                 }
-                // TODO: handle statuses
-                else throw new Error("Login failed")
+
+                throw new Error("Empty credentials")
             }
         })
     ],
-    // callbacks: {
-    //     async jwt({token, user}) {
-    //         if (user) {
-    //             token.user = user
-    //         }
-            
-    //         return Promise.resolve(token)
-    //     },
-    //     async session({ session, token }) {
-    //         session.user = token.user
+    callbacks: {
+        async jwt({ token, user, account }) {
+            console.log({
+                token,
+                user,
+                account
+            })
+            if (user) {
+                token.user = user
+            }
 
-    //         return session
-    //     },
-    // },
+            if (account) {
+                token.provider = account.provider
+            }
+
+            return Promise.resolve(token)
+        },
+        async session({ session, token }) {
+            if (token?.user) {
+                session.user = token.user
+            }
+
+            return session
+        },
+        // async signIn() {
+
+        // }
+    },
     session: {
-        strategy: 'jwt',
+        strategy: "jwt"
     },
     secret: process.env.NEXTAUTH_SECRET,
     // TODO: check
     pages: {
-        signIn: "/auth"
-    },
+        // signIn: "/auth/onboard",
+        signOut: "/auth"
+    }
 }
 
 const handler = NextAuth(authOptions)
 
-export { 
-    handler as GET,
-    handler as POST
-}
+export { handler as GET, handler as POST }

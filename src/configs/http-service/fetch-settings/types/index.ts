@@ -1,17 +1,16 @@
-type FetchMethodT = "get" | "post" | "put" | "patch" | "delete"
+import { TokensData } from "@/lib/types/responsesData"
+
+export type FetchMethodT = "get" | "post" | "put" | "patch" | "delete"
 export type FetchQueryParamsT = {
     [key: string]: string | number
 }
 export type FetchOptionsT = {
     params?: FetchQueryParamsT
     source?: "server" | "client"
-    tokens?: {
-        accessToken: string
-        refreshToken: string
-    }
+    tokens?: TokensData
 } & Omit<RequestInit, "method">
 
-export type SuccessFetchResponse<ReturnType = unknown> = {
+export type SuccessFetchResponse<ReturnType> = {
     status: number
     headers: Headers
     ok: true
@@ -23,7 +22,7 @@ export type ErrorFetchResponse = {
     ok: false
     data: { detail: string }
 }
-type FetchResponseT<ReturnType = unknown> =
+type FetchResponseT<ReturnType> =
     | SuccessFetchResponse<ReturnType>
     | ErrorFetchResponse
 
@@ -45,7 +44,7 @@ export type PaginatedFetchResponse<Data> = {
 }
 
 export type FetchServiceT = {
-    [key in FetchMethodT]: <ReturnType = unknown>(
+    [key in FetchMethodT]: <ReturnType = null>(
         url: string,
         options?: FetchOptionsT
     ) => Promise<FetchResponseT<ReturnType>>

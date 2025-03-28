@@ -1,10 +1,11 @@
-import React, {FC} from 'react'
-import MainPageForm from "@/components/entities/Main/MainPageForm";
-import {redirect} from "next/navigation";
-import {Spread} from "@/lib/types/spread.types";
-import fetchService from "@/configs/http-service/fetch-settings";
-import {askOnboardQuestion} from "@/lib/serverActions/chat";
-import {getConfiguration} from "@/lib/serverActions/auth";
+import React, { FC } from "react"
+import MainPageForm from "@/components/entities/Main/MainPageForm"
+import { redirect } from "next/navigation"
+import { Spread } from "@/lib/types/spread.types"
+import fetchService from "@/configs/http-service/fetch-settings"
+import { askOnboardQuestion } from "@/lib/serverActions/chat"
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 
 type Props = {
     searchParams: {
@@ -13,34 +14,55 @@ type Props = {
     }
 }
 
-const Page: FC<Props> = async({searchParams}) => {
+const Page: FC<Props> = async ({ searchParams }) => {
+    let tokens
+    const session = await getServerSession(authOptions)
 
-    const config = await getConfiguration()
-    if (!config.currentUser.isAuthenticated) {
-        redirect('/auth/onboard')
+    if (session && session.user.tokens) {
+        tokens = session.user.tokens
     }
 
-    const {ok, data} = await
-        fetchService.get<Spread[]>('/api/spread/all', {
+    console.log("tokens main page", tokens)
+
+    if (!tokens) {
+        redirect("/auth/onboard")
+    }
+
+    let spreadsData: Spread[] = []
+
+    try {
+        const { ok, data } = await fetchService.get<Spread[]>("/api/spread/all", {
             next: {
-                tags: ['spreads']
-            }
+                tags: ["spreads"]
+            },
+            tokens
         })
-    if (!ok) {
-        redirect('/auth/onboard')
+
+        if (!ok) {
+            redirect("/auth/onboard")
+        }
+        else {
+            spreadsData = data
+        }
+    } catch (error) {
+        console.error(error)
     }
 
     const handleAskQuestion = async (fd: FormData) => {
-        'use server'
+        "use server"
         const res = await askOnboardQuestion(fd)
-        if (res.status === 'ok') {
-            redirect(`/auth/register?onboardQuestion=${fd.get('question')}`)
+        if (res.status === "ok") {
+            redirect(`/auth/register?onboardQuestion=${fd.get("question")}`)
         }
         return res
     }
     return (
         <>
-            <MainPageForm olderSpreads={data} searchParams={searchParams} handleAskQuestion={handleAskQuestion}/>
+            <MainPageForm
+                olderSpreads={spreadsData}
+                searchParams={searchParams}
+                handleAskQuestion={handleAskQuestion}
+            />
         </>
     )
 }

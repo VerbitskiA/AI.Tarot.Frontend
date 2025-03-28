@@ -125,11 +125,31 @@ const retrieveFetchResponse = async (url: string, method: FetchMethodT, options?
     //     return res
     // }
 
-    const response = await fetch(`${BASE_URL}${url}${params ? '?' + params : ''}`, {
-        method,
-        ...options,
-        headers: getHeaders(accessToken),
-    })
+    try {
+        const response = await fetch(`${BASE_URL}${url}${params ? '?' + params : ''}`, {
+            method,
+            ...options,
+            headers: getHeaders(accessToken),
+        })
+
+        return response
+    } catch (error) {
+        if (error instanceof Error) {
+            console.error(error.message)
+            throw error
+        }
+        
+        const errorMessage = `Fetch error, url: ${url}`
+
+        console.error(errorMessage)
+        throw new Error(errorMessage)
+    }
+
+    // const response = await fetch(`${BASE_URL}${url}${params ? '?' + params : ''}`, {
+    //     method,
+    //     ...options,
+    //     headers: getHeaders(accessToken),
+    // })
 
     // if (response.status === 401 && refreshToken) {
     //     console.log("refresh token")
@@ -138,7 +158,7 @@ const retrieveFetchResponse = async (url: string, method: FetchMethodT, options?
     //     response = await refreshMyToken(refreshToken)
     // }
 
-    return response
+    // return response
 }
 
 const fetchFunction = (method: FetchMethodT) => {

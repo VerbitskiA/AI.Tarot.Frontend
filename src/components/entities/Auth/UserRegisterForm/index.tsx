@@ -65,18 +65,35 @@ const UserProfileForm: FC<Props> = ({handleCheckEmail, onboardQuestion}) => {
 	}, [value])
 
 	const handleRegister = async (fd: FormData) => {
-		console.log(fd.get('email'));
-		console.log(fd.get('password'));
-		const res = await registerAccount(fd);
-		await fetchConfiguration();
-		if (res.status === 'ok') {
-			onboardQuestion ?
-				router.push(`/auth/approve-email?onboardQuestion=${onboardQuestion}&email=${emailValue}`)
-				:
-				router.push(`/auth/approve-email?email=${emailValue}`)
+		const username = fd.get('username')
+		const email = fd.get('email')
+		const password = fd.get('password')
+		const dateOfBirth = fd.get('dateOfBirth')
+		const gender = fd.get('gender')
 
+		if (
+			username && email && password && dateOfBirth && gender
+			&& typeof username === "string"
+			&& typeof email === "string"
+			&& typeof password === "string"
+			&& typeof dateOfBirth === "string"
+			&& typeof gender === "string"
+		) {
+			const res = await registerAccount(username, email, password, dateOfBirth, gender)
+
+			await fetchConfiguration()
+			if (res.ok) {
+				// const {accessToken, refreshToken} = res.data.tokens
+
+				// localStorage.setItem("access", accessToken)
+				// localStorage.setItem("refreshToken", refreshToken)
+
+				onboardQuestion ?
+					router.push(`/auth/approve-email?onboardQuestion=${onboardQuestion}&email=${emailValue}`)
+					:
+					router.push(`/auth/approve-email?email=${emailValue}`)
+			}
 		}
-		return res
 	}
 
 	return (

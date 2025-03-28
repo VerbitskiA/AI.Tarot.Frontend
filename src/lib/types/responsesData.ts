@@ -12,6 +12,4 @@ export type LoginData = {
     }
 }
 
-export type RevokeData = {
-    refreshToken: string
-}
+export type GoogleLoginData = LoginData
