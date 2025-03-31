@@ -40,6 +40,8 @@ const FormWrapper: FC<CustomFormProps> = ({
     const handleSubmit = async (fd: FormData) => {
         const actionResponse = await action(fd)
         // console.log('FORM SUBMISSION RESULTS:', actionResponse)
+
+		// TODO: refactor. Action res === undefined only after redirect. It is a bad logic
         const { status } =
             actionResponse !== undefined ? actionResponse : { status: "ok" }
         switch (status) {
@@ -66,7 +68,7 @@ const FormWrapper: FC<CustomFormProps> = ({
             formInnerMaxHeight = "max-h-[calc(100dvh-132px)] sm:max-h-[calc(100dvh-157px)]"
         }
     }
-        
+
     */
 
     /* formInnerMaxHeight - height of content (without buttonsBlock) */
@@ -74,7 +76,7 @@ const FormWrapper: FC<CustomFormProps> = ({
     const formInnerMaxHeight = ""
 
     const buttonsBlock = (
-        <div className="mb-[12px] ifems-center flex w-full flex-shrink-0 flex-col justify-center gap-2">  
+        <div className="mb-[12px] ifems-center flex w-full flex-shrink-0 flex-col justify-center gap-2">
             <SubmitButton label={actionLabel} />
             {googleLoginButton && (
                 <div className="w-full flex flex-col gap-2 items-center">
