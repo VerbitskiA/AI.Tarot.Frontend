@@ -26,7 +26,7 @@ const LogoutButton = () => {
             }
         }
 
-        await signOut()
+        await signOut({redirect: false})
 
         router.push('/auth/onboard')
     }
