@@ -27,8 +27,6 @@ import { TokensData } from "@/lib/types/responsesData"
 
 /** Function returns "true" when email is exist
  *
- * Throws error if fetchService throws an error
- *
  * @param email
  * @returns
  */
