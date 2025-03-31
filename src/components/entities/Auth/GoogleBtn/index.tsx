@@ -35,9 +35,10 @@ function GoogleBtn() {
     }
 
     return (
-        <button 
+        <button
             className="googleAuthButton flex h-[var(--google-sign-in-height)] w-full items-center justify-center rounded-full bg-[var(--bg-color-google-sign-in)] p-[0_20px] text-xl font-semibold text-[var(--text-color-google-sign-in)] customMinH769:h-[76px] customMinH769:text-2xl"
             onClick={handleClick}
+			type="button"
         >
             <img
                 className="mr-[12px] h-[32px] w-[32px]"
