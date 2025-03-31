@@ -68,6 +68,7 @@ const returnFetchData = async (response: Response) => {
             status: response.status,
             headers: response.headers,
             ok: true,
+			// TODO: refactor
             // "no data" in case with res.ok and "no data expected"
             data: null,
         }
