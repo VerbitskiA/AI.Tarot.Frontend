@@ -1,5 +1,5 @@
 import BASE_URL from '@/configs/http-service/constants/baseUrl'
-import {FetchOptionsT, FetchServiceT, FetchMethodT} from '@/configs/http-service/fetch-settings/types'
+import {FetchOptionsT, FetchServiceT, FetchMethodT, FetchError} from '@/configs/http-service/fetch-settings/types'
 import { ErrorFetchResponse } from '@/configs/http-service/fetch-settings/types';
 
 const defaultHeaders: { [key: string]: string } = {
@@ -47,7 +47,7 @@ const returnErrorFetchData = async (response: Response): Promise<ErrorFetchRespo
             }
         default:
             const data = await response.json()
-            console.error('DEFAULT FETCH ERROR REDIRECT',data)
+            console.error('DEFAULT FETCH ERROR REDIRECT, data: ', data)
             return {
                 ok: false,
                 headers: response?.headers,
@@ -81,12 +81,18 @@ const returnFetchData = async (response: Response) => {
     }
 }
 
-const resolveFetchResponse = async (response: Response) => {
-    if (response.ok) {
+const resolveFetchResponse = async (response: Response | Error) => {
+	if (response instanceof Error) {
+		return {
+			ok: false,
+			error: response
+		} as FetchError
+	}
+	else if (response.ok) {
         return await returnFetchData(response)
-    } else {
-        return await returnErrorFetchData(response)
     }
+
+	return await returnErrorFetchData(response)
 }
 
 // TODO: get Auth header type from fetch
@@ -96,7 +102,7 @@ const generateAuthHeader = (token: string): AuthHeader => {
     return {Authorization: `Bearer ${token}`}
 }
 
-const retrieveFetchResponse = async (url: string, method: FetchMethodT, options?: FetchOptionsT): Promise<Response> => {
+const retrieveFetchResponse = async (url: string, method: FetchMethodT, options?: FetchOptionsT): Promise<Response | Error> => {
     const params = new URLSearchParams(options?.params as unknown as string).toString() ?? ''
 
     let accessToken, refreshToken
@@ -136,13 +142,13 @@ const retrieveFetchResponse = async (url: string, method: FetchMethodT, options?
     } catch (error) {
         if (error instanceof Error) {
             console.error(error.message)
-            throw error
+            return error
         }
-        
+
         const errorMessage = `Fetch error, url: ${url}`
 
         console.error(errorMessage)
-        throw new Error(errorMessage)
+        return new Error(errorMessage)
     }
 
     // const response = await fetch(`${BASE_URL}${url}${params ? '?' + params : ''}`, {
@@ -164,7 +170,7 @@ const retrieveFetchResponse = async (url: string, method: FetchMethodT, options?
 const fetchFunction = (method: FetchMethodT) => {
     return async <T>(url: string, options?: FetchOptionsT) => {
         const response = await retrieveFetchResponse(url, method, options)
-    
+
         return <T>resolveFetchResponse(response)
     }
 }

@@ -22,9 +22,16 @@ export type ErrorFetchResponse = {
     ok: false
     data: { detail: string }
 }
+
+export type FetchError = {
+	ok: false
+	error: Error
+}
+
 type FetchResponseT<ReturnType> =
     | SuccessFetchResponse<ReturnType>
     | ErrorFetchResponse
+	| FetchError
 
 export type SuccessActionResponse = {
     status: "ok"
