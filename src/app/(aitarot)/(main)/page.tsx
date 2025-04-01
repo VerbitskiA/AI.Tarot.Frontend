@@ -28,23 +28,20 @@ const Page: FC<Props> = async ({ searchParams }) => {
 
     let spreadsData: Spread[] = []
 
-    try {
-        const { ok, data } = await fetchService.get<Spread[]>("/api/spread/all", {
-            next: {
-                tags: ["spreads"]
-            },
-            tokens
-        })
 
-        if (!ok) {
-            redirect("/auth/onboard")
-        }
-        else {
-            spreadsData = data
-        }
-    } catch (error) {
-        console.error(error)
-    }
+	const res = await fetchService.get<Spread[]>("/api/spread/all", {
+		next: {
+			tags: ["spreads"]
+		},
+		tokens
+	})
+
+	if (!res.ok) {
+		redirect("/auth/onboard")
+	}
+	else {
+		spreadsData = res.data
+	}
 
     const handleAskQuestion = async (fd: FormData) => {
         "use server"
