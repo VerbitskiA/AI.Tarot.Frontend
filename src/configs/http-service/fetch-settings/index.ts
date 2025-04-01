@@ -7,7 +7,20 @@ const defaultHeaders: { [key: string]: string } = {
     'Accept': '/*/',
 }
 
+type ErrorData = {
+	statusCode: number
+	message: string
+}
+
 const returnErrorFetchData = async (response: Response): Promise<ErrorFetchResponse> => {
+	let data: ErrorData | undefined
+
+	try {
+		data = await response.json()
+	} catch (error) {
+		console.error("no error data")
+	}
+
     switch (response.status) {
         case 500:
             return {
@@ -15,7 +28,7 @@ const returnErrorFetchData = async (response: Response): Promise<ErrorFetchRespo
                 headers: response.headers,
                 status: response.status,
                 data: {
-                    detail: 'Внутренняя ошибка сервиса (500), обратитесь в поддержку',
+                    detail: data?.message ? data.message : `Внутренняя ошибка сервиса (${response.status}), обратитесь в поддержку`,
                 },
             }
         case 404:
@@ -24,7 +37,7 @@ const returnErrorFetchData = async (response: Response): Promise<ErrorFetchRespo
                 headers: response.headers,
                 status: response.status,
                 data: {
-                    detail: 'Объект не существует или не найден (404), обратитесь в поддержку',
+                    detail: data?.message ? data.message : `Объект не существует или не найден (${response.status}), обратитесь в поддержку`,
                 },
             }
         case 403:
@@ -33,7 +46,7 @@ const returnErrorFetchData = async (response: Response): Promise<ErrorFetchRespo
                 headers: response.headers,
                 status: response.status,
                 data: {
-                    detail: 'Доступ запрещен (403), обратитесь к администратору',
+                    detail: data?.message ? data.message : `Доступ запрещен (${response.status}), обратитесь к администратору`,
                 },
             }
         case 401:
@@ -42,18 +55,17 @@ const returnErrorFetchData = async (response: Response): Promise<ErrorFetchRespo
                 headers: response.headers,
                 status: response.status,
                 data: {
-                    detail: `Доступ запрещен (${response.status}), пользователь не авторизован`,
+                    detail: data?.message ? data.message : `Доступ запрещен (${response.status}), пользователь не авторизован`,
                 },
             }
         default:
-            const data = await response.json()
             console.error('DEFAULT FETCH ERROR REDIRECT, data: ', data)
             return {
                 ok: false,
-                headers: response?.headers,
-                status: response?.status,
+                headers: response.headers,
+                status: response.status,
                 data: {
-                    detail: data?.detail ?? `Произошла ошибка при обработке запроса ${response?.status}, обратитесь в поддержку`,
+                    detail: data?.message ?? `Произошла ошибка при обработке запроса ${response.status}, обратитесь в поддержку`,
                 },
             }
     }
