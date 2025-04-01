@@ -10,23 +10,23 @@ export const defaultFetchErrorMessage = (queryName: string) => {
     return `Something went wrong with ${queryName}`
 }
 
-/**
- * Function for generating of catch block error
- * 
- * @param error 
- * @param queryName 
- * @returns 
- */
-export const fetchError = (error: unknown, queryName: string) => {
-    if (error instanceof Error) {
-        return error
-    }
+// /**
+//  * Function for generating of catch block error
+//  *
+//  * @param error
+//  * @param queryName
+//  * @returns
+//  */
+// export const fetchError = (error: unknown, queryName: string) => {
+//     if (error instanceof Error) {
+//         return error
+//     }
 
-    const errorMessage = defaultFetchErrorMessage(queryName)
+//     const errorMessage = defaultFetchErrorMessage(queryName)
 
-    console.error(errorMessage)
-    return new Error(errorMessage)
-}
+//     console.error(errorMessage)
+//     return new Error(errorMessage)
+// }
 
 export const defaultFormServerActionError = (error: unknown, defaultErrorMessage: string): RejectActionResponse => {
     if (error instanceof Error) {
@@ -35,7 +35,7 @@ export const defaultFormServerActionError = (error: unknown, defaultErrorMessage
             message: error.message
         }
     }
-    
+
     return {
         status: "error",
         message: defaultErrorMessage

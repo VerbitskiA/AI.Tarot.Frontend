@@ -8,7 +8,7 @@ const fetchImages = async (
         images.map(async (image) => {
             const img = await fetchService.get(`${image}`, {
                 credentials: 'include',
-                source: 'client',
+                // source: 'client',
                 headers: {
                     'Content-Type': 'application/json'
                 }

@@ -17,7 +17,7 @@ const SubscriptionForm = () => {
                 description: 'Buy Subscription',
             }),
             credentials: 'include',
-            source: 'client',
+            // source: 'client',
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -26,7 +26,7 @@ const SubscriptionForm = () => {
             const sessionId = res.data.sessionId
             const sessionRes = await fetchService.get<StripeSessionType>(`/api/payments/session/${sessionId}`, {
                 credentials: 'include',
-                source: 'client',
+                // source: 'client',
                 headers: {
                     'Content-Type': 'application/json'
                 }

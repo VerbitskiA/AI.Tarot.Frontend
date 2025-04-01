@@ -6,7 +6,7 @@ export type FetchQueryParamsT = {
 }
 export type FetchOptionsT = {
     params?: FetchQueryParamsT
-    source?: "server" | "client"
+    // source?: "server" | "client"
     tokens?: TokensData
 } & Omit<RequestInit, "method">
 
@@ -16,22 +16,25 @@ export type SuccessFetchResponse<ReturnType> = {
     ok: true
     data: ReturnType
 }
+
+// TODO: ErrorFetchResponse data type
 export type ErrorFetchResponse = {
-    status: number
-    headers: Headers
+    status?: number
+    headers?: Headers
     ok: false
-    data: { detail: string }
+    data: { detail: string } | any | {error: Error}
 }
 
-export type FetchError = {
-	ok: false
-	error: Error
-}
+// export type FetchError = {
+// 	ok: false
+// 	error: Error
+// }
 
+// TODO: FetchError
 type FetchResponseT<ReturnType> =
     | SuccessFetchResponse<ReturnType>
     | ErrorFetchResponse
-	| FetchError
+	// | FetchError
 
 export type SuccessActionResponse = {
     status: "ok"

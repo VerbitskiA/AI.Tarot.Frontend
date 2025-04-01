@@ -78,9 +78,9 @@ export const authOptions: NextAuthOptions = {
 
             return session
         },
-        // async signIn({user, account}) {
-        //     return "OpaCHIRIK"
-        // }
+        async signIn({user, account}) {
+            return true
+        }
     },
     session: {
         strategy: "jwt"

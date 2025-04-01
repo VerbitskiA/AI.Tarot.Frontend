@@ -23,7 +23,7 @@ const fetchAnswer = async (
         // console.log('Fetching answer:', question); TODO
         const res = await fetchService.post<Spread>('/api/spread/create', {
             body: JSON.stringify({ question }),
-            source: 'client',
+            // source: 'client',
             headers: { 'Content-Type': 'application/json' },
         });
 

@@ -5,6 +5,7 @@ import OracleCards from "@/components/entities/Buy/OracleCards";
 import fetchService from "@/configs/http-service/fetch-settings";
 import {StripeSessionType} from "@/lib/types/stripe-session.types";
 import {useRouter} from "next/navigation";
+import { CreditsPackages } from "@/lib/types/payments";
 
 type Card = {
 	packageId: number;
@@ -21,29 +22,37 @@ const BuyOraclesForm = () => {
 
 	useEffect(() => {
 		const fetchData = async () => {
-			try {
-				const res = await fetchService.get("/api/payments/credits-packages", {
-					credentials: "include",
-					source: "client",
-					headers: {
-						"Content-Type": "application/json",
-						Accept: "*/*",
-					},
-				});
 
+			const res = await fetchService.get<CreditsPackages>("/api/payments/credits-packages", {
+				credentials: "include",
+				// source: "client",
+				headers: {
+					"Content-Type": "application/json",
+					Accept: "*/*",
+				},
+			});
+
+			if (res.ok) {
 				console.log("Полученные данные:", res.data); // Убедимся, что данные приходят
+
 				if (Array.isArray(res.data)) {
 					setCards(res.data);
 					// Выбираем карту с индексом 1, если она есть
+					// TODO important: check
+					// @ts-ignore
 					if (res.data[1]) {
+						// TODO important: check
+						// @ts-ignore
 						setSelectedCard(res.data[1]);
 					}// Устанавливаем данные в состояние
 				} else {
 					console.error("Ожидался массив, но получен другой тип данных");
 				}
-			} catch (error) {
-				console.error("Ошибка при загрузке данных:", error);
 			}
+			else {
+				console.error("Ошибка при загрузке данных: ", res.data);
+			}
+
 		};
 
 		fetchData();
@@ -67,7 +76,7 @@ const BuyOraclesForm = () => {
 				description: 'Buy Oracles'
 			}),
 			credentials: 'include',
-			source: 'client',
+			// source: 'client',
 			headers: {
 				'Content-Type': 'application/json'
 			}
@@ -76,7 +85,7 @@ const BuyOraclesForm = () => {
 			const sessionId = res.data.sessionId
 			const sessionRes = await fetchService.get<StripeSessionType>(`/api/payments/session/${sessionId}`, {
 				credentials: 'include',
-				source: 'client',
+				// source: 'client',
 				headers: {
 					'Content-Type': 'application/json'
 				}
