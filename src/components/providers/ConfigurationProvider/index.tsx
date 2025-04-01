@@ -4,7 +4,6 @@ import React, { createContext, useContext, useEffect, useState } from "react"
 import fetchService from "@/configs/http-service/fetch-settings"
 import { ConfigurationType } from "@/lib/types/config.types"
 import { useSession } from "next-auth/react"
-import { TOKENS_KEYS } from "@/configs/http-service/constants/authTokens"
 
 interface ConfigurationContextType {
     configuration: ConfigurationType | null
@@ -77,9 +76,9 @@ export const ConfigurationProvider: React.FC<{ children: React.ReactNode }> = ({
         }
     }
 
-    useEffect(() => {
-        fetchConfiguration() // Получаем конфигурацию при первом рендере
-    }, [])
+    // useEffect(() => {
+    //     fetchConfiguration() // Получаем конфигурацию при первом рендере
+    // }, [])
 
     useEffect(() => {
         if (status === "authenticated" || status === "unauthenticated") {

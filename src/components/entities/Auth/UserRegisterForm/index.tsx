@@ -33,7 +33,7 @@ const UserProfileForm: FC<Props> = ({handleCheckEmail, onboardQuestion}) => {
 	const searchParams = useSearchParams();
 	const addInfo = !!searchParams?.get('addInfo')
 	const question = searchParams?.get('onboardQuestion') ?? ''
-	
+
     const isMinHeight768 = useMediaQuery(isMinHeight768MediaQuery)
     const isMinHeight1024 = useMediaQuery(isMinHeight1024MediaQuery)
 
@@ -114,7 +114,11 @@ const UserProfileForm: FC<Props> = ({handleCheckEmail, onboardQuestion}) => {
                             </p>
                         </div>
                     }
-                    googleLoginButton={addInfo ? null : <GoogleBtn/>}
+                    googleLoginButton={
+						addInfo
+							? null
+							: <GoogleBtn redirectPath={onboardQuestion ? `/auth/onboard?onboardQuestion=${onboardQuestion}` : "/"}/>
+					}
                     isAbsoluteHeader={true}
                     setInvalid={addInfo ? setDateOfBirthExists : setEmailExists}
                     actionLabel={addInfo ? 'Complete & get tarot spread' : 'Create account'}
@@ -191,7 +195,7 @@ const UserProfileForm: FC<Props> = ({handleCheckEmail, onboardQuestion}) => {
 										<div className="flex gap-4">
 											<button type={'button'}
 															onClick={() => handleGenderChange("female")}
-															className={`flex items-center justify-center w-[150px] h-[60px] text-white font-normal 
+															className={`flex items-center justify-center w-[150px] h-[60px] text-white font-normal
                                                                 rounded-[48px] border-[1px] transition-all ${
 																selectedGender === "female"
 																	? "bg-[#27ACC9] border-[#27ACC9]"
@@ -206,7 +210,7 @@ const UserProfileForm: FC<Props> = ({handleCheckEmail, onboardQuestion}) => {
 
 											<button type={'button'}
 															onClick={() => handleGenderChange("male")}
-															className={`flex items-center justify-center w-[150px] h-[60px] text-white font-normal 
+															className={`flex items-center justify-center w-[150px] h-[60px] text-white font-normal
                                                                 rounded-[48px] border-[1px] transition-all ${
 																selectedGender === "male"
 																	? "bg-[#27ACC9] border-[#27ACC9]"

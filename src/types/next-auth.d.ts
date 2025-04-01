@@ -13,9 +13,9 @@ declare module "next-auth" {
         // name?: string | null
         // email?: string | null
         // image?: string | null
-        
-        tokens?: TokensData
-        userInfo?: {
+
+        tokens: TokensData
+        userInfo: {
             userId: string
             username: string
             balance: number
@@ -28,20 +28,19 @@ declare module "next-auth" {
 
 declare module "next-auth/jwt" {
     interface JWT {
-        user?: {
+        user: {
             // id is required on DefaultUser type, userId = id
             id: string
-            name?: string | null
-            email?: string | null
-            image?: string | null
-            
-            tokens?: TokensData
-            userInfo?: {
+            // name?: string | null
+            // email?: string | null
+            // image?: string | null
+
+            tokens: TokensData
+            userInfo: {
                 userId: string
                 username: string
                 balance: number
             }
-        },
-        provider?: Provider | string
+        }
     }
 }

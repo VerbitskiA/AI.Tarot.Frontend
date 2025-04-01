@@ -3,12 +3,13 @@ import GoogleProvider from "next-auth/providers/google"
 import { NextAuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { loginIntoAccount } from "@/lib/serverActions/auth"
+import { loginWithGoogle } from "@/lib/serverActions/auth"
 
 export const authOptions: NextAuthOptions = {
     providers: [
         GoogleProvider({
-            clientId: process.env.GOOGLE_ID ?? "",
-            clientSecret: process.env.GOOGLE_SECRET ?? ""
+            clientId: process.env.GOOGLE_ID!,
+            clientSecret: process.env.GOOGLE_SECRET!
         }),
         CredentialsProvider({
             name: "credentials",
@@ -20,30 +21,23 @@ export const authOptions: NextAuthOptions = {
                 if (credentials) {
                     const { username, password } = credentials
 
-                    try {
-                        const res = await loginIntoAccount(username, password)
+					const res = await loginIntoAccount(username, password)
 
-                        if (res.ok) {
-                            const { userInfo, tokens } = res.data
+					if (res.ok) {
+						const { userInfo, tokens } = res.data
 
-                            const user = {
-                                id: userInfo.userId,
-                                userInfo,
-                                tokens
-                            }
+						const user = {
+							id: userInfo.userId,
+							userInfo,
+							tokens
+						}
 
-                            return user
-                        } else {
-                            throw new Error("Authorize failed")
-                        }
-                        
-                    } catch (error: unknown) {
-                        if (error instanceof Error) {
-                            throw error
-                        }
-                
-                        throw new Error("Something went wrong with authorize")
-                    }
+						console.log("tokens", tokens)
+
+						return user
+					} else {
+						throw new Error("Authorize failed")
+					}
                 }
 
                 throw new Error("Empty credentials")
@@ -51,37 +45,48 @@ export const authOptions: NextAuthOptions = {
         })
     ],
     callbacks: {
-        async jwt({ token, user, account }) {
-            if (user) {
-                token.user = user
-            }
+        async jwt({ token, user, account, trigger }) {
+			token.user = user
 
-            if (account) {
-                token.provider = account.provider
-            }
+			if (account && account.provider === "google" && trigger === "signIn") {
+				const {id_token} = account
 
-            return Promise.resolve(token)
+				if (id_token) {
+					const res = await loginWithGoogle(id_token)
+
+					if (res.ok) {
+						token.user = {
+							id: res.data.userInfo.userId,
+							...res.data
+						}
+					}
+
+					/** TODO: fix token interface
+					 *
+					 * if res.ok = false token user will be google user */
+				}
+			}
+
+            return token
         },
         async session({ session, token }) {
-            if (token?.user) {
-                session.user = token.user
-            }
+			session.user = token.user
 
             return session
         },
-        // async signIn() {
-
+        // async signIn({user, account}) {
+        //     return "OpaCHIRIK"
         // }
     },
     session: {
         strategy: "jwt"
     },
-    secret: process.env.NEXTAUTH_SECRET,
+    secret: process.env.NEXTAUTH_SECRET!,
     // TODO: check
-    pages: {
-        // signIn: "/auth/onboard",
-        signOut: "/auth"
-    }
+    // pages: {
+    //     signIn: "/",
+    //     signOut: "/auth"
+    // }
 }
 
 const handler = NextAuth(authOptions)

@@ -1,37 +1,42 @@
 "use client"
 
+import { FC } from "react"
 import { useState, useEffect } from "react"
-import { useSession, signIn } from "next-auth/react"
+import { useSession, signIn, signOut } from "next-auth/react"
+import { useRouter } from "next/navigation"
 
 const initialBtnText = "Continue with Google"
 
-function GoogleBtn() {
-    const [btnText, setBtnText] = useState(initialBtnText)
-    const { data: session } = useSession()
+type GoogleButtonProps = {
+	redirectPath: string
+}
+
+const GoogleBtn: FC<GoogleButtonProps> = ({redirectPath}) => {
+    // const [btnText, setBtnText] = useState(initialBtnText)
+    const { data: session, update } = useSession()
+	const router = useRouter()
+
+	useEffect(() => {
+		console.log("google btn mount")
+	}, [])
 
     useEffect(() => {
-        const userName = session?.user.name
-        if (session && userName) {
-            setBtnText(userName)
-        }      
+        if (session) {
+			// TODO: validate path
+			router.push(redirectPath)
+            // setBtnText(`Sign out ${userName}`)
+        }
     }, [session])
 
-
-    // if (session) {
-    //     setBtnText(session.user.name || "Hello")
-    // }
-
-    // console.log("user", session.user)
-    // return (
-    //     <>
-    //         Signed in as {session.user?.email} <br />
-    //         <button onClick={() => signOut()}>Sign out</button>
-    //     </>
-    // )
-
     const handleClick = async () => {
-        const res = await signIn("google")
-        // TODO:
+		if (!session) {
+			// TODO: redirect after signIn
+			const res = await signIn("google", {redirect: false})
+		}
+
+        // if (session) {
+        //     signOut()
+        // }
     }
 
     return (
@@ -44,7 +49,7 @@ function GoogleBtn() {
                 className="mr-[12px] h-[32px] w-[32px]"
                 src="/google-icon.svg"
             />
-            <span>{btnText}</span>
+            <span>{initialBtnText}</span>
         </button>
     )
 }

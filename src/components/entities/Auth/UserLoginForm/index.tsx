@@ -16,7 +16,7 @@ import { signIn } from 'next-auth/react';
 const UserLoginForm: FC = () => {
     const router = useRouter();
     const { fetchConfiguration } = useConfiguration();
-    
+
     const isMinHeight669 = useMediaQuery(isMinHeight669MediaQuery)
     const isMinHeight768 = useMediaQuery(isMinHeight768MediaQuery)
     const isMinHeight1024 = useMediaQuery(isMinHeight1024MediaQuery)
@@ -60,7 +60,7 @@ const UserLoginForm: FC = () => {
                         </div>
                     }
                     isAbsoluteHeader={true}
-                    googleLoginButton={<GoogleBtn/>}
+                    googleLoginButton={<GoogleBtn redirectPath={"/"}/>}
                     actionLabel={'Log in'}>
                         {/* TODO: check value -> defaultValue={'login'} */}
                     <input hidden defaultValue={'login'} name={'auth'}/>
