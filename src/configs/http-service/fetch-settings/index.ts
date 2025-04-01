@@ -1,5 +1,5 @@
 import BASE_URL from '@/configs/http-service/constants/baseUrl'
-import {FetchOptionsT, FetchServiceT, FetchMethodT, FetchError} from '@/configs/http-service/fetch-settings/types'
+import {FetchOptionsT, FetchServiceT, FetchMethodT} from '@/configs/http-service/fetch-settings/types'
 import { ErrorFetchResponse } from '@/configs/http-service/fetch-settings/types';
 
 const defaultHeaders: { [key: string]: string } = {
@@ -98,8 +98,8 @@ const resolveFetchResponse = async (response: Response | Error) => {
 	if (response instanceof Error) {
 		return {
 			ok: false,
-			error: response
-		} as FetchError
+			data: {error: response}
+		}
 	}
 	else if (response.ok) {
         return await returnFetchData(response)
@@ -188,6 +188,9 @@ const fetchFunction = (method: FetchMethodT) => {
     }
 }
 
+/**
+ * You don`t need to wrap service methods into tryCatch block
+ */
 const fetchService: FetchServiceT = {
     get: fetchFunction("get"),
     post: fetchFunction("post"),
