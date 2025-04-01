@@ -35,12 +35,10 @@ export const authOptions: NextAuthOptions = {
 						console.log("tokens", tokens)
 
 						return user
-					} else {
-						throw new Error("Authorize failed")
 					}
                 }
 
-                throw new Error("Empty credentials")
+                return null
             }
         })
     ],
