@@ -17,9 +17,10 @@ const returnErrorFetchData = async (response: Response): Promise<ErrorFetchRespo
 
 	try {
 		data = await response.json()
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	} catch (error) {
-		console.error("no error data")
+		if (error instanceof Error) {
+			console.error(error.message)
+		}
 	}
 
     switch (response.status) {
