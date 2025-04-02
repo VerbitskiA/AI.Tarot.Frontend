@@ -12,6 +12,7 @@ import { getAvatarSize, isMinHeight768MediaQuery, isMinHeight1024MediaQuery, isM
 import { useMediaQuery } from 'react-responsive';
 import GoogleBtn from '../GoogleBtn';
 import { signIn } from 'next-auth/react';
+import { ActionResponse } from '@/configs/http-service/fetch-settings/types';
 
 const UserLoginForm: FC = () => {
     const router = useRouter();
@@ -26,8 +27,7 @@ const UserLoginForm: FC = () => {
             Nice to meet you 👋
         </h1>)
 
-    // TODO: change handleLogin for google provider
-    const handleLogin = async (fd: FormData) => {
+    const handleLogin = async (fd: FormData): Promise<ActionResponse> => {
         const email = fd.get('email')
         const password = fd.get('password')
 
@@ -41,6 +41,11 @@ const UserLoginForm: FC = () => {
             await fetchConfiguration();
             router.push('/')
         }
+
+		return {
+			status: "error",
+			message: "Something went wrong"
+		}
     }
 
     return (
