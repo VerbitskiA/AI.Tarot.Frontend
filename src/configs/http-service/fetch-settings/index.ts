@@ -4,6 +4,7 @@ import { ErrorFetchResponse } from '@/configs/http-service/fetch-settings/types'
 import { getServerSession } from 'next-auth';
 import { getSession } from 'next-auth/react';
 import { authOptions } from '@/lib/utils';
+import { TokensData } from '@/lib/types/responsesData';
 
 const defaultHeaders: HeadersInit = {
     'Content-Type': 'application/json',
@@ -174,6 +175,29 @@ const retrieveFetchResponse = async (url: string, method: FetchMethodT, options?
             ...options,
             headers,
         })
+
+		if (isNeedAitaAuth && refreshToken && !response.ok && response.status === 401) {
+			// refresh token and repeat req
+			const refreshTokenRes = await fetch(`${BASE_URL}/api/auth/refresh-token`, {
+				method: "POST",
+				credentials: "include",
+				body: JSON.stringify({refreshToken}),
+				headers: getHeaders(isNeedAitaAuth, options?.headers, defaultHeaders, accessToken),
+			})
+
+			if (refreshTokenRes.ok) {
+				const data = await refreshTokenRes.json() as unknown as TokensData
+				console.log("refresh token data", data)
+				// TODO: save new tokens from data
+				const repeatReq = await fetch(fetchUrl, {
+					method,
+					...options,
+					headers,
+				})
+
+				return repeatReq
+			}
+		}
 
         return response
     } catch (error) {
