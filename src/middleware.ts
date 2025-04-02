@@ -1,5 +1,9 @@
 import {NextRequest, NextResponse} from 'next/server'
 
+export const config = {
+    matcher: ['/((?!api|logos|_next/static|_next/image|auth|favicon.ico|robots.txt|images|$).*)',]
+}
+
 export async function middleware(req: NextRequest) {
     const {
         pathname,
@@ -10,8 +14,4 @@ export async function middleware(req: NextRequest) {
 
     console.log('-------------------- REQUEST FROM, ', pathname)
     return res
-}
-
-export const config = {
-    matcher: ['/((?!api|logos|_next/static|_next/image|auth|favicon.ico|robots.txt|images|$).*)',]
 }
