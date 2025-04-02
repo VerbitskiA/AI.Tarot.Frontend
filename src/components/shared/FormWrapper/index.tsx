@@ -1,10 +1,11 @@
 "use client"
 import React, { FC, useRef } from "react"
 import SubmitButton from "@/components/shared/Buttons/SubmitButton"
+import { ActionResponse } from "@/configs/http-service/fetch-settings/types"
 
 type CustomFormProps = {
     children: React.ReactNode
-    action: (fd: FormData) => Promise<any>
+    action: (fd: FormData) => Promise<ActionResponse>
     modalControl?: React.Dispatch<React.SetStateAction<boolean>>
     setInvalid?: React.Dispatch<React.SetStateAction<boolean>>
     readonly actionLabel?: string
@@ -40,14 +41,19 @@ const FormWrapper: FC<CustomFormProps> = ({
     const handleSubmit = async (fd: FormData) => {
         const actionResponse = await action(fd)
         // console.log('FORM SUBMISSION RESULTS:', actionResponse)
+
+		// TODO: refactor. Action res === undefined only after redirect. It is a bad logic
         const { status } =
             actionResponse !== undefined ? actionResponse : { status: "ok" }
         switch (status) {
             case "ok":
+                // eslint-disable-next-line @typescript-eslint/no-unused-expressions
                 modalControl && modalControl(false)
+                // eslint-disable-next-line @typescript-eslint/no-unused-expressions
                 clearAfterSubmit && formRef?.current?.reset()
                 break
             case "error":
+                // eslint-disable-next-line @typescript-eslint/no-unused-expressions
                 setInvalid && setInvalid(true)
                 break
         }
@@ -66,7 +72,7 @@ const FormWrapper: FC<CustomFormProps> = ({
             formInnerMaxHeight = "max-h-[calc(100dvh-132px)] sm:max-h-[calc(100dvh-157px)]"
         }
     }
-        
+
     */
 
     /* formInnerMaxHeight - height of content (without buttonsBlock) */
@@ -74,7 +80,7 @@ const FormWrapper: FC<CustomFormProps> = ({
     const formInnerMaxHeight = ""
 
     const buttonsBlock = (
-        <div className="mb-[12px] ifems-center flex w-full flex-shrink-0 flex-col justify-center gap-2">  
+        <div className="mb-[12px] ifems-center flex w-full flex-shrink-0 flex-col justify-center gap-2">
             <SubmitButton label={actionLabel} />
             {googleLoginButton && (
                 <div className="w-full flex flex-col gap-2 items-center">

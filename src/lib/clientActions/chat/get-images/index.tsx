@@ -6,12 +6,11 @@ const fetchImages = async (
 ) => {
     try {
         images.map(async (image) => {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const img = await fetchService.get(`${image}`, {
                 credentials: 'include',
-                source: 'client',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
+                isClientSource: true,
+				isNeedAitaAuth: true,
             });
 
         })

@@ -10,12 +10,15 @@ type TextFieldProps = {
 const TextField: FC<TextFieldProps> = ({
     ...props
 }) => {
+	// TODO: check
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [touched, setTouched] = React.useState(false)
 
     return (
         <Input
             // TODO: {...props}
             // Type error: Expression produces a union type that is too complex to represent
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             {...props}
             autoComplete="off"

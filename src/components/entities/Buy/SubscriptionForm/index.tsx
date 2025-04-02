@@ -11,25 +11,20 @@ const SubscriptionForm = () => {
     const router = useRouter();
 
     const pay = async() => {
-        const res = await fetchService.post<{sessionId: string}>('api/payments/create-session', {
+        const res = await fetchService.post<{sessionId: string}>('/api/payments/create-session', {
             body: JSON.stringify({
                 amount: 499,
                 description: 'Buy Subscription',
             }),
             credentials: 'include',
-            source: 'client',
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            isClientSource: true,
         })
         if(res.ok) {
             const sessionId = res.data.sessionId
-            const sessionRes = await fetchService.get<StripeSessionType>(`api/payments/session/${sessionId}`, {
+            const sessionRes = await fetchService.get<StripeSessionType>(`/api/payments/session/${sessionId}`, {
                 credentials: 'include',
-                source: 'client',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
+                isClientSource: true,
+				isNeedAitaAuth: true,
             })
 
             if(sessionRes.ok) {

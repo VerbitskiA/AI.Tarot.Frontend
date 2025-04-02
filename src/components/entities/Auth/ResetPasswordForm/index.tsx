@@ -5,7 +5,8 @@ import FormWrapper from "@/components/shared/FormWrapper";
 // import {Image} from "@nextui-org/image";
 import {ActionResponse} from "@/configs/http-service/fetch-settings/types";
 import { useMediaQuery } from 'react-responsive';
-import { getAvatarSize, isMinHeight1024MediaQuery, isMinHeight768MediaQuery } from '@/components/shared/helpers';
+import { getAvatarSize, isMinHeight1024MediaQuery } from '@/components/shared/helpers';
+// import { isMinHeight768MediaQuery } from '@/components/shared/helpers';
 import ImageBlock from '../ImageBlock';
 
 
@@ -16,7 +17,7 @@ type Props = {
 const ResetPasswordForm: FC<Props> = ({handleReset}) => {
     // const isMinHeight768 = useMediaQuery(isMinHeight768MediaQuery)
     const isMinHeight1024 = useMediaQuery(isMinHeight1024MediaQuery)
-    
+
     return (
         <>
             <div className={'grid place-items-start h-full'}>

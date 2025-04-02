@@ -1,5 +1,5 @@
-const DEV_BASE_URL = 'https://api.aitarot.io/'
-const PROD_BASE_URL = 'https://api.aitarot.io/'
+const DEV_BASE_URL = process.env.NEXT_PUBLIC_DEV_BASE_URL
+const PROD_BASE_URL = process.env.NEXT_PUBLIC_PROD_BASE_URL
 
 export const baseUrls = {
     'prod':PROD_BASE_URL,

@@ -13,8 +13,8 @@ type ModalComponentProps = {
     buttonSize?: 'sm' | 'md',
     buttonVariant?: 'destructive' | 'default' | 'outline' | 'secondary' | 'ghost' | 'link' | 'bordered',
     isDismissable?: boolean,
-     
-    
+
+
     modalSize?: 'sm' | 'md' | 'lg' | 'xl' | "2xl" | "3xl" | "4xl" | "5xl" | "full",
     actionLabel?: string,
     nonActionTrigger?: string | React.ReactNode | boolean,
@@ -29,7 +29,7 @@ type WithoutFormAction = {
     formAction?: never
 }
 type WithFormAction = {
-    formAction: () => Promise<any>,
+    formAction: () => Promise<unknown>,
 }
 
 type ConditionalButtonView = | ModalButtonProps | ModalIconProps
@@ -44,37 +44,37 @@ type ModalIconProps = {
     icon: React.ReactNode
 }
 
-type UncontrolledModalProps = {
-    open: null;
-    setOpen: null
-}
-type ControlledModalProps = {
-    open: boolean;
-    setOpen: () => void,
-    formAction: () => void,
-    formActionLabel: string
-}
+// type UncontrolledModalProps = {
+//     open: null;
+//     setOpen: null
+// }
+// type ControlledModalProps = {
+//     open: boolean;
+//     setOpen: () => void,
+//     formAction: () => void,
+//     formActionLabel: string
+// }
 
 const ModalComponent: FC<ModalComponentProps> = ({
-                                                     children,
-                                                     open = false,
-                                                     formAction,
-                                                     setOpen,
-                                                     isIcon = false,
-                                                     isDismissable = true,
-                                                     label,
-                                                     buttonSize = 'md',
-                                                     modalSize = 'md',
-                                                     icon,
-                                                     actionLabel = 'Сохранить',
-                                                     nonButtonTrigger,
-                                                     buttonVariant = 'default',
-                                                     nonActionTrigger = false,
-                                                     withoutAction = true,
-                                                     modalHeader,
-                                                     withoutModalHeader = false,
-                                                     // ...props
-                                                 }) => {
+	children,
+	open = false,
+	formAction,
+	setOpen,
+	isIcon = false,
+	isDismissable = true,
+	label,
+	// buttonSize = 'md',
+	modalSize = 'md',
+	icon,
+	actionLabel = 'Сохранить',
+	nonButtonTrigger,
+	buttonVariant = 'default',
+	nonActionTrigger = false,
+	withoutAction = true,
+	modalHeader,
+	withoutModalHeader = false,
+	// ...props
+}) => {
 
     // const {isOpen, onOpen, onOpenChange} = useDisclosure()
 

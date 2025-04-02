@@ -12,7 +12,7 @@ type Props = {
     }
 }
 
-const Page: FC<Props> = async({searchParams}) => {
+const Page: FC<Props> = async() => {
 
     const handleReset = async (fd: FormData) => {
         'use server'

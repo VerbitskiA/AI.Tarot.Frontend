@@ -32,8 +32,8 @@ const UserProfileForm: FC<Props> = ({handleCheckEmail, onboardQuestion}) => {
 	const router = useRouter()
 	const searchParams = useSearchParams();
 	const addInfo = !!searchParams?.get('addInfo')
-	const question = searchParams?.get('onboardQuestion') ?? ''
-	
+	// const question = searchParams?.get('onboardQuestion') ?? ''
+
     const isMinHeight768 = useMediaQuery(isMinHeight768MediaQuery)
     const isMinHeight1024 = useMediaQuery(isMinHeight1024MediaQuery)
 
@@ -64,19 +64,57 @@ const UserProfileForm: FC<Props> = ({handleCheckEmail, onboardQuestion}) => {
 		return value.length < 8
 	}, [value])
 
-	const handleRegister = async (fd: FormData) => {
-		console.log(fd.get('email'));
-		console.log(fd.get('password'));
-		const res = await registerAccount(fd);
-		await fetchConfiguration();
-		if (res.status === 'ok') {
-			onboardQuestion ?
-				router.push(`/auth/approve-email?onboardQuestion=${onboardQuestion}&email=${emailValue}`)
-				:
-				router.push(`/auth/approve-email?email=${emailValue}`)
+	const handleRegister = async (fd: FormData): Promise<ActionResponse> => {
+		const username = fd.get('username')
+		const email = fd.get('email')
+		const password = fd.get('password')
+		const dateOfBirth = fd.get('dateOfBirth')
+		const gender = fd.get('gender')
 
+		// TODO: use zod
+		if (
+			username && email && password && dateOfBirth && gender
+			&& typeof username === "string"
+			&& typeof email === "string"
+			&& typeof password === "string"
+			&& typeof dateOfBirth === "string"
+			&& typeof gender === "string"
+		) {
+			const res = await registerAccount(username, email, password, dateOfBirth, gender)
+
+			await fetchConfiguration()
+			if (res.ok) {
+				// const {accessToken, refreshToken} = res.data.tokens
+
+				// localStorage.setItem("access", accessToken)
+				// localStorage.setItem("refreshToken", refreshToken)
+
+				// eslint-disable-next-line @typescript-eslint/no-unused-expressions
+				onboardQuestion ?
+					router.push(`/auth/approve-email?onboardQuestion=${onboardQuestion}&email=${emailValue}`)
+					:
+					router.push(`/auth/approve-email?email=${emailValue}`)
+			}
+			else {
+				return {
+					status: "error",
+					// TODO: message
+					message: "Fetch error"
+				}
+			}
 		}
-		return res
+		else {
+			return {
+				status: "error",
+				// TODO: message. check res answear
+				message: "Not valid data"
+			}
+		}
+
+		return {
+			status: "error",
+			message: "Something went wrong"
+		}
 	}
 
 	return (
@@ -97,7 +135,11 @@ const UserProfileForm: FC<Props> = ({handleCheckEmail, onboardQuestion}) => {
                             </p>
                         </div>
                     }
-                    googleLoginButton={addInfo ? null : <GoogleBtn/>}
+                    googleLoginButton={
+						addInfo
+							? null
+							: <GoogleBtn redirectPath={onboardQuestion ? `/auth/onboard?onboardQuestion=${onboardQuestion}` : "/"}/>
+					}
                     isAbsoluteHeader={true}
                     setInvalid={addInfo ? setDateOfBirthExists : setEmailExists}
                     actionLabel={addInfo ? 'Complete & get tarot spread' : 'Create account'}
@@ -174,7 +216,7 @@ const UserProfileForm: FC<Props> = ({handleCheckEmail, onboardQuestion}) => {
 										<div className="flex gap-4">
 											<button type={'button'}
 															onClick={() => handleGenderChange("female")}
-															className={`flex items-center justify-center w-[150px] h-[60px] text-white font-normal 
+															className={`flex items-center justify-center w-[150px] h-[60px] text-white font-normal
                                                                 rounded-[48px] border-[1px] transition-all ${
 																selectedGender === "female"
 																	? "bg-[#27ACC9] border-[#27ACC9]"
@@ -189,7 +231,7 @@ const UserProfileForm: FC<Props> = ({handleCheckEmail, onboardQuestion}) => {
 
 											<button type={'button'}
 															onClick={() => handleGenderChange("male")}
-															className={`flex items-center justify-center w-[150px] h-[60px] text-white font-normal 
+															className={`flex items-center justify-center w-[150px] h-[60px] text-white font-normal
                                                                 rounded-[48px] border-[1px] transition-all ${
 																selectedGender === "male"
 																	? "bg-[#27ACC9] border-[#27ACC9]"

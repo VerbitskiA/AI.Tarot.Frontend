@@ -1,227 +1,191 @@
-'use server'
-import fetchService from '@/configs/http-service/fetch-settings'
-import {ActionResponse} from '@/configs/http-service/fetch-settings/types'
-import {ConfigurationType} from '@/lib/types/config.types';
-import {TOKENS_KEYS} from "@/configs/http-service/constants/authTokens";
-import {cookies} from "next/headers";
+"use server"
+import fetchService from "@/configs/http-service/fetch-settings"
+import { ActionResponse } from "@/configs/http-service/fetch-settings/types"
+// import { ConfigurationType } from "@/lib/types/config.types"
+import { GoogleLoginData, LoginData } from "@/lib/types/responsesData"
+import { TOKENS_KEYS } from "@/configs/http-service/constants/authTokens"
+import { TokensData } from "@/lib/types/responsesData"
+
+// import { headers } from "next/headers"
 
 
-const getConfiguration = async (): Promise<ConfigurationType> => {
-	const res = await fetchService.get(`api/configuration/`,
-		{
-			headers: {
-				'Content-Type': 'application/json',
-				'Accept': '*/*'
-			}
-		})
-	return res.data
+// const getConfiguration = async (tokens: TokensData): Promise<
+//     ConfigurationType | { detail: string }
+// > => {
+//     const res = await fetchService.get<ConfigurationType>(
+//         `/api/configuration`,
+//         {
+//             headers: {
+//                 "Content-Type": "application/json",
+//                 Accept: "*/*"
+//             },
+//             tokens
+//         }
+//     )
+//     return res.data
+// }
+
+/** Function returns "true" when email is exist
+ *
+ * @param email
+ * @returns
+ */
+const checkIsEmailExist = async (email: string, isClientSource?: boolean) => {
+    const res = await fetchService.get<boolean>("/api/auth/exists", {
+		params: { email },
+		isClientSource
+	})
+
+	if (res.ok) {
+		// res.data = true when EMAIL already exists
+		if (res.data === true) {
+			return true
+		}
+
+		return false
+	}
+
+	return res
 }
 
+const loginWithGoogle = async (googleToken: string, isClientSource?: boolean) => {
+	const res = await fetchService.post<GoogleLoginData>("/api/auth/google", {
+		body: JSON.stringify({
+			token: googleToken
+		}),
+		isClientSource
+	})
 
-const checkEmailExists = async (fd: FormData): Promise<ActionResponse> => {
-	try {
-		const res = await fetchService.get(`api/account/exists/${fd.get('email')}`)
-		if (!!res.data) {
-			const message = res.data?.detail
-			throw new Error(message)
-		}
-	} catch (e) {
-		if (e instanceof Error) {
-			return {
-				status: 'error',
-				message: e.message
-			}
-		}
-		return {
-			status: 'error',
-			message: 'Что-то пошло не так, попробуйте еще раз'
-		}
-	}
-	return {
-		status: 'ok',
-		message: ''
-	}
-
+	return res
 }
 
+const loginIntoAccount = async (
+    username: string,
+    password: string,
+	isClientSource?: boolean,
+) => {
 
-const loginIntoAccount = async (fd: FormData): Promise<ActionResponse> => {
-	try {
-		const res = await fetchService.post('api/account/login/', {
-			body: JSON.stringify({
-				email: fd.get('email'),
-				password: fd.get('password')
-			})
-		})
+	const res = await fetchService.post<LoginData>("/api/auth/login", {
+		body: JSON.stringify({
+			email: username,
+			password
+		}),
+		credentials: "include",
+		isClientSource
+	})
 
-		if (res.ok) {
-			const cookieHeader = res.headers.get('Set-Cookie') || '';  // Provide a default empty string if null
-			const cookie = cookieHeader?.split(';')
-			const cookieValue = cookie[0].split('=')[1];
-			const expiresStr = cookie[1].split('=')[1];
-			const expires = new Date(expiresStr);
-			cookies().set(TOKENS_KEYS.access, cookieValue, {
-				priority: 'high',
-				sameSite: 'lax',
-				domain: '.aitarot.io',
-				secure: true,
-				expires: expires,
-				httpOnly: true
-			});
-		} else {
-			const message = res.data?.detail
-			throw new Error(message)
-		}
-	} catch (e) {
-		if (e instanceof Error) {
-			return {
-				status: 'error',
-				message: e.message
-			}
-		}
-		return {
-			status: 'error',
-			message: 'Что-то пошло не так, попробуйте еще раз'
-		}
-	}
-	return {
-		status: 'ok',
-		message: 'Аутентификация успешна'
-	}
+	return res
 }
 
-const registerAccount = async (fd: FormData): Promise<ActionResponse> => {
-	try {
-		const res = await fetchService.post('api/account/register/', {
-			body: JSON.stringify({
-				username: fd.get('username'),
-				email: fd.get('email'),
-				password: fd.get('password'),
-				dateOfBirth: fd.get('dateOfBirth'),
-				gender: fd.get('gender')
-			})
-		})
-		if (res.ok) {
-			const cookieHeader = res.headers.get('Set-Cookie') || '';  // Provide a default empty string if null
-			const cookie = cookieHeader?.split(';')
-			const cookieValue = cookie[0].split('=')[1];
-			const expiresStr = cookie[1].split('=')[1];
-			const expires = new Date(expiresStr);
-			cookies().set(TOKENS_KEYS.access, cookieValue, {
-				priority: 'high',
-				sameSite: 'lax',
-				domain: '.aitarot.io',
-				secure: true,
-				expires: expires,
-				httpOnly: true
-			});
-			console.info('Login successful, tokens have been installed')
-		} else {
-			const message = res.data?.detail
-			throw new Error(message)
-		}
-	} catch (e) {
-		if (e instanceof Error) {
-			return {
-				status: 'error',
-				message: e.message
-			}
-		} else {
-			return {
-				status: 'error',
-				message: 'Не удалось создать аккаунт'
-			}
-		}
-	}
-	return {
-		status: 'ok',
-		message: 'Htubcnhfwbz успешна'
-	}
+const registerAccount = async (
+    username: string,
+    email: string,
+    password: string,
+    dateOfBirth: string,
+    gender: string,
+	isClientSource?: boolean,
+) => {
+	const res = await fetchService.post<LoginData>("/api/auth/register", {
+		body: JSON.stringify({
+			username,
+			email,
+			password,
+			dateOfBirth,
+			gender
+		}),
+		credentials: "include",
+		isClientSource
+	})
+
+	return res
 }
 
-const successResponse = async (): Promise<ActionResponse> => {
-	return {
-		status: 'ok',
-		message: ''
-	}
+const logoutUser = async (tokens: TokensData, isClientSource?: boolean) => {
+	const res = await fetchService.post("/api/auth/revoke", {
+		body: JSON.stringify({
+			[TOKENS_KEYS.REFRESH_TOKEN]: tokens.refreshToken
+		}),
+		isClientSource,
+		isNeedAitaAuth: true,
+	})
+
+	return res
+}
+
+const refreshToken = async (refreshToken: string, isClientSource?: boolean) => {
+	const res = await fetchService.post<TokensData>("/api/auth/refresh-token", {
+		body: JSON.stringify({
+			[TOKENS_KEYS.REFRESH_TOKEN]: refreshToken
+		}),
+		isClientSource,
+		isNeedAitaAuth: true,
+	})
+
+	return res
 }
 
 const resetPassword = async (fd: FormData): Promise<ActionResponse> => {
-	try {
-		const response = await fetchService.post('authentication/reset_password/', {
+	const response = await fetchService.post(
+		"authentication/reset_password/",
+		{
 			body: JSON.stringify({
-				email: fd.get('email')
+				email: fd.get("email")
 			})
-		})
-		if (!response.ok) {
-			const message = response.data.detail
-			throw new Error(message)
-		} else {
-			return {
-				status: 'ok',
-				message: 'Письмо отправлено на вашу почту'
-			}
 		}
+	)
 
-	} catch (e) {
-		if (e instanceof Error) {
-			return {
-				status: 'error',
-				message: e.message
-			}
-		} else {
-			return {
-				status: 'error',
-				message: 'Не удалось отправить письмо'
-			}
-		}
-	}
-}
-
-const confirmReset = async (fd: FormData): Promise<ActionResponse> => {
-	return {
-		status: 'ok',
-		message: 'Вы успешно сменили свой пароль'
-	}
-}
-
-const approveEmail = async (fd: FormData): Promise<ActionResponse> => {
-	try {
-		const res = await fetchService.post(`api/account/confirm-email`, {
-			body: JSON.stringify({
-				code: "1111"
-			})
-		})
-		if (!res.ok) {
-			const message = res.data.detail
-			throw new Error(message)
-		} else {
-			return {
-				status: 'ok',
-				message: 'Вы успешно подтвердили вашу почту'
-			}
-		}
-	} catch (e) {
-		if (e instanceof Error) {
-			return {
-				status: 'error',
-				message: e.message
-			}
-		}
+	if (response.ok) {
 		return {
-			status: 'error',
-			message: 'Что-то пошло не так, попробуйте еще раз'
+			status: "ok",
+			message: "Письмо отправлено на вашу почту"
+		}
+	} else {
+		return {
+			status: "error",
+			message: "Не удалось отправить письмо"
+		}
+	}
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const confirmReset = async (fd: FormData): Promise<ActionResponse> => {
+    return {
+        status: "ok",
+        message: "Вы успешно сменили свой пароль"
+    }
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const approveEmail = async (fd: FormData): Promise<ActionResponse> => {
+	const res = await fetchService.post(`/api/auth/confirm-email`, {
+		body: JSON.stringify({
+			code: "1111"
+		})
+	})
+
+	if (res.ok) {
+		return {
+			status: "ok",
+			message: "Вы успешно подтвердили вашу почту"
+		}
+	}
+	else {
+		return {
+			status: "error",
+			message: "Что-то пошло не так, попробуйте еще раз"
 		}
 	}
 }
 
 export {
-	getConfiguration,
-	checkEmailExists,
-	loginIntoAccount,
-	registerAccount,
-	resetPassword,
-	approveEmail,
-	successResponse,
-	confirmReset
+    // getConfiguration,
+    checkIsEmailExist,
+    loginIntoAccount,
+    registerAccount,
+    resetPassword,
+    approveEmail,
+    confirmReset,
+    logoutUser,
+    loginWithGoogle,
+    refreshToken,
 }

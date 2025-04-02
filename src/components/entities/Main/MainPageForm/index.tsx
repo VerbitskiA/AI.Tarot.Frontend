@@ -17,7 +17,7 @@ type Props = {
 }
 
 
-const MainPageForm: FC<Props> = ({olderSpreads, handleAskQuestion, searchParams}) => {
+const MainPageForm: FC<Props> = ({olderSpreads, searchParams}) => {
     const isLaptop = useMediaQuery({ minWidth: 1024 });
     const isDesktop = useMediaQuery({ minWidth: 1440 });
 

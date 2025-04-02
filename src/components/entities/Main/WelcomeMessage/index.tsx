@@ -28,7 +28,7 @@ const WelcomeMessage = ({isDesktop}: {isDesktop: boolean}) => {
                 </ol>
             </p>
             <p>
-                Let's explore what the cards have to say! ✨
+                Let&apos;s explore what the cards have to say! ✨
             </p>
         </div>
     )

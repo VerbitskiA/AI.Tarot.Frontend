@@ -33,7 +33,7 @@ const OracleCards: FC<Props> = ({cards, selectedCard, setSelectedCard}) => {
     return (
         <div className="relative w-full flex justify-center items-center overflow-visible">
             <div className="flex gap-4  items-end">
-                {sortedCards.map((card, index) => (
+                {sortedCards.map((card) => (
                     <Card
                         key={card.packageId}
                         isPressable

@@ -17,6 +17,7 @@ const OnBoardChatForm = () => {
 	const [howItWorksModalOpen, setHowItWorksModalOpen] = useState(false)
 	const router = useRouter();
 	const [questionInputValue, setQuestionInputValue] = useState('');
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [loading, setLoading] = useState(false);
 	const [time, setTime] = useState<string>("");
 
@@ -49,9 +50,9 @@ const OnBoardChatForm = () => {
 
 		setTimeout(() => {
 			setShowFirstMessage(true)
-			
+
 			if (chat) {
-				
+
 				chat.scrollTo(0, chat.scrollHeight)
 			}
 		}, 2000);
@@ -59,7 +60,7 @@ const OnBoardChatForm = () => {
 			setShowSecondMessage(true)
 
 			if (chat) {
-				
+
 				chat.scrollTo(0, chat.scrollHeight)
 			}
 
@@ -81,7 +82,7 @@ const OnBoardChatForm = () => {
 		setQuestionInputValue(DEF_QUESTIONS[id - 1].value || '')
 	}, [])
 
-	/*	
+	/*
 		header 		- 	58px
 		---------------------
 		gap-2 		- 	0.8rem = 8px
@@ -129,7 +130,7 @@ const OnBoardChatForm = () => {
 									<div
 										className={`${!showFirstMessage && 'hidden'} px-4 py-3 flex items-end flex-col bg-[#343434] rounded-tr-2xl rounded-b-3xl`}>
 										<p className={''}>
-											Hi 💚 I'm Aita, an AI tarot reader
+											Hi 💚 I&apos;m Aita, an AI tarot reader
 										</p>
 										<span className={''}>
                                             {time}
@@ -160,7 +161,7 @@ const OnBoardChatForm = () => {
 									>
 										<div className={'flex flex-col gap-8'}>
 											<p>
-												I am Aita, an <span className={'font-bold'}>AI tarot reader developed with the guidance of many real-life tarot readers</span>. 
+												I am Aita, an <span className={'font-bold'}>AI tarot reader developed with the guidance of many real-life tarot readers</span>.
 												I work almost like a human, offering interpretations, insights, and advice just as they would.
 											</p>
 											<p>

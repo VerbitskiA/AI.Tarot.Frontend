@@ -14,13 +14,14 @@ type Props = {
     }
 }
 
-const Page: FC<Props> = async({searchParams, params}) => {
+const Page: FC<Props> = async({params}) => {
 
     const {ok, data} = await
-        fetchService.get<Spread>(`api/spread/view/${params.id}/`, {
+        fetchService.get<Spread>(`/api/spread/view/${params.id}`, {
             next: {
                 tags: ['spread']
-            }
+            },
+			isNeedAitaAuth: true,
         })
     if (!ok) {
         redirect('/auth/onboard')

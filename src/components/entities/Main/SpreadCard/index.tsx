@@ -14,6 +14,7 @@ const SpreadCard: FC<SpreadCardProps> = ({spread, redirectType}) => {
     return (
         <div onClick={
             () => {
+                // eslint-disable-next-line @typescript-eslint/no-unused-expressions
                 redirectType === 'page' ?
                     router.push(`/chat/${spread.id}?chatDate=${spread.date}` )
                     :
@@ -27,7 +28,7 @@ const SpreadCard: FC<SpreadCardProps> = ({spread, redirectType}) => {
                 <p className={'text-xs sm:text-sm font-normal'}>{spread.date}</p>
             </div>
             <div className={'w-8 flex justify-center items-center'}>
-                <Image src={'/arrowForward.svg'} height={32} width={32}/>
+                <Image src={'/arrowForward.svg'} height={32} width={32} alt=">"/>
             </div>
         </div>
     )

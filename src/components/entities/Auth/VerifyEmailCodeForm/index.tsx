@@ -1,3 +1,6 @@
+// TODO: fix
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 import React, {FC, useRef, useState} from 'react'
 import {Input} from "@nextui-org/input";
@@ -74,7 +77,7 @@ const VerifyEMailCodeForm: FC<Props> = ({resetPassword, email, handleCheck, hand
     function handleKeyDown(e: any, index: number) {
         const input = e.target;
         const previousInput = inputRefs[index - 1];
-        const nextInput = inputRefs[index + 1];
+        // const nextInput = inputRefs[index + 1];
 
         if ((e.keyCode === 8 || e.keyCode === 46) && input.value === '') {
             e.preventDefault();

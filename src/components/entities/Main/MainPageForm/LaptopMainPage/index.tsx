@@ -54,11 +54,9 @@ const LaptopMainPage: FC<Props> = ({olderSpreads, searchParams}) => {
 
     useEffect(() => {
         const getOlderSpread = async () => {
-            const res = await fetchService.get<Spread>(`api/spread/view/${searchParams.chatId}/`, {
-                source: 'client',
-                headers: {
-                    'Content-Type': 'application/json',
-                }
+            const res = await fetchService.get<Spread>(`/api/spread/view/${searchParams.chatId}`, {
+                isClientSource: true,
+				isNeedAitaAuth: true,
             })
 
             if (res.ok) {
@@ -83,11 +81,9 @@ const LaptopMainPage: FC<Props> = ({olderSpreads, searchParams}) => {
 
     useEffect(() => {
         const getSpreads = async () => {
-            const res = await fetchService.get<Spread[]>('api/spread/all/', {
-                source: 'client',
-                headers: {
-                    'Content-Type': 'application/json',
-                }
+            const res = await fetchService.get<Spread[]>('/api/spread/all', {
+                isClientSource: true,
+				isNeedAitaAuth: true,
             })
 
             if (res.ok) {
@@ -95,7 +91,6 @@ const LaptopMainPage: FC<Props> = ({olderSpreads, searchParams}) => {
             } else {
                 console.error('Error fetching spreads:', res.data);
             }
-
         }
 
         getSpreads();
@@ -138,8 +133,8 @@ const LaptopMainPage: FC<Props> = ({olderSpreads, searchParams}) => {
                                         }
 
                                         {
-                                            oldSpreads.map((spread: Spread) => (
-                                                <SpreadCard spread={spread} redirectType={'params'}/>
+                                            oldSpreads.map((spread: Spread, index: number) => (
+                                                <SpreadCard key={index} spread={spread} redirectType={'params'}/>
                                             ))
                                         }
                                     </div>

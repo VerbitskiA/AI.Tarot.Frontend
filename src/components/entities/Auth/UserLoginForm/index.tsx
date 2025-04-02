@@ -1,71 +1,51 @@
 'use client'
+
 import PasswordField from '@/components/shared/Inputs/PasswordField'
 import TextField from '@/components/shared/Inputs/TextField'
-import React, {FC} from 'react'
+import React, {FC, useRef} from 'react'
 import FormWrapper from "@/components/shared/FormWrapper";
 import Link from "next/link";
 import ImageBlock from "@/components/entities/Auth/ImageBlock";
-import fetchService from "@/configs/http-service/fetch-settings";
 import {useRouter} from "next/navigation";
 import {useConfiguration} from "@/components/providers/ConfigurationProvider";
 import { getAvatarSize, isMinHeight768MediaQuery, isMinHeight1024MediaQuery, isMinHeight669MediaQuery } from '@/components/shared/helpers';
 import { useMediaQuery } from 'react-responsive';
 import GoogleBtn from '../GoogleBtn';
+import { signIn } from 'next-auth/react';
+import { ActionResponse } from '@/configs/http-service/fetch-settings/types';
 
-type Props = {
-    handleAuth: ((fd: FormData) => Promise<any>)
-}
-
-
-const UserLoginForm: FC<Props> = ({handleAuth}) => {
+const UserLoginForm: FC = () => {
     const router = useRouter();
     const { fetchConfiguration } = useConfiguration();
-    
+
     const isMinHeight669 = useMediaQuery(isMinHeight669MediaQuery)
     const isMinHeight768 = useMediaQuery(isMinHeight768MediaQuery)
     const isMinHeight1024 = useMediaQuery(isMinHeight1024MediaQuery)
 
-    const handleLogin = async (fd: FormData) => {
-        // 'use server'
-        const res = await handleAuth(fd)
+    const imageTextBlock = useRef(
+        <h1 className={'w-full text-center text-2xl sm:text-3xl font-bold'}>
+            Nice to meet you 👋
+        </h1>)
 
-        if (res.status === 'ok') {
-            try {
-                const res = await fetchService.post('api/account/login/', {
-                    body: JSON.stringify({
-                        email: fd.get('email'),
-                        password: fd.get('password')
-                    }),
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                    },
-                    source: 'client',
-                    credentials: 'include',
-                })
+    const handleLogin = async (fd: FormData): Promise<ActionResponse> => {
+        const email = fd.get('email')
+        const password = fd.get('password')
 
-                if(res.ok) {
-                    await fetchConfiguration();
-                    router.push('/')
-                }
-            } catch (e) {
-                if (e instanceof Error) {
-                    return {
-                        status: 'error',
-                        message: e.message,
-                    }
-                }
-                return {
-                    status: 'error',
-                    message: 'Что-то пошло не так, попробуйте еще раз',
-                }
-            }
-            return {
-                status: 'ok',
-                message: 'Аутентификация успешна'
-            }
+        const res = await signIn("credentials", {
+            username: email,
+            password,
+            redirect: false,
+        })
+
+        if(res?.ok) {
+            await fetchConfiguration();
+            router.push('/')
         }
-        return res
+
+		return {
+			status: "error",
+			message: "Something went wrong"
+		}
     }
 
     return (
@@ -85,7 +65,7 @@ const UserLoginForm: FC<Props> = ({handleAuth}) => {
                         </div>
                     }
                     isAbsoluteHeader={true}
-                    googleLoginButton={<GoogleBtn/>}
+                    googleLoginButton={<GoogleBtn redirectPath={"/"}/>}
                     actionLabel={'Log in'}>
                         {/* TODO: check value -> defaultValue={'login'} */}
                     <input hidden defaultValue={'login'} name={'auth'}/>
@@ -100,9 +80,7 @@ const UserLoginForm: FC<Props> = ({handleAuth}) => {
                                 ],
                                 "ultraSmall"
                             )}>
-                                <h1 className={'w-full text-center text-2xl sm:text-3xl font-bold'}>
-                                    Nice to meet you 👋
-                                </h1>
+                                {imageTextBlock.current}
                         </ImageBlock>
                         <div className={'flex flex-col gap-2'}>
                             <TextField
