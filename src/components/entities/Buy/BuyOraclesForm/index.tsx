@@ -25,11 +25,7 @@ const BuyOraclesForm = () => {
 
 			const res = await fetchService.get<CreditsPackages>("/api/payments/credits-packages", {
 				credentials: "include",
-				// source: "client",
-				headers: {
-					"Content-Type": "application/json",
-					Accept: "*/*",
-				},
+				isClientSource: true,
 			});
 
 			if (res.ok) {
@@ -76,19 +72,13 @@ const BuyOraclesForm = () => {
 				description: 'Buy Oracles'
 			}),
 			credentials: 'include',
-			// source: 'client',
-			headers: {
-				'Content-Type': 'application/json'
-			}
+			isClientSource: true,
 		})
 		if (res.ok) {
 			const sessionId = res.data.sessionId
 			const sessionRes = await fetchService.get<StripeSessionType>(`/api/payments/session/${sessionId}`, {
 				credentials: 'include',
-				// source: 'client',
-				headers: {
-					'Content-Type': 'application/json'
-				}
+				isClientSource: true,
 			})
 
 			if (sessionRes.ok) {

@@ -56,10 +56,7 @@ const DesktopMainPage: FC<Props> = ({olderSpreads, searchParams}) => {
         const getOlderSpread = async () => {
             const res = await fetchService.get<Spread>(`/api/spread/view/${searchParams.chatId}`, {
                 credentials: 'include',
-                // source: 'client',
-                headers: {
-                    'Content-Type': 'application/json',
-                }
+                isClientSource: true,
             })
 
             if (res.ok) {
@@ -78,10 +75,7 @@ const DesktopMainPage: FC<Props> = ({olderSpreads, searchParams}) => {
     useEffect(() => {
         const getSpreads = async () => {
             const res = await fetchService.get<Spread[]>('/api/spread/all', {
-                // source: 'client',
-                headers: {
-                    'Content-Type': 'application/json',
-                }
+                isClientSource: true,
             })
 
             if (res.ok) {

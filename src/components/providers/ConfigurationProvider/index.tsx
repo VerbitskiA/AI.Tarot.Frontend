@@ -55,7 +55,7 @@ export const ConfigurationProvider: React.FC<{ children: React.ReactNode }> = ({
                     credentials: "include",
                     /* source - usless now */
 
-                    // source: 'client',
+                    isClientSource: true,
 
                     /* these headers are default */
 
