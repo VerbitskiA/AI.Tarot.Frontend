@@ -5,6 +5,7 @@ import fetchService from "@/configs/http-service/fetch-settings"
 import { ConfigurationType } from "@/lib/types/config.types"
 import { useSession } from "next-auth/react"
 import { TOKENS_KEYS } from "@/configs/http-service/constants/authTokens"
+import { FetchOptionsT } from "@/configs/http-service/fetch-settings/types"
 
 interface ConfigurationContextType {
     configuration: ConfigurationType | null
@@ -33,20 +34,24 @@ export const ConfigurationProvider: React.FC<{ children: React.ReactNode }> = ({
     const {data, status} = useSession()
 
     const fetchConfiguration = useCallback(async () => {
-        if (data) {
+			const fetchOptions: FetchOptionsT = data
+				? {
+					credentials: "include",
+					isClientSource: true,
+					isNeedAitaAuth: true,
+				}
+				: {
+					isClientSource: true,
+				}
+
             const res = await fetchService.get<ConfigurationType>(
                 "/api/configuration",
-                {
-                    credentials: "include",
-                    isClientSource: true,
-					isNeedAitaAuth: true,
-                }
+                fetchOptions
             )
 
             if (res.ok && res.data) {
                 setConfiguration(res.data)
             }
-        }
     }, [data])
 
     useEffect(() => {
