@@ -1,10 +1,9 @@
 "use client"
 
+import Image from "next/image"
 import { FC } from "react"
 import { useEffect } from "react"
-// import { useState } from "react"
 import { useSession, signIn } from "next-auth/react"
-// import { signOut } from "next-auth/react"
 import { useRouter } from "next/navigation"
 
 const initialBtnText = "Continue with Google"
@@ -14,7 +13,6 @@ type GoogleButtonProps = {
 }
 
 const GoogleBtn: FC<GoogleButtonProps> = ({redirectPath}) => {
-    // const [btnText, setBtnText] = useState(initialBtnText)
     const { data: session } = useSession()
 	const router = useRouter()
 
@@ -22,20 +20,13 @@ const GoogleBtn: FC<GoogleButtonProps> = ({redirectPath}) => {
         if (session) {
 			// TODO: validate path
 			router.push(redirectPath)
-            // setBtnText(`Sign out ${userName}`)
         }
     }, [session, redirectPath, router])
 
     const handleClick = async () => {
 		if (!session) {
-			// TODO: redirect after signIn
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			const res = await signIn("google", {redirect: false})
+			await signIn("google")
 		}
-
-        // if (session) {
-        //     signOut()
-        // }
     }
 
     return (
@@ -45,10 +36,10 @@ const GoogleBtn: FC<GoogleButtonProps> = ({redirectPath}) => {
 			type="button"
         >
             <Image
-				width={32}
-				height={32}
+				width="0"
+				height="0"
 				alt="google-icon"
-                className="mr-[12px]"
+                className="mr-[12px] w-[32px] h-[32px]"
                 src="/google-icon.svg"
             />
             <span>{initialBtnText}</span>
