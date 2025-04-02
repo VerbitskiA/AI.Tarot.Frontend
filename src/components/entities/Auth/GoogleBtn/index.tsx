@@ -18,10 +18,6 @@ const GoogleBtn: FC<GoogleButtonProps> = ({redirectPath}) => {
     const { data: session } = useSession()
 	const router = useRouter()
 
-	useEffect(() => {
-		console.log("google btn mount")
-	}, [])
-
     useEffect(() => {
         if (session) {
 			// TODO: validate path
