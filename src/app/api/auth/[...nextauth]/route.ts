@@ -4,6 +4,8 @@ import { NextAuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { loginIntoAccount } from "@/lib/serverActions/auth"
 import { loginWithGoogle } from "@/lib/serverActions/auth"
+import { OAuthConfig } from "next-auth/providers/oauth"
+import { TokensData } from "@/lib/types/responsesData"
 
 export const authOptions: NextAuthOptions = {
     providers: [
@@ -38,7 +40,14 @@ export const authOptions: NextAuthOptions = {
 
                 return null
             }
-        })
+        }),
+		{
+			name: "tokenProvider",
+			async authorize(tokens: TokensData) {
+				console.log("tokens", tokens)
+				return tokens
+			}
+		} as unknown as OAuthConfig<"tokenProvider">
     ],
     callbacks: {
         async jwt({ token, user, account, trigger }) {

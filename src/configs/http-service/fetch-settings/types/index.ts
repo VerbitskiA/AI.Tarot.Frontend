@@ -1,5 +1,3 @@
-import { TokensData } from "@/lib/types/responsesData"
-
 export type FetchMethodT = "get" | "post" | "put" | "patch" | "delete"
 export type FetchQueryParamsT = {
     [key: string]: string | number
@@ -9,7 +7,6 @@ export type FetchOptionsT = {
     // source?: "server" | "client"
 	isClientSource?: boolean
 	isNeedAitaAuth?: boolean
-    tokens?: TokensData
 } & Omit<RequestInit, "method">
 
 export type SuccessFetchResponse<ReturnType> = {

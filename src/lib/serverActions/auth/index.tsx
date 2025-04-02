@@ -105,20 +105,20 @@ const logoutUser = async (tokens: TokensData, isClientSource?: boolean) => {
 		body: JSON.stringify({
 			[TOKENS_KEYS.REFRESH_TOKEN]: tokens.refreshToken
 		}),
-		tokens: tokens,
 		isClientSource,
+		isNeedAitaAuth: true,
 	})
 
 	return res
 }
 
-const refreshToken = async (tokens: TokensData, isClientSource?: boolean) => {
-	const res = await fetchService.post<TokensData>("/api/auth/revoke", {
+const refreshToken = async (refreshToken: string, isClientSource?: boolean) => {
+	const res = await fetchService.post<TokensData>("/api/auth/refresh-token", {
 		body: JSON.stringify({
-			[TOKENS_KEYS.REFRESH_TOKEN]: tokens.refreshToken
+			[TOKENS_KEYS.REFRESH_TOKEN]: refreshToken
 		}),
-		tokens: tokens,
 		isClientSource,
+		isNeedAitaAuth: true,
 	})
 
 	return res

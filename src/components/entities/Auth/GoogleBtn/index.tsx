@@ -24,7 +24,7 @@ const GoogleBtn: FC<GoogleButtonProps> = ({redirectPath}) => {
 			router.push(redirectPath)
             // setBtnText(`Sign out ${userName}`)
         }
-    }, [session])
+    }, [session, redirectPath, router])
 
     const handleClick = async () => {
 		if (!session) {

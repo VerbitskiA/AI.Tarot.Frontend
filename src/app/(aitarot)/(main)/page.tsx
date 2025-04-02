@@ -15,14 +15,9 @@ type Props = {
 }
 
 const Page: FC<Props> = async ({ searchParams }) => {
-    let tokens
     const session = await getServerSession(authOptions)
 
-    if (session && session.user.tokens) {
-        tokens = session.user.tokens
-    }
-
-    if (!tokens) {
+    if (!session) {
         redirect("/auth/onboard")
     }
 
@@ -33,7 +28,6 @@ const Page: FC<Props> = async ({ searchParams }) => {
 		next: {
 			tags: ["spreads"]
 		},
-		tokens,
 		isNeedAitaAuth: true,
 	})
 

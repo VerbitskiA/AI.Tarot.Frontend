@@ -1,8 +1,11 @@
 import BASE_URL from '@/configs/http-service/constants/baseUrl'
 import {FetchOptionsT, FetchServiceT, FetchMethodT} from '@/configs/http-service/fetch-settings/types'
 import { ErrorFetchResponse } from '@/configs/http-service/fetch-settings/types';
+import { getServerSession } from 'next-auth';
+import { getSession } from 'next-auth/react';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 
-const defaultHeaders: { [key: string]: string } = {
+const defaultHeaders: HeadersInit = {
     'Content-Type': 'application/json',
     'Accept': '/*/',
 }
@@ -118,25 +121,71 @@ const generateAuthHeader = (token: string): AuthHeader => {
     return {Authorization: `Bearer ${token}`}
 }
 
+const getHeaders = (
+	isNeedAitaAuth: boolean = false,
+	headers: HeadersInit | null = null,
+	defaultHeaders: HeadersInit,
+	accessToken?: string,
+): HeadersInit => {
+	if (isNeedAitaAuth) {
+		return {
+            ...(headers ? {...headers} : {...defaultHeaders}),
+            ...(accessToken ? generateAuthHeader(accessToken) : null),
+        }
+	}
+	else {
+		return {
+            ...(headers ? {...headers} : {...defaultHeaders}),
+        }
+	}
+}
+
 const retrieveFetchResponse = async (url: string, method: FetchMethodT, options?: FetchOptionsT): Promise<Response | Error> => {
     const params = new URLSearchParams(options?.params as unknown as string).toString() ?? ''
 
-    let accessToken, refreshToken
+	const isNeedAitaAuth = options?.isNeedAitaAuth
+	const isClientSource = options?.isClientSource
 
-    if (options?.tokens) {
-        const {accessToken: acess, refreshToken: refresh} = options.tokens
+    let accessToken: string | undefined, refreshToken: string | undefined
 
-        accessToken = acess
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        refreshToken = refresh
-    }
+	if (isNeedAitaAuth) {
+		if (isClientSource) {
+			const session = await getSession()
 
-    const getHeaders = (token?: string) => {
-        return {
-            ...(options?.headers ? {...options?.headers} : {...defaultHeaders}),
-            ...(token ? generateAuthHeader(token) : null)
-        }
-    }
+			accessToken = session?.user.tokens.accessToken
+			refreshToken = session?.user.tokens.refreshToken
+		}
+		else {
+			const session = await getServerSession(authOptions)
+
+			accessToken = session?.user.tokens.accessToken
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
+			refreshToken = session?.user.tokens.refreshToken
+		}
+	}
+
+    // if (options?.tokens) {
+    //     const {accessToken: acess, refreshToken: refresh} = options.tokens
+
+    //     accessToken = acess
+    //     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    //     refreshToken = refresh
+    // }
+    // const getHeaders = (token?: string) => {
+    //     return {
+    //         ...(options?.headers ? {...options?.headers} : {...defaultHeaders}),
+    //         ...(token ? generateAuthHeader(token) : null)
+    //     }
+    // }
+
+	// const getHeaders = (accessToken?: string) => {
+    //     return {
+    //         ...(options?.headers ? {...options?.headers} : {...defaultHeaders}),
+    //         ...(isNeedAitaAuth && accessToken ? generateAuthHeader(accessToken) : null)
+    //     }
+    // }
+
+	const headers = getHeaders(isNeedAitaAuth, options?.headers, defaultHeaders, accessToken)
 
     // const refreshMyToken = async (refreshToken: string) => {
     //     const res = await fetch(`${BASE_URL}/api/auth/refresh-token`, {
@@ -148,11 +197,13 @@ const retrieveFetchResponse = async (url: string, method: FetchMethodT, options?
     //     return res
     // }
 
+	const fetchUrl = `${BASE_URL}${url}${params ? '?' + params : ''}`
+
     try {
-        const response = await fetch(`${BASE_URL}${url}${params ? '?' + params : ''}`, {
+        const response = await fetch(fetchUrl, {
             method,
             ...options,
-            headers: getHeaders(accessToken),
+            headers,
         })
 
         return response
