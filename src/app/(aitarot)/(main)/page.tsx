@@ -5,7 +5,7 @@ import { Spread } from "@/lib/types/spread.types"
 import fetchService from "@/configs/http-service/fetch-settings"
 import { askOnboardQuestion } from "@/lib/serverActions/chat"
 import { getServerSession } from "next-auth"
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"
+import { authOptions } from "@/lib/utils"
 
 type Props = {
     searchParams: {

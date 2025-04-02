@@ -3,7 +3,7 @@ import {FetchOptionsT, FetchServiceT, FetchMethodT} from '@/configs/http-service
 import { ErrorFetchResponse } from '@/configs/http-service/fetch-settings/types';
 import { getServerSession } from 'next-auth';
 import { getSession } from 'next-auth/react';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/lib/utils';
 
 const defaultHeaders: HeadersInit = {
     'Content-Type': 'application/json',
