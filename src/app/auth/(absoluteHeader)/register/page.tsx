@@ -22,6 +22,7 @@ const Page: FC<Props> = async({searchParams}) => {
 			const res = await checkIsEmailExist(email)
 
 			if (res === false) {
+				// eslint-disable-next-line @typescript-eslint/no-unused-expressions
 				onboardQuestion ?
 					redirect(`/auth/register?addInfo=true&onboardQuestion=${onboardQuestion}`)
 					:

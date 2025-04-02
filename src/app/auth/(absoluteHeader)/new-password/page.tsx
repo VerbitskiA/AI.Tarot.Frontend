@@ -17,19 +17,26 @@ const Page = async() => {
         ) {
             try {
                 const res = await loginIntoAccount(email, newPassword)
-            
+
                 if (res?.ok) {
                     redirect('/')
                 }
             } catch (error) {
+				if (error instanceof Error) {
+					return {
+						status: "error",
+						message: error.message
+					} as RejectActionResponse
+				}
+
                 return {
                     status: "error",
                     message: "Something went wrong"
                 } as RejectActionResponse
             }
-            
+
         }
-        
+
         return {
             status: "error",
             message: "Something went wrong"

@@ -1,10 +1,11 @@
 "use client"
 import React, { FC, useRef } from "react"
 import SubmitButton from "@/components/shared/Buttons/SubmitButton"
+import { ActionResponse } from "@/configs/http-service/fetch-settings/types"
 
 type CustomFormProps = {
     children: React.ReactNode
-    action: (fd: FormData) => Promise<any>
+    action: (fd: FormData) => Promise<ActionResponse>
     modalControl?: React.Dispatch<React.SetStateAction<boolean>>
     setInvalid?: React.Dispatch<React.SetStateAction<boolean>>
     readonly actionLabel?: string
@@ -46,10 +47,13 @@ const FormWrapper: FC<CustomFormProps> = ({
             actionResponse !== undefined ? actionResponse : { status: "ok" }
         switch (status) {
             case "ok":
+                // eslint-disable-next-line @typescript-eslint/no-unused-expressions
                 modalControl && modalControl(false)
+                // eslint-disable-next-line @typescript-eslint/no-unused-expressions
                 clearAfterSubmit && formRef?.current?.reset()
                 break
             case "error":
+                // eslint-disable-next-line @typescript-eslint/no-unused-expressions
                 setInvalid && setInvalid(true)
                 break
         }

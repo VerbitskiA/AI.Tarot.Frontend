@@ -15,6 +15,7 @@ type CustomListProps = {
 }
 
 // TODO: add p, m, border props, realize getWidth
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getWidth = (listData: TextListData[]) => {
     // const padding = 10
     // const border = 1
@@ -25,7 +26,7 @@ const getWidth = (listData: TextListData[]) => {
 
 const CustomList: FC<CustomListProps> = ({listData, handleClick}) => {
     const innerBlockWidth = useRef(getWidth(listData))
-    
+
     const listItems = listData.map((itemData) => {
         return (
             <li

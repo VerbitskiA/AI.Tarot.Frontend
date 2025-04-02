@@ -3,8 +3,8 @@ import {NextRequest, NextResponse} from 'next/server'
 export async function middleware(req: NextRequest) {
     const {
         pathname,
-        search,
-        origin,
+        // search,
+        // origin,
     } = req.nextUrl
     const res = NextResponse.next({request: {...req}})
 

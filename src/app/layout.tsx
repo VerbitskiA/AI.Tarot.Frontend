@@ -42,7 +42,7 @@ export default function RootLayout({
 			{
 				!process.env.NEXT_PUBLIC_METRICS_OFF &&
 					<>
-						<Script type="text/javascript">
+						<Script id="yandex-metrika-script" type="text/javascript">
 							{`(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
 								m[i].l=1*new Date();
 								for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
@@ -72,7 +72,7 @@ export default function RootLayout({
 			{
 				!process.env.NEXT_PUBLIC_METRICS_OFF &&
 					<>
-						<Script strategy="afterInteractive">
+						<Script id="meta-metrika-script" strategy="afterInteractive">
 						{`
 							!function(f,b,e,v,n,t,s)
 							{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -95,7 +95,7 @@ export default function RootLayout({
 								alt={''}/></noscript>
 					</>
 			}
-			
+
 			{/* End Meta Pixel Code */}
 		</head>
 		<body className={rubik.className}>

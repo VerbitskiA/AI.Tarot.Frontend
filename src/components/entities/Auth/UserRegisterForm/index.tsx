@@ -32,7 +32,7 @@ const UserProfileForm: FC<Props> = ({handleCheckEmail, onboardQuestion}) => {
 	const router = useRouter()
 	const searchParams = useSearchParams();
 	const addInfo = !!searchParams?.get('addInfo')
-	const question = searchParams?.get('onboardQuestion') ?? ''
+	// const question = searchParams?.get('onboardQuestion') ?? ''
 
     const isMinHeight768 = useMediaQuery(isMinHeight768MediaQuery)
     const isMinHeight1024 = useMediaQuery(isMinHeight1024MediaQuery)
@@ -64,13 +64,14 @@ const UserProfileForm: FC<Props> = ({handleCheckEmail, onboardQuestion}) => {
 		return value.length < 8
 	}, [value])
 
-	const handleRegister = async (fd: FormData) => {
+	const handleRegister = async (fd: FormData): Promise<ActionResponse> => {
 		const username = fd.get('username')
 		const email = fd.get('email')
 		const password = fd.get('password')
 		const dateOfBirth = fd.get('dateOfBirth')
 		const gender = fd.get('gender')
 
+		// TODO: use zod
 		if (
 			username && email && password && dateOfBirth && gender
 			&& typeof username === "string"
@@ -88,11 +89,31 @@ const UserProfileForm: FC<Props> = ({handleCheckEmail, onboardQuestion}) => {
 				// localStorage.setItem("access", accessToken)
 				// localStorage.setItem("refreshToken", refreshToken)
 
+				// eslint-disable-next-line @typescript-eslint/no-unused-expressions
 				onboardQuestion ?
 					router.push(`/auth/approve-email?onboardQuestion=${onboardQuestion}&email=${emailValue}`)
 					:
 					router.push(`/auth/approve-email?email=${emailValue}`)
 			}
+			else {
+				return {
+					status: "error",
+					// TODO: message
+					message: "Fetch error"
+				}
+			}
+		}
+		else {
+			return {
+				status: "error",
+				// TODO: message. check res answear
+				message: "Not valid data"
+			}
+		}
+
+		return {
+			status: "error",
+			message: "Something went wrong"
 		}
 	}
 

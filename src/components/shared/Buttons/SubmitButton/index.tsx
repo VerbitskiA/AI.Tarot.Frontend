@@ -13,6 +13,7 @@ type SubmitBtn = {
 const SubmitButton: React.FC<SubmitBtn> = ({
     label = 'Сохранить',
     destructive = false,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     small = false,
     ...props
 }) => {

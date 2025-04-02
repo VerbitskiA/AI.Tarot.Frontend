@@ -1,6 +1,7 @@
 import React from "react";
 import fetchService from '@/configs/http-service/fetch-settings';
 import {Spread} from "@/lib/types/spread.types";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 interface Message {
     message: string;
@@ -15,7 +16,7 @@ const fetchAnswer = async (
     fetchConfiguration: () => Promise<void>,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>,
     setAitaIsTyping: React.Dispatch<React.SetStateAction<boolean>>,
-    router: any
+    router: AppRouterInstance
 ) => {
     setLoading(true);
     setAitaIsTyping(true);

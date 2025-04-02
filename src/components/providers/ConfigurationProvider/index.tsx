@@ -29,7 +29,7 @@ export const ConfigurationProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
     const [configuration, setConfiguration] =
         useState<ConfigurationType | null>(null)
-    const {data, status, update} = useSession()
+    const {data, status} = useSession()
 
     const fetchConfiguration = async () => {
         const tokens = data?.user.tokens

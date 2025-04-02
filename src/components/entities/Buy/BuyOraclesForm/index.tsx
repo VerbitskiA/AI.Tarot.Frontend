@@ -35,10 +35,10 @@ const BuyOraclesForm = () => {
 					setCards(res.data);
 					// Выбираем карту с индексом 1, если она есть
 					// TODO important: check
-					// @ts-ignore
+					// @ts-expect-error expect only one card in Array. check CreditsPackages
 					if (res.data[1]) {
 						// TODO important: check
-						// @ts-ignore
+						// @ts-expect-error expect only one card in Array. check CreditsPackages
 						setSelectedCard(res.data[1]);
 					}// Устанавливаем данные в состояние
 				} else {

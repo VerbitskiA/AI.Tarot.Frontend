@@ -23,7 +23,7 @@ export type ErrorFetchResponse = {
     status?: number
     headers?: Headers
     ok: false
-    data: { detail: string } | any | {error: Error}
+    data: { detail: string } | unknown | {error: Error}
 }
 
 // export type FetchError = {

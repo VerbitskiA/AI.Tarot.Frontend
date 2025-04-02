@@ -1,8 +1,10 @@
 "use client"
 
 import { FC } from "react"
-import { useState, useEffect } from "react"
-import { useSession, signIn, signOut } from "next-auth/react"
+import { useEffect } from "react"
+// import { useState } from "react"
+import { useSession, signIn } from "next-auth/react"
+// import { signOut } from "next-auth/react"
 import { useRouter } from "next/navigation"
 
 const initialBtnText = "Continue with Google"
@@ -13,7 +15,7 @@ type GoogleButtonProps = {
 
 const GoogleBtn: FC<GoogleButtonProps> = ({redirectPath}) => {
     // const [btnText, setBtnText] = useState(initialBtnText)
-    const { data: session, update } = useSession()
+    const { data: session } = useSession()
 	const router = useRouter()
 
 	useEffect(() => {
@@ -31,6 +33,7 @@ const GoogleBtn: FC<GoogleButtonProps> = ({redirectPath}) => {
     const handleClick = async () => {
 		if (!session) {
 			// TODO: redirect after signIn
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			const res = await signIn("google", {redirect: false})
 		}
 

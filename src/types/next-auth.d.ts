@@ -1,4 +1,3 @@
-import NextAuth from "next-auth"
 import { TokensData } from "@/lib/types/responsesData"
 
 type Provider = "credentials" | "google"

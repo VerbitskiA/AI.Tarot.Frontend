@@ -17,6 +17,7 @@ const returnErrorFetchData = async (response: Response): Promise<ErrorFetchRespo
 
 	try {
 		data = await response.json()
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	} catch (error) {
 		console.error("no error data")
 	}
@@ -75,6 +76,7 @@ const returnFetchData = async (response: Response) => {
     let data
     try {
         data = await response.json()
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
         return {
             status: response.status,
@@ -124,6 +126,7 @@ const retrieveFetchResponse = async (url: string, method: FetchMethodT, options?
         const {accessToken: acess, refreshToken: refresh} = options.tokens
 
         accessToken = acess
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         refreshToken = refresh
     }
 

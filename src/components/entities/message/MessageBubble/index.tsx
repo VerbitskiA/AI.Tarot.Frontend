@@ -94,7 +94,7 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message, isUser, userName
                     }}
                 >
                     <ModalContent>
-                        {(onClose) => (
+                        {() => (
                             <>
                                 <ModalBody className={"p-0 w-full flex items-center justify-center"}>
                                     {selectedImage && (

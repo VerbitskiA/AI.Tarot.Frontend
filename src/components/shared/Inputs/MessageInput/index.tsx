@@ -9,13 +9,15 @@ type MessageInputProps = {
 } & InputProps & { readonly label?: string }
 
 const MessageInput: FC<MessageInputProps> = ({
-                                           ...props
-                                       }) => {
-    const [touched, setTouched] = React.useState(false)
+	...props
+}) => {
+    // const [touched, setTouched] = React.useState(false)
 
     return (
         <Input
             {...props}
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			// @ts-ignore
             InputProps={{
                 autocomplete: 'off'
             }}

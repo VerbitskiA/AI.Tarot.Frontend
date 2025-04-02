@@ -139,6 +139,7 @@ const resetPassword = async (fd: FormData): Promise<ActionResponse> => {
 	}
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const confirmReset = async (fd: FormData): Promise<ActionResponse> => {
     return {
         status: "ok",
@@ -146,6 +147,7 @@ const confirmReset = async (fd: FormData): Promise<ActionResponse> => {
     }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const approveEmail = async (fd: FormData): Promise<ActionResponse> => {
 	const res = await fetchService.post(`/api/auth/confirm-email`, {
 		body: JSON.stringify({

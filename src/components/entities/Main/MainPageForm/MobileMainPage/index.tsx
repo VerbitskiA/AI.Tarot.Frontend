@@ -19,10 +19,11 @@ interface Props {
 
 const MobileMainPage: FC<Props> = ({olderSpreads, searchParams}) => {
 	const router = useRouter();
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [isStartScreen, setIsStartScreen] = useState(!!searchParams?.startScreen);
 	const [questionInputValue, setQuestionInputValue] = useState('');
 	const [loading, setLoading] = useState(false);
-	const [spreadCompleted, setSpreadCompleted] = useState(!!searchParams.chatId);
+	// const [spreadCompleted, setSpreadCompleted] = useState(!!searchParams.chatId);
 
 	const handleAskQuestion = () => {
 		setLoading(true)
@@ -51,8 +52,8 @@ const MobileMainPage: FC<Props> = ({olderSpreads, searchParams}) => {
 							<p className={'font-normal text-xl w-full pb-2 items-start justify-start'}>Chat
 								History</p>
 							{
-								olderSpreads.map((spread: Spread) => (
-									<SpreadCard spread={spread} redirectType={'page'}/>
+								olderSpreads.map((spread: Spread, index: number) => (
+									<SpreadCard key={index} spread={spread} redirectType={'page'}/>
 								))
 							}
 						</div>

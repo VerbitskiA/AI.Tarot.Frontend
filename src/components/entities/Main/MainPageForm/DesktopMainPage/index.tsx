@@ -126,8 +126,8 @@ const DesktopMainPage: FC<Props> = ({olderSpreads, searchParams}) => {
                                         }
 
                                         {
-                                            oldSpreads.map((spread: Spread) => (
-                                                <SpreadCard spread={spread} redirectType={'params'}/>
+                                            oldSpreads.map((spread: Spread, index: number) => (
+                                                <SpreadCard key={index} spread={spread} redirectType={'params'}/>
                                             ))
                                         }
                                     </div>

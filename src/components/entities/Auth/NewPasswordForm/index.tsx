@@ -5,7 +5,8 @@ import FormWrapper from "@/components/shared/FormWrapper";
 // import {Image} from "@nextui-org/image";
 import {ActionResponse} from "@/configs/http-service/fetch-settings/types";
 import ImageBlock from '../ImageBlock';
-import { getAvatarSize, isMinHeight1024MediaQuery, isMinHeight768MediaQuery } from '@/components/shared/helpers';
+import { getAvatarSize, isMinHeight1024MediaQuery } from '@/components/shared/helpers';
+// import { isMinHeight768MediaQuery } from '@/components/shared/helpers';
 import { useMediaQuery } from 'react-responsive';
 
 type Props = {

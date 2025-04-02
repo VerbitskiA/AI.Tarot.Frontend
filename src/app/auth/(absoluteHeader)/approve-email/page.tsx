@@ -22,6 +22,7 @@ const Page: FC<Props> = async({searchParams}) => {
         'use server'
         const res = await approveEmail(fd)
         if (res.status === 'ok') {
+            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
             onboardQuestion ?
                 redirect(`/chat/new?addInfo=true&onboardQuestion=${onboardQuestion}`)
                 :

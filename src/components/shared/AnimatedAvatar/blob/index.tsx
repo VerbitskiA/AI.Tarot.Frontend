@@ -18,10 +18,12 @@ const Blob = () => {
     const { clock } = state
     if (mesh.current) {
       // TODO
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       mesh.current.material.uniforms.u_time.value =
         0.4 * clock.getElapsedTime()
-        // TODO
+    	// TODO
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       mesh.current.material.uniforms.u_intensity.value = 0.3
     }
