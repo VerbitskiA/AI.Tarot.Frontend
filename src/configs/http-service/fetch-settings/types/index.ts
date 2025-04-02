@@ -7,6 +7,7 @@ export type FetchQueryParamsT = {
 export type FetchOptionsT = {
     params?: FetchQueryParamsT
     // source?: "server" | "client"
+	isClientSource?: boolean,
     tokens?: TokensData
 } & Omit<RequestInit, "method">
 
