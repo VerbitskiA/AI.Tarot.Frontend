@@ -164,38 +164,7 @@ const retrieveFetchResponse = async (url: string, method: FetchMethodT, options?
 		}
 	}
 
-    // if (options?.tokens) {
-    //     const {accessToken: acess, refreshToken: refresh} = options.tokens
-
-    //     accessToken = acess
-    //     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    //     refreshToken = refresh
-    // }
-    // const getHeaders = (token?: string) => {
-    //     return {
-    //         ...(options?.headers ? {...options?.headers} : {...defaultHeaders}),
-    //         ...(token ? generateAuthHeader(token) : null)
-    //     }
-    // }
-
-	// const getHeaders = (accessToken?: string) => {
-    //     return {
-    //         ...(options?.headers ? {...options?.headers} : {...defaultHeaders}),
-    //         ...(isNeedAitaAuth && accessToken ? generateAuthHeader(accessToken) : null)
-    //     }
-    // }
-
 	const headers = getHeaders(isNeedAitaAuth, options?.headers, defaultHeaders, accessToken)
-
-    // const refreshMyToken = async (refreshToken: string) => {
-    //     const res = await fetch(`${BASE_URL}/api/auth/refresh-token`, {
-    //         method: "POST",
-    //         ...options,
-    //         headers: getHeaders(refreshToken),
-    //     })
-
-    //     return res
-    // }
 
 	const fetchUrl = `${BASE_URL}${url}${params ? '?' + params : ''}`
 
@@ -218,21 +187,6 @@ const retrieveFetchResponse = async (url: string, method: FetchMethodT, options?
         console.error(errorMessage)
         return new Error(errorMessage)
     }
-
-    // const response = await fetch(`${BASE_URL}${url}${params ? '?' + params : ''}`, {
-    //     method,
-    //     ...options,
-    //     headers: getHeaders(accessToken),
-    // })
-
-    // if (response.status === 401 && refreshToken) {
-    //     console.log("refresh token")
-
-    //     // repeat request
-    //     response = await refreshMyToken(refreshToken)
-    // }
-
-    // return response
 }
 
 const fetchFunction = (method: FetchMethodT) => {
