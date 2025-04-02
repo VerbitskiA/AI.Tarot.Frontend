@@ -44,8 +44,11 @@ const GoogleBtn: FC<GoogleButtonProps> = ({redirectPath}) => {
             onClick={handleClick}
 			type="button"
         >
-            <img
-                className="mr-[12px] h-[32px] w-[32px]"
+            <Image
+				width={32}
+				height={32}
+				alt="google-icon"
+                className="mr-[12px]"
                 src="/google-icon.svg"
             />
             <span>{initialBtnText}</span>
