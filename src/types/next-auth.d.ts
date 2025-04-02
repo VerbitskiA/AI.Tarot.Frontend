@@ -40,6 +40,7 @@ declare module "next-auth/jwt" {
                 username: string
                 balance: number
             }
-        }
+        },
+		exp: number
     }
 }
