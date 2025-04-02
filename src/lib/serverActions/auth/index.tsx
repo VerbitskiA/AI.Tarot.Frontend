@@ -30,9 +30,10 @@ import { TokensData } from "@/lib/types/responsesData"
  * @param email
  * @returns
  */
-const checkIsEmailExist = async (email: string) => {
+const checkIsEmailExist = async (email: string, isClientSource?: boolean) => {
     const res = await fetchService.get<boolean>("/api/auth/exists", {
-		params: { email }
+		params: { email },
+		isClientSource
 	})
 
 	if (res.ok) {
@@ -47,12 +48,12 @@ const checkIsEmailExist = async (email: string) => {
 	return res
 }
 
-const loginWithGoogle = async (googleToken: string) => {
-
+const loginWithGoogle = async (googleToken: string, isClientSource?: boolean) => {
 	const res = await fetchService.post<GoogleLoginData>("/api/auth/google", {
 		body: JSON.stringify({
 			token: googleToken
-		})
+		}),
+		isClientSource
 	})
 
 	return res
@@ -60,7 +61,8 @@ const loginWithGoogle = async (googleToken: string) => {
 
 const loginIntoAccount = async (
     username: string,
-    password: string
+    password: string,
+	isClientSource?: boolean,
 ) => {
 
 	const res = await fetchService.post<LoginData>("/api/auth/login", {
@@ -68,7 +70,8 @@ const loginIntoAccount = async (
 			email: username,
 			password
 		}),
-		credentials: "include"
+		credentials: "include",
+		isClientSource
 	})
 
 	return res
@@ -79,7 +82,8 @@ const registerAccount = async (
     email: string,
     password: string,
     dateOfBirth: string,
-    gender: string
+    gender: string,
+	isClientSource?: boolean,
 ) => {
 	const res = await fetchService.post<LoginData>("/api/auth/register", {
 		body: JSON.stringify({
@@ -88,29 +92,33 @@ const registerAccount = async (
 			password,
 			dateOfBirth,
 			gender
-		})
+		}),
+		credentials: "include",
+		isClientSource
 	})
 
 	return res
 }
 
-const logoutUser = async (tokens: TokensData) => {
+const logoutUser = async (tokens: TokensData, isClientSource?: boolean) => {
 	const res = await fetchService.post("/api/auth/revoke", {
 		body: JSON.stringify({
 			[TOKENS_KEYS.REFRESH_TOKEN]: tokens.refreshToken
 		}),
 		tokens: tokens,
+		isClientSource,
 	})
 
 	return res
 }
 
-const refreshToken = async (tokens: TokensData) => {
+const refreshToken = async (tokens: TokensData, isClientSource?: boolean) => {
 	const res = await fetchService.post<TokensData>("/api/auth/revoke", {
 		body: JSON.stringify({
 			[TOKENS_KEYS.REFRESH_TOKEN]: tokens.refreshToken
 		}),
 		tokens: tokens,
+		isClientSource,
 	})
 
 	return res

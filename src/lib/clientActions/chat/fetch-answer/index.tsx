@@ -25,6 +25,7 @@ const fetchAnswer = async (
         const res = await fetchService.post<Spread>('/api/spread/create', {
             body: JSON.stringify({ question }),
             isClientSource: true,
+			isNeedAitaAuth: true,
         });
 
         if (res.ok) {

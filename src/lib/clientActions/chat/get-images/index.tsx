@@ -10,6 +10,7 @@ const fetchImages = async (
             const img = await fetchService.get(`${image}`, {
                 credentials: 'include',
                 isClientSource: true,
+				isNeedAitaAuth: true,
             });
 
         })

@@ -26,6 +26,7 @@ const BuyOraclesForm = () => {
 			const res = await fetchService.get<CreditsPackages>("/api/payments/credits-packages", {
 				credentials: "include",
 				isClientSource: true,
+				isNeedAitaAuth: true,
 			});
 
 			if (res.ok) {
@@ -73,12 +74,14 @@ const BuyOraclesForm = () => {
 			}),
 			credentials: 'include',
 			isClientSource: true,
+			isNeedAitaAuth: true,
 		})
 		if (res.ok) {
 			const sessionId = res.data.sessionId
 			const sessionRes = await fetchService.get<StripeSessionType>(`/api/payments/session/${sessionId}`, {
 				credentials: 'include',
 				isClientSource: true,
+				isNeedAitaAuth: true,
 			})
 
 			if (sessionRes.ok) {

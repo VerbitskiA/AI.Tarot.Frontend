@@ -20,7 +20,8 @@ const Page: FC<Props> = async({params}) => {
         fetchService.get<Spread>(`/api/spread/view/${params.id}`, {
             next: {
                 tags: ['spread']
-            }
+            },
+			isNeedAitaAuth: true,
         })
     if (!ok) {
         redirect('/auth/onboard')

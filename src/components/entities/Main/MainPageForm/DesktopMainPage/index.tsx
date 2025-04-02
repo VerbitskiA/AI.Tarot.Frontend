@@ -57,6 +57,7 @@ const DesktopMainPage: FC<Props> = ({olderSpreads, searchParams}) => {
             const res = await fetchService.get<Spread>(`/api/spread/view/${searchParams.chatId}`, {
                 credentials: 'include',
                 isClientSource: true,
+				isNeedAitaAuth: true,
             })
 
             if (res.ok) {
@@ -76,6 +77,7 @@ const DesktopMainPage: FC<Props> = ({olderSpreads, searchParams}) => {
         const getSpreads = async () => {
             const res = await fetchService.get<Spread[]>('/api/spread/all', {
                 isClientSource: true,
+				isNeedAitaAuth: true,
             })
 
             if (res.ok) {

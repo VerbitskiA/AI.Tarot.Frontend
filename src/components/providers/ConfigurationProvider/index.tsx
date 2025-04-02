@@ -66,7 +66,8 @@ export const ConfigurationProvider: React.FC<{ children: React.ReactNode }> = ({
                     tokens: {
                         accessToken,
                         refreshToken
-                    }
+                    },
+					isNeedAitaAuth: true,
                 }
             )
 

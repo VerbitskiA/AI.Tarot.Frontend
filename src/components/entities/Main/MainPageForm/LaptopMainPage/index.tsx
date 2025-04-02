@@ -56,6 +56,7 @@ const LaptopMainPage: FC<Props> = ({olderSpreads, searchParams}) => {
         const getOlderSpread = async () => {
             const res = await fetchService.get<Spread>(`/api/spread/view/${searchParams.chatId}`, {
                 isClientSource: true,
+				isNeedAitaAuth: true,
             })
 
             if (res.ok) {
@@ -82,6 +83,7 @@ const LaptopMainPage: FC<Props> = ({olderSpreads, searchParams}) => {
         const getSpreads = async () => {
             const res = await fetchService.get<Spread[]>('/api/spread/all', {
                 isClientSource: true,
+				isNeedAitaAuth: true,
             })
 
             if (res.ok) {

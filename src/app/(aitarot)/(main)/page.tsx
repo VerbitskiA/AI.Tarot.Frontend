@@ -33,7 +33,8 @@ const Page: FC<Props> = async ({ searchParams }) => {
 		next: {
 			tags: ["spreads"]
 		},
-		tokens
+		tokens,
+		isNeedAitaAuth: true,
 	})
 
 	if (!res.ok) {

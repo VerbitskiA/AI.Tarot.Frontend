@@ -24,6 +24,7 @@ const SubscriptionForm = () => {
             const sessionRes = await fetchService.get<StripeSessionType>(`/api/payments/session/${sessionId}`, {
                 credentials: 'include',
                 isClientSource: true,
+				isNeedAitaAuth: true,
             })
 
             if(sessionRes.ok) {
