@@ -1,10 +1,10 @@
-import {NextRequest, NextResponse} from 'next/server'
+import {NextRequest, NextResponse, NextMiddleware} from 'next/server'
 
 export const config = {
     matcher: ['/((?!api|logos|_next/static|_next/image|auth|favicon.ico|robots.txt|images|$).*)',]
 }
 
-export async function middleware(req: NextRequest) {
+export const middleware: NextMiddleware = async (req: NextRequest) => {
     const {
         pathname,
         // search,
