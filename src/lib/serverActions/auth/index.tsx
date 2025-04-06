@@ -86,7 +86,7 @@ const loginIntoAccount = async (fd: FormData): Promise<ActionResponse> => {
 	}
 	return {
 		status: 'ok',
-		message: 'Аутентификация успешна'
+		message: 'Аутентификация успешна.'
 	}
 }
 
